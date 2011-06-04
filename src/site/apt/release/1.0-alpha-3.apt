@@ -1,0 +1,15 @@
+Release Note - version 1.0-alpha-1
+
+*----------+------------------------------------------------------------------------------+
+| <<Type>> | <<Change>>                                                                   |
+*----------+------------------------------------------------------------------------------+
+| Feature  | User/password authentication from boot CLI or open command                   |
+*----------+------------------------------------------------------------------------------+
+| Feature  | Reformat output message to allow JMXTERM to be called in other script        |
+*----------+------------------------------------------------------------------------------+
+| Feature  | Add non-interactive mode to allow JMXTERM to be embedded in SHELL script     |
+*----------+------------------------------------------------------------------------------+
+| Change   | Replace confusing abbreviation/verbose option to one VerboseLevel option     |
+*----------+------------------------------------------------------------------------------+
+| Backend  | Decouple command input and output to separated module for flexible usage     |
+*----------+------------------------------------------------------------------------------+

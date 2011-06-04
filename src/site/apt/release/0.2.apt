@@ -1,0 +1,25 @@
+Release Note - version 0.2
+
+*----------+------------------------------------------------------------------------------+
+| <<Type>> | <<Change>>                                                                   |
+*----------+------------------------------------------------------------------------------+
+| Feature  | User/password based authentication                                           |
+*----------+------------------------------------------------------------------------------+
+| Feature  | List any local running JVM processes and connect to it under JDK6            |
+*----------+------------------------------------------------------------------------------+
+| Feature  | List any local running JVM processes and connect to those managed under JDK5 |
+*----------+------------------------------------------------------------------------------+
+| Feature  | Show about page                                                              |
+*----------+------------------------------------------------------------------------------+
+| Feature  | Show output under abbreviated mode so that other script can call it          |
+*----------+------------------------------------------------------------------------------+
+| Bug fix  | Allow special characters such as white space in bean name                    |
+*----------+------------------------------------------------------------------------------+
+| Bug fix  | Couldn't exit command line console with quit command                         |
+*----------+------------------------------------------------------------------------------+
+| Document | More documentation                                                           |
+*----------+------------------------------------------------------------------------------+
+| Develop  | Increase test coverage to over 70%                                           |
+*----------+------------------------------------------------------------------------------+
+| Develop  | Decouple the part of code that parses command line argument into jcli project|
+*----------+------------------------------------------------------------------------------+
