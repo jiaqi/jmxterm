@@ -51,7 +51,7 @@ public class GetCommandTest
                 {
                     one( con ).getDomains();
                     will( returnValue( new String[] { domain, RandomStringUtils.randomAlphabetic( 5 ) } ) );
-                    one( con ).getMBeanInfo( new ObjectName( expectedBean ) );
+                    allowing( con ).getMBeanInfo( new ObjectName( expectedBean ) );
                     will( returnValue( beanInfo ) );
                     one( beanInfo ).getAttributes();
                     will( returnValue( new MBeanAttributeInfo[] { attributeInfo } ) );

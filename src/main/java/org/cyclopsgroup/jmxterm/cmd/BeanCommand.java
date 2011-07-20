@@ -3,8 +3,8 @@ package org.cyclopsgroup.jmxterm.cmd;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
+import javax.management.InstanceNotFoundException;
 import javax.management.JMException;
 import javax.management.MBeanServerConnection;
 import javax.management.MalformedObjectNameException;
@@ -29,16 +29,6 @@ import org.cyclopsgroup.jmxterm.io.RuntimeIOException;
 public class BeanCommand
     extends Command
 {
-    private static final String PARTIAL_PATTERN_NAME_VALUE = "(\\w|\\.|-)+=.+";
-
-    private static final String PARTIAL_PATTERN_PROPERTIES =
-        PARTIAL_PATTERN_NAME_VALUE + "(," + PARTIAL_PATTERN_NAME_VALUE + ")*";
-
-    private static final Pattern PATTERN_BEAN_NAME =
-        Pattern.compile( "^(\\w|\\.|-|#)+:" + PARTIAL_PATTERN_PROPERTIES + "$" );
-
-    private static final Pattern PATTERN_PROPERTIES = Pattern.compile( "^" + PARTIAL_PATTERN_PROPERTIES + "$" );
-
     /**
      * Get full MBean name with given bean name, domain and session
      *
@@ -62,20 +52,38 @@ public class BeanCommand
             return null;
         }
         MBeanServerConnection con = session.getConnection().getServerConnection();
-        if ( PATTERN_BEAN_NAME.matcher( bean ).find() )
+        if ( bean.indexOf( ':' ) != -1 )
         {
-            ObjectName name = new ObjectName( bean );
-            con.getMBeanInfo( name );
-            return bean;
+            try
+            {
+                ObjectName name = new ObjectName( bean );
+                con.getMBeanInfo( name );
+                return bean;
+            }
+            catch ( MalformedObjectNameException e )
+            {
+            }
+            catch ( InstanceNotFoundException e )
+            {
+            }
         }
+
         String domainName = DomainCommand.getDomainName( domain, session );
         if ( domainName == null )
         {
             throw new IllegalArgumentException( "Please specify domain using either -d option or domain command" );
         }
-        if ( PATTERN_PROPERTIES.matcher( bean ).find() )
+        try
         {
+            ObjectName name = new ObjectName( domainName + ":" + bean );
+            con.getMBeanInfo( name );
             return domainName + ":" + bean;
+        }
+        catch ( MalformedObjectNameException e )
+        {
+        }
+        catch ( InstanceNotFoundException e )
+        {
         }
         throw new IllegalArgumentException( "Bean name " + bean + " isn't valid" );
     }
