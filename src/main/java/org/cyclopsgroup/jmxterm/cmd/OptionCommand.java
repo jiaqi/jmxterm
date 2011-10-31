@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.cyclopsgroup.jcli.annotation.Cli;
-import org.cyclopsgroup.jcli.annotation.MalformedArgException;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
@@ -13,7 +12,7 @@ import org.cyclopsgroup.jmxterm.io.VerboseLevel;
 
 /**
  * Command to change/display console options
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 @Cli( name = "option", description = "Set options for command session" )
@@ -56,15 +55,7 @@ public class OptionCommand
         }
         else
         {
-            VerboseLevel v;
-            try
-            {
-                v = VerboseLevel.valueOf( verboseLevel.toUpperCase() );
-            }
-            catch ( IllegalArgumentException e )
-            {
-                throw new MalformedArgException( "Invalid verbose level value " + verboseLevel, e );
-            }
+            VerboseLevel v = VerboseLevel.valueOf( verboseLevel.toUpperCase() );
             session.setVerboseLevel( v );
             session.output.printMessage( "verbose option is turned to " + v );
         }

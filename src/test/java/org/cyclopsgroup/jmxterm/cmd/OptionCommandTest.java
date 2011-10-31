@@ -2,7 +2,6 @@ package org.cyclopsgroup.jmxterm.cmd;
 
 import java.io.StringWriter;
 
-import org.cyclopsgroup.jcli.annotation.MalformedArgException;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.cyclopsgroup.jmxterm.Session;
 import org.junit.Before;
@@ -10,7 +9,7 @@ import org.junit.Test;
 
 /**
  * Test for {@link OptionCommand}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class OptionCommandTest
@@ -32,7 +31,7 @@ public class OptionCommandTest
     /**
      * @throws Exception
      */
-    @Test( expected = MalformedArgException.class )
+    @Test( expected = IllegalArgumentException.class )
     public void testExecuteWithInvalidVerbose()
         throws Exception
     {
