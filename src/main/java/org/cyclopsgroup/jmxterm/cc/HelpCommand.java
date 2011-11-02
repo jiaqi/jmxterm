@@ -56,7 +56,7 @@ public class HelpCommand
                 {
                     throw new IllegalArgumentException( "Command " + argName + " is not found" );
                 }
-                ArgumentProcessor<?> ap = ArgumentProcessor.newInstance( commandType );
+                ArgumentProcessor<Command> ap = ArgumentProcessor.newInstance( commandType );
                 try
                 {
                     ap.printHelp( new PrintWriter( System.out, true ) );

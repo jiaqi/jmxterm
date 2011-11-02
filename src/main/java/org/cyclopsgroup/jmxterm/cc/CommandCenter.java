@@ -163,7 +163,6 @@ public class CommandCenter
         }
     }
 
-    @SuppressWarnings( "unchecked" )
     private void doExecute( String commandName, String[] commandArgs, String originalCommand )
         throws JMException, IOException
     {
