@@ -179,7 +179,7 @@
                             <filemode>644</filemode>
                             <sources>
                                 <source>
-                                    <location>target/jmxterm-${pom.version}-uber.jar</location>
+                                    <location>target/jmxterm-${project.version}-uber.jar</location>
                                     <destination>jmxterm-uber.jar</destination>
                                 </source>
                             </sources>
