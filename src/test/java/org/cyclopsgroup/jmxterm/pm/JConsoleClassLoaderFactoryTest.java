@@ -30,7 +30,7 @@ public class JConsoleClassLoaderFactoryTest
         {
             clazz = cl.loadClass( "sun.jvmstat.monitor.MonitoredVm" );
         }
-        else if ( SystemUtils.IS_JAVA_1_6 )
+        else if ( SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7 )
         {
             clazz = cl.loadClass( "sun.tools.jconsole.LocalVirtualMachine" );
         }

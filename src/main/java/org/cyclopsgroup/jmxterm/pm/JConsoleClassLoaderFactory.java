@@ -27,7 +27,7 @@ public class JConsoleClassLoaderFactory
     {
         File javaHome = new File( SystemUtils.JAVA_HOME ).getAbsoluteFile().getParentFile();
         final File toolsJar, jconsoleJar;
-        if ( SystemUtils.IS_OS_MAC || SystemUtils.IS_OS_MAC_OSX )
+        if (isBeforeJava7() && isMacOs())
         {
             toolsJar = new File( javaHome, "Classes/classes.jar" );
             jconsoleJar = new File( javaHome, "Classes/jconsole.jar" );
@@ -63,4 +63,13 @@ public class JConsoleClassLoaderFactory
             }
         } );
     }
+
+    private static boolean isBeforeJava7() {
+        return SystemUtils.IS_JAVA_1_5 || SystemUtils.IS_JAVA_1_6;
+    }
+
+    private static boolean isMacOs() {
+        return SystemUtils.IS_OS_MAC || SystemUtils.IS_OS_MAC_OSX;
+    }
+
 }
