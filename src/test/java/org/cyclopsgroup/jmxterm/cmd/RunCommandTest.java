@@ -53,10 +53,13 @@ public class RunCommandTest
         command.setBean( "a:type=x" );
         command.setParameters( Arrays.asList( "exe", "33" ) );
 
-        final MBeanServerConnection con = context.mock( MBeanServerConnection.class );
+        final MBeanServerConnection con =
+            context.mock( MBeanServerConnection.class );
         final MBeanInfo beanInfo = context.mock( MBeanInfo.class );
-        final MBeanOperationInfo opInfo = context.mock( MBeanOperationInfo.class );
-        final MBeanParameterInfo paramInfo = context.mock( MBeanParameterInfo.class );
+        final MBeanOperationInfo opInfo =
+            context.mock( MBeanOperationInfo.class );
+        final MBeanParameterInfo paramInfo =
+            context.mock( MBeanParameterInfo.class );
         context.checking( new Expectations()
         {
             {
@@ -70,7 +73,8 @@ public class RunCommandTest
                 will( returnValue( new MBeanParameterInfo[] { paramInfo } ) );
                 atLeast( 1 ).of( paramInfo ).getType();
                 will( returnValue( "int" ) );
-                one( con ).invoke( new ObjectName( "a:type=x" ), "exe", new Object[] { 33 }, new String[] { "int" } );
+                one( con ).invoke( new ObjectName( "a:type=x" ), "exe",
+                                   new Object[] { 33 }, new String[] { "int" } );
                 will( returnValue( "bingo" ) );
             }
         } );

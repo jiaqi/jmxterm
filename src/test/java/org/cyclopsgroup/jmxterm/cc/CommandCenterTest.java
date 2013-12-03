@@ -5,14 +5,13 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.SelfRecordingCommand;
-import org.cyclopsgroup.jmxterm.cc.CommandCenter;
-import org.cyclopsgroup.jmxterm.cc.TypeMapCommandFactory;
 import org.cyclopsgroup.jmxterm.io.WriterCommandOutput;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,8 +31,19 @@ public class CommandCenterTest
 
     private String getArgsFromList( int index )
     {
-        SelfRecordingCommand c = (SelfRecordingCommand) executedCommands.get( index );
-        return c.getArgs();
+        return getRecordedCommand( index ).getArgs();
+    }
+
+    private SelfRecordingCommand getRecordedCommand( int index )
+    {
+        return (SelfRecordingCommand) executedCommands.get( index );
+    }
+
+    private void runCommandAndVerifyArguments( String command,
+                                               List<String> expectedArguments )
+    {
+        cc.execute( command );
+        assertEquals( expectedArguments, getRecordedCommand( 0 ).getArguments() );
     }
 
     /**
@@ -48,16 +58,20 @@ public class CommandCenterTest
         executedCommands = new ArrayList<Command>();
         output = new StringWriter();
 
-        Map<String, Class<? extends Command>> commandTypes = new HashMap<String, Class<? extends Command>>();
+        Map<String, Class<? extends Command>> commandTypes =
+            new HashMap<String, Class<? extends Command>>();
         commandTypes.put( "test", SelfRecordingCommand.class );
-        cc = new CommandCenter( new WriterCommandOutput( output ), null, new TypeMapCommandFactory( commandTypes )
-        {
-            @Override
-            public Command createCommand( String commandName )
-            {
-                return new SelfRecordingCommand( executedCommands );
-            }
-        } );
+        cc =
+            new CommandCenter( new WriterCommandOutput( output ), null,
+                               new TypeMapCommandFactory( commandTypes )
+                               {
+                                   @Override
+                                   public Command createCommand( String commandName )
+                                   {
+                                       return new SelfRecordingCommand(
+                                                                        executedCommands );
+                                   }
+                               } );
     }
 
     /**
@@ -76,5 +90,38 @@ public class CommandCenterTest
         assertEquals( "2 a b", getArgsFromList( 1 ) );
         assertEquals( "3", getArgsFromList( 2 ) );
         assertEquals( "5", getArgsFromList( 3 ) );
+    }
+
+    @Test
+    public void testMultipleArguments()
+    {
+        runCommandAndVerifyArguments( "test a b c d",
+                                      Arrays.asList( "a", "b", "c", "d" ) );
+    }
+
+    @Test
+    public void testMultipleEscapedArguments()
+    {
+        runCommandAndVerifyArguments( "test a\\ \\ b \\-3\\ ,4",
+                                      Arrays.asList( "a  b", "-3 ,4" ) );
+    }
+
+    @Test
+    public void testSingleArgumentWithEscape()
+    {
+        runCommandAndVerifyArguments( "test \\-1", Arrays.asList( "-1" ) );
+    }
+
+    @Test
+    public void testSingleArgumentWithSpace()
+    {
+        runCommandAndVerifyArguments( "test a\\ b\\ c\\ d",
+                                      Arrays.asList( "a b c d" ) );
+    }
+
+    @Test
+    public void testSingleSimpleArgument()
+    {
+        runCommandAndVerifyArguments( "test 1", Arrays.asList( "1" ) );
     }
 }
