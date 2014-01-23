@@ -2,14 +2,14 @@ package org.cyclopsgroup.jmxterm.io;
 
 import java.io.IOException;
 
-import jline.ConsoleReader;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
+import jline.console.ConsoleReader;
+
 /**
  * Implementation of input that reads command from jloin console input
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class JlineCommandInput

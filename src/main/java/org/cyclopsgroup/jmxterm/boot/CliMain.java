@@ -2,13 +2,12 @@ package org.cyclopsgroup.jmxterm.boot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.management.remote.JMXConnector;
-
-import jline.ConsoleReader;
 
 import org.apache.commons.lang.StringUtils;
 import org.cyclopsgroup.jcli.ArgumentProcessor;
@@ -24,6 +23,9 @@ import org.cyclopsgroup.jmxterm.io.InputStreamCommandInput;
 import org.cyclopsgroup.jmxterm.io.JlineCommandInput;
 import org.cyclopsgroup.jmxterm.io.PrintStreamCommandOutput;
 import org.cyclopsgroup.jmxterm.io.VerboseLevel;
+
+import jline.console.ConsoleReader;
+import jline.console.history.FileHistory;
 
 /**
  * Main class invoked directly from command line
@@ -98,7 +100,25 @@ public class CliMain
                 }
                 else
                 {
-                    ConsoleReader consoleReader = new ConsoleReader( System.in, new PrintWriter( System.err, true ) );
+                    ConsoleReader consoleReader = new ConsoleReader( System.in, System.err );
+                    final FileHistory history = new FileHistory(
+                        new File(System.getProperty("user.home"), ".jmxterm_history"));
+                    consoleReader.setHistory(history);
+                    Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            try
+                            {
+                                history.flush();
+                            }
+                            catch (IOException e)
+                            {
+                                System.err.println("Failed to flush command history! " + e);
+                            }
+                        }
+                    }));
                     input = new JlineCommandInput( consoleReader, COMMAND_PROMPT );
                 }
             }
@@ -116,7 +136,7 @@ public class CliMain
                 CommandCenter commandCenter = new CommandCenter( output, input );
                 if ( input instanceof JlineCommandInput )
                 {
-                    ( (JlineCommandInput) input ).getConsole().addCompletor( new ConsoleCompletor( commandCenter ) );
+                    ( (JlineCommandInput) input ).getConsole().addCompleter(new ConsoleCompletor(commandCenter));
                 }
                 if ( options.getUrl() != null )
                 {
