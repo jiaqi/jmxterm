@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import jline.Completor;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -13,13 +12,15 @@ import org.apache.commons.logging.LogFactory;
 import org.cyclopsgroup.jcli.jline.CliCompletor;
 import org.cyclopsgroup.jmxterm.Command;
 
+import jline.console.completer.Completer;
+
 /**
  * JLine completor that handles tab key
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class ConsoleCompletor
-    implements Completor
+    implements Completer
 {
     private static final Log LOG = LogFactory.getLog( ConsoleCompletor.class );
 

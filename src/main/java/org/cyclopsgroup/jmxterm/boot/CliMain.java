@@ -8,8 +8,6 @@ import java.util.Map;
 
 import javax.management.remote.JMXConnector;
 
-import jline.ConsoleReader;
-
 import org.apache.commons.lang.StringUtils;
 import org.cyclopsgroup.jcli.ArgumentProcessor;
 import org.cyclopsgroup.jcli.GnuParser;
@@ -24,6 +22,9 @@ import org.cyclopsgroup.jmxterm.io.InputStreamCommandInput;
 import org.cyclopsgroup.jmxterm.io.JlineCommandInput;
 import org.cyclopsgroup.jmxterm.io.PrintStreamCommandOutput;
 import org.cyclopsgroup.jmxterm.io.VerboseLevel;
+
+import jline.console.ConsoleReader;
+import jline.console.history.FileHistory;
 
 /**
  * Main class invoked directly from command line
@@ -98,7 +99,10 @@ public class CliMain
                 }
                 else
                 {
-                    ConsoleReader consoleReader = new ConsoleReader( System.in, new PrintWriter( System.err, true ) );
+                    ConsoleReader consoleReader = new ConsoleReader( System.in, System.err );
+                    FileHistory history = new FileHistory(
+                        new File(System.getProperty("user.home"), ".jmxterm_history"));
+                    consoleReader.setHistory(history);
                     input = new JlineCommandInput( consoleReader, COMMAND_PROMPT );
                 }
             }
@@ -116,7 +120,7 @@ public class CliMain
                 CommandCenter commandCenter = new CommandCenter( output, input );
                 if ( input instanceof JlineCommandInput )
                 {
-                    ( (JlineCommandInput) input ).getConsole().addCompletor( new ConsoleCompletor( commandCenter ) );
+                    ( (JlineCommandInput) input ).getConsole().addCompleter(new ConsoleCompletor(commandCenter));
                 }
                 if ( options.getUrl() != null )
                 {
