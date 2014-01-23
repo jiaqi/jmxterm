@@ -2,6 +2,7 @@ package org.cyclopsgroup.jmxterm.boot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -100,9 +101,24 @@ public class CliMain
                 else
                 {
                     ConsoleReader consoleReader = new ConsoleReader( System.in, System.err );
-                    FileHistory history = new FileHistory(
+                    final FileHistory history = new FileHistory(
                         new File(System.getProperty("user.home"), ".jmxterm_history"));
                     consoleReader.setHistory(history);
+                    Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            try
+                            {
+                                history.flush();
+                            }
+                            catch (IOException e)
+                            {
+                                System.err.println("Failed to flush command history! " + e);
+                            }
+                        }
+                    }));
                     input = new JlineCommandInput( consoleReader, COMMAND_PROMPT );
                 }
             }
