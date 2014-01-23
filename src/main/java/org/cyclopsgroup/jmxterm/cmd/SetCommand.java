@@ -15,6 +15,7 @@ import javax.management.ObjectName;
 import org.apache.commons.lang.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
+import org.cyclopsgroup.jcli.annotation.MultiValue;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
@@ -23,7 +24,7 @@ import org.cyclopsgroup.jmxterm.utils.ValueFormat;
 
 /**
  * Command to set an attribute
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 @Cli( name = "set", description = "Set value of an MBean attribute" )
@@ -126,6 +127,7 @@ public class SetCommand
     /**
      * @param arguments Argument list. The first argument is attribute name
      */
+    @MultiValue( listType = ArrayList.class, minValues = 2 )
     @Argument( description = "name, value, value2..." )
     public final void setArguments( List<String> arguments )
     {
