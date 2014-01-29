@@ -13,6 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Command to subscribe to an MBean notification
  *
+ * All notifications will be printed to the output in the form of notification received: timestamp=xxx,class=xxx,source=xxx,type=xxx,message=xxx
+ * To remove the subscription call the unsubscribe in the terminal.
  */
 @Cli( name = "subscribe", description = "Subscribe to the notifications of a bean", note = "Syntax is \n subscribe <bean>" )
 public class SubscribeCommand
@@ -38,7 +40,7 @@ public class SubscribeCommand
             sb.append(",type=").append(notification.getType());
             sb.append(",message=").append(notification.getMessage());
 
-            session.output.printMessage(sb.toString());
+            session.output.println(sb.toString());
         }
     }
 
@@ -68,6 +70,8 @@ public class SubscribeCommand
             NotificationListener listener = new BeanNotificationListener();
             con.addNotificationListener( name, listener , null, null );
             listeners.put( name, listener );
+
+            session.output.printMessage("Subscribed to " + name);
         }
     }
 

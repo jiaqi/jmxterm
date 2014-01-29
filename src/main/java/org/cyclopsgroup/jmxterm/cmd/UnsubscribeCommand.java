@@ -13,6 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Command to subscribe to an MBean notification
  *
+ * Remove the subscription of an already subscribed notification listener.
+ * Notifications will no longer be sent to the session output.
  */
 @Cli( name = "unsubscribe", description = "Unsubscribe the notifications of an earlier subscribed bean", note = "Syntax is \n unsubscribe <bean>" )
 public class UnsubscribeCommand
@@ -42,6 +44,8 @@ public class UnsubscribeCommand
         {
             MBeanServerConnection con = session.getConnection().getServerConnection();
             con.removeNotificationListener( name, listener );
+
+            session.output.printMessage("Unsubscribed from " + name);
         }
 
     }
