@@ -31,7 +31,7 @@ import org.cyclopsgroup.jmxterm.utils.ValueFormat;
 public class SetCommand
     extends Command
 {
-    private List<String> arguments/* = Collections.emptyList()*/;
+    private List<String> arguments = Collections.emptyList();
 
     private String bean;
 
@@ -108,7 +108,7 @@ public class SetCommand
         }
         if ( attributeInfo == null )
         {
-            throw new IllegalArgumentException( "Attribute " + attributeName + " is not sepcified" );
+            throw new IllegalArgumentException( "Attribute " + attributeName + " is not specified" );
         }
         if ( !attributeInfo.isWritable() )
         {
