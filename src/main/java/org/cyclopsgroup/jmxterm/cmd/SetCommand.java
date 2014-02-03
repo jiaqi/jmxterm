@@ -108,7 +108,7 @@ public class SetCommand
         }
         if ( attributeInfo == null )
         {
-            throw new IllegalArgumentException( "Attribute " + attributeName + " is not sepcified" );
+            throw new IllegalArgumentException( "Attribute " + attributeName + " is not specified" );
         }
         if ( !attributeInfo.isWritable() )
         {
