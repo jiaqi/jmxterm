@@ -6,12 +6,12 @@
     <parent>
         <groupId>org.cyclopsgroup</groupId>
         <artifactId>cyclopsgroup-java-parent</artifactId>
-        <version>0.4</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>jmxterm</artifactId>
     <name>JMXTerm</name>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <description>Command line based interactive JMX client</description>
     <url>http://www.cyclopsgroup.org/projects/jmxterm</url>
     <inceptionYear>2008</inceptionYear>
@@ -236,20 +236,11 @@
             </plugins>
         </pluginManagement>
     </build>
-    <developers>
-        <developer>
-            <id>jiaqi</id>
-            <email>jiaqi@cyclopsgroup.org</email>
-            <name>Jiaqi Guo</name>
-            <timezone>-9</timezone>
-            <url>http://blog.cyclopsgroup.org</url>
-        </developer>
-    </developers>
     <distributionManagement>
         <site>
-            <id>cyclopsgroup.server.sourceforge</id>
+            <id>cyclopsgroup.server</id>
             <url>
-                s3://www.cyclopsgroup.org/projects/jmxterm
+                s3://www2.cyclopsgroup.org/projects/jmxterm
             </url>
         </site>
     </distributionManagement>
