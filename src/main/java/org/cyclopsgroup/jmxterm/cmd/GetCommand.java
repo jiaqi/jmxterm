@@ -85,8 +85,14 @@ public class GetCommand
                 Object result;
                 try {
                     result = con.getAttribute( name, attributeName );
+                } catch (javax.management.ReflectionException e) {
+                    result = "Exception:" + e.getClass().getName();
+                } catch (java.io.IOException e) {
+                    result = "Exception:" + e.getClass().getName();
+                } catch (java.lang.NoClassDefFoundError e) {
+                    result = "Exception:" + e.getClass().getName();
                 } catch (Exception e) {
-                    result = "Exception: " + e.getClass().getName() + " for "+ attributeName;
+                    result = "Exception:" + e.getClass().getName();
                 }
                 if ( simpleFormat )
                 {
