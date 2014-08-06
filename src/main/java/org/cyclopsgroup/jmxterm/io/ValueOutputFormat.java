@@ -9,6 +9,8 @@ import javax.management.openmbean.CompositeData;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
+import java.io.Serializable;
+
 /**
  * A utility to print out object values in particular format.
  * 
@@ -157,7 +159,14 @@ public class ValueOutputFormat
         }
         else
         {
-            output.print( value.toString() );
+            String out;
+            try {
+                out = value.toString();
+            }
+            catch (Exception e) {
+                out = "NOT-SERIALIZABLE class "+value.getClass().getName();
+            }
+            output.print( out );
         }
     }
 }

@@ -82,7 +82,18 @@ public class GetCommand
             MBeanAttributeInfo i = entry.getValue();
             if ( i.isReadable() )
             {
-                Object result = con.getAttribute( name, attributeName );
+                Object result;
+                try {
+                    result = con.getAttribute( name, attributeName );
+                } catch (javax.management.ReflectionException e) {
+                    result = "Exception:" + e.getClass().getName();
+                } catch (java.io.IOException e) {
+                    result = "Exception:" + e.getClass().getName();
+                } catch (java.lang.NoClassDefFoundError e) {
+                    result = "Exception:" + e.getClass().getName();
+                } catch (Exception e) {
+                    result = "Exception:" + e.getClass().getName();
+                }
                 if ( simpleFormat )
                 {
                     format.printValue( session.output, result );
