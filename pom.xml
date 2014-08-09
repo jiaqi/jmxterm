@@ -240,7 +240,7 @@
         <site>
             <id>cyclopsgroup.server</id>
             <url>
-                s3://www2.cyclopsgroup.org/projects/jmxterm
+                s3://${dist.bucketName}/projects/jmxterm
             </url>
         </site>
     </distributionManagement>
