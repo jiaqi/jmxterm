@@ -60,7 +60,7 @@
         <dependency>
             <groupId>org.cyclopsgroup</groupId>
             <artifactId>jcli</artifactId>
-            <version>1.0-b1</version>
+            <version>1.0.0-beta-2</version>
         </dependency>
         <dependency>
             <groupId>org.cyclopsgroup</groupId>

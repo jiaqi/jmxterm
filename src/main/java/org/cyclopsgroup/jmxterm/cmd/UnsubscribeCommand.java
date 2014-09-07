@@ -1,14 +1,17 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
+import java.io.IOException;
+
+import javax.management.JMException;
+import javax.management.MBeanServerConnection;
+import javax.management.MalformedObjectNameException;
+import javax.management.NotificationListener;
+import javax.management.ObjectName;
+
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
-
-import javax.management.*;
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Command to subscribe to an MBean notification
