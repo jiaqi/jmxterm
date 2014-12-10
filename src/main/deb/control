@@ -1,0 +1,9 @@
+Package: [[name]]
+Version: [[version]]
+Section: misc
+Priority: optional
+Architecture: all
+Depends: default-jdk (>= 1.6)
+Maintainer: Jiaqi Guo
+Description: [[description]]
+Distribution: development
