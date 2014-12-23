@@ -174,10 +174,13 @@
                     <distribution>CyclopsGroup.org</distribution>
                     <group>Development/Languages/Java</group>
                     <packager>Jiaqi Guo</packager>
+                    <defaultUsername>root</defaultUsername>
+                    <defaultGroupname>root</defaultGroupname>
+                    <defaultDirmode>555</defaultDirmode>
+                    <defaultFilemode>444</defaultFilemode>
                     <mappings>
                         <mapping>
                             <directory>/usr/share/jmxterm</directory>
-                            <filemode>644</filemode>
                             <sources>
                                 <source>
                                     <location>target/jmxterm-${project.version}-uber.jar</location>
