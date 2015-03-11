@@ -132,4 +132,144 @@ public class InfoCommandTest
         assertEquals( "# operations" + SystemUtils.LINE_SEPARATOR + "  %0   - int x(java.lang.String a)",
                       output.toString().trim() );
     }
+
+    /**
+     * Test execution and show available options
+     * @throws Exception
+     */
+    @Test
+    public void testExecuteWithShowingSpecificOperation() throws Exception {
+        command.setBean("a:type=x");
+        command.setOperation("x");
+        final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
+        final MBeanInfo beanInfo = context.mock(MBeanInfo.class);
+        final MBeanOperationInfo opInfo = context.mock(MBeanOperationInfo.class);
+        final MBeanParameterInfo paramInfo = context.mock(MBeanParameterInfo.class);
+        Session session = new MockSession(output, con);
+        context.checking(new Expectations() {
+
+            {
+                atLeast(1).of(con).getMBeanInfo(new ObjectName("a:type=x"));
+                will(returnValue(beanInfo));
+                allowing(beanInfo).getClassName();
+                will(returnValue("bogus class"));
+                one(beanInfo).getOperations();
+                will(returnValue(new MBeanOperationInfo[] {opInfo}));
+                allowing(opInfo).getDescription();
+                will(returnValue("bingo"));
+                one(opInfo).getSignature();
+                will(returnValue(new MBeanParameterInfo[] {paramInfo}));
+                one(paramInfo).getType();
+                will(returnValue(String.class.getName()));
+                one(paramInfo).getName();
+                will(returnValue("a"));
+                one(paramInfo).getDescription();
+                will(returnValue("My param description"));
+                one(opInfo).getReturnType();
+                will(returnValue("int"));
+                atLeast(1).of(opInfo).getName();
+                will(returnValue("x"));
+            }
+        });
+        command.setSession(session);
+        command.execute();
+        context.assertIsSatisfied();
+        assertEquals("# operations" + SystemUtils.LINE_SEPARATOR + "  %0   - int x(java.lang.String a)" + SystemUtils.LINE_SEPARATOR + "             parameters:"
+                + SystemUtils.LINE_SEPARATOR + "                 + java.lang.String a : My param description", output.toString().trim());
+    }
+
+    /**
+     * Test execution and show available options
+     * @throws Exception
+     */
+    @Test
+    public void testExecuteWithShowingNonExistingOperation() throws Exception {
+        command.setBean("a:type=x");
+        command.setOperation("y");
+        final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
+        final MBeanInfo beanInfo = context.mock(MBeanInfo.class);
+        final MBeanOperationInfo opInfo = context.mock(MBeanOperationInfo.class);
+        Session session = new MockSession(output, con);
+        context.checking(new Expectations() {
+
+            {
+                atLeast(1).of(con).getMBeanInfo(new ObjectName("a:type=x"));
+                will(returnValue(beanInfo));
+                allowing(beanInfo).getClassName();
+                will(returnValue("bogus class"));
+                one(beanInfo).getOperations();
+                will(returnValue(new MBeanOperationInfo[] {opInfo}));
+                atLeast(1).of(opInfo).getName();
+                will(returnValue("x"));
+            }
+        });
+        command.setSession(session);
+        command.execute();
+        context.assertIsSatisfied();
+        assertEquals("# operations", output.toString().trim());
+    }
+
+    /**
+     * Test execution and show available options
+     * @throws Exception
+     */
+    @Test
+    public void testExecuteWithShowingMultipleMatchingOperations() throws Exception {
+        command.setBean("a:type=x");
+        command.setOperation("x");
+        final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
+        final MBeanInfo beanInfo = context.mock(MBeanInfo.class);
+        final MBeanOperationInfo opInfo1 = context.mock(MBeanOperationInfo.class);
+        final MBeanOperationInfo opInfo2 = context.mock(MBeanOperationInfo.class, "mockOpInfo2");
+        final MBeanParameterInfo paramInfo1 = context.mock(MBeanParameterInfo.class);
+        final MBeanParameterInfo paramInfo2 = context.mock(MBeanParameterInfo.class, "mockParamInfo2");
+        Session session = new MockSession(output, con);
+        context.checking(new Expectations() {
+
+            {
+                atLeast(1).of(con).getMBeanInfo(new ObjectName("a:type=x"));
+                will(returnValue(beanInfo));
+                allowing(beanInfo).getClassName();
+                will(returnValue("bogus class"));
+                one(beanInfo).getOperations();
+                will(returnValue(new MBeanOperationInfo[] {opInfo1, opInfo2}));
+                allowing(opInfo1).getDescription();
+                will(returnValue("bingo"));
+                one(opInfo1).getSignature();
+                will(returnValue(new MBeanParameterInfo[] {paramInfo1}));
+                one(paramInfo1).getType();
+                will(returnValue(String.class.getName()));
+                one(paramInfo1).getName();
+                will(returnValue("a"));
+                one(paramInfo1).getDescription();
+                will(returnValue("My param description"));
+                one(opInfo1).getReturnType();
+                will(returnValue("int"));
+                atLeast(1).of(opInfo1).getName();
+                will(returnValue("x"));
+
+                allowing(opInfo2).getDescription();
+                will(returnValue("pilou"));
+                one(opInfo2).getSignature();
+                will(returnValue(new MBeanParameterInfo[] {paramInfo2}));
+                one(paramInfo2).getType();
+                will(returnValue(Double.TYPE.getName()));
+                one(paramInfo2).getName();
+                will(returnValue("b"));
+                one(paramInfo2).getDescription();
+                will(returnValue("My param 2 description"));
+                one(opInfo2).getReturnType();
+                will(returnValue("void"));
+                atLeast(1).of(opInfo2).getName();
+                will(returnValue("x"));
+            }
+        });
+        command.setSession(session);
+        command.execute();
+        context.assertIsSatisfied();
+        assertEquals("# operations" + SystemUtils.LINE_SEPARATOR + "  %0   - int x(java.lang.String a)" + SystemUtils.LINE_SEPARATOR + "             parameters:"
+                + SystemUtils.LINE_SEPARATOR + "                 + java.lang.String a : My param description" + SystemUtils.LINE_SEPARATOR + SystemUtils.LINE_SEPARATOR
+                + "  %1   - void x(double b)" + SystemUtils.LINE_SEPARATOR + "             parameters:" + SystemUtils.LINE_SEPARATOR
+                + "                 + double b : My param 2 description", output.toString().trim());
+    }
 }
