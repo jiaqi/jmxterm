@@ -162,7 +162,7 @@ public class InfoCommandTest
                 one(paramInfo).getType();
                 will(returnValue(String.class.getName()));
                 one(paramInfo).getName();
-                will(returnValue("a"));
+                will(returnValue("myfakeparameter"));
                 one(paramInfo).getDescription();
                 will(returnValue("My param description"));
                 one(opInfo).getReturnType();
@@ -174,8 +174,11 @@ public class InfoCommandTest
         command.setSession(session);
         command.execute();
         context.assertIsSatisfied();
-        assertEquals("# operations" + SystemUtils.LINE_SEPARATOR + "  %0   - int x(java.lang.String a)" + SystemUtils.LINE_SEPARATOR + "             parameters:"
-                + SystemUtils.LINE_SEPARATOR + "                 + java.lang.String a : My param description", output.toString().trim());
+        StringBuilder result = new StringBuilder("# operations").append(SystemUtils.LINE_SEPARATOR);
+        result.append("  %0   - int x(java.lang.String myfakeparameter), bingo").append(SystemUtils.LINE_SEPARATOR);
+        result.append("             parameters:").append(SystemUtils.LINE_SEPARATOR);
+        result.append("                 + myfakeparameter      : My param description");
+        assertEquals(result.toString(), output.toString().trim());
     }
 
     /**
@@ -267,9 +270,13 @@ public class InfoCommandTest
         command.setSession(session);
         command.execute();
         context.assertIsSatisfied();
-        assertEquals("# operations" + SystemUtils.LINE_SEPARATOR + "  %0   - int x(java.lang.String a)" + SystemUtils.LINE_SEPARATOR + "             parameters:"
-                + SystemUtils.LINE_SEPARATOR + "                 + java.lang.String a : My param description" + SystemUtils.LINE_SEPARATOR + SystemUtils.LINE_SEPARATOR
-                + "  %1   - void x(double b)" + SystemUtils.LINE_SEPARATOR + "             parameters:" + SystemUtils.LINE_SEPARATOR
-                + "                 + double b : My param 2 description", output.toString().trim());
+        StringBuilder result = new StringBuilder("# operations").append(SystemUtils.LINE_SEPARATOR);
+        result.append("  %0   - int x(java.lang.String a), bingo").append(SystemUtils.LINE_SEPARATOR);
+        result.append("             parameters:").append(SystemUtils.LINE_SEPARATOR);
+        result.append("                 + a                    : My param description").append(SystemUtils.LINE_SEPARATOR).append(SystemUtils.LINE_SEPARATOR);
+        result.append("  %1   - void x(double b), pilou").append(SystemUtils.LINE_SEPARATOR);
+        result.append("             parameters:").append(SystemUtils.LINE_SEPARATOR);
+        result.append("                 + b                    : My param 2 description");
+        assertEquals(result.toString(), output.toString().trim());
     }
 }

@@ -147,11 +147,11 @@ public class InfoCommand
                 List<String> paramTypes = new ArrayList<String>(paramInfos.length);
                 StringBuilder paramsDesc = new StringBuilder("             parameters:" + SystemUtils.LINE_SEPARATOR);
                 for (MBeanParameterInfo paramInfo : paramInfos) {
-                    String parameter = paramInfo.getType() + " " + paramInfo.getName();
-                    paramsDesc.append(String.format("                 + %s : %s" + SystemUtils.LINE_SEPARATOR, parameter, paramInfo.getDescription()));
-                    paramTypes.add(parameter);
+                    String parameter = paramInfo.getName();
+                    paramsDesc.append(String.format("                 + %-20s : %s" + SystemUtils.LINE_SEPARATOR, parameter, paramInfo.getDescription()));
+                    paramTypes.add(paramInfo.getType() + " " + parameter);
                 }
-                session.output.println(String.format("  %%%-3d - %s %s(%s)" + (showDescription ? ", %s" : ""), index++, op.getReturnType(), opName,
+                session.output.println(String.format("  %%%-3d - %s %s(%s), %s", index++, op.getReturnType(), opName,
                         StringUtils.join(paramTypes, ','),
                         op.getDescription()));
                 session.output.println(paramsDesc.toString());
