@@ -55,6 +55,7 @@ public class WatchCommand
         {
             console.redrawLine();
             console.print( line );
+            console.flush();
         }
     }
 
