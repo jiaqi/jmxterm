@@ -1,7 +1,7 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * Command output implementation where detail message can be turned on and off dynamically

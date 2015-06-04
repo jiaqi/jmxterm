@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.management.remote.JMXServiceURL;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jmxterm.io.CommandInput;
 import org.cyclopsgroup.jmxterm.io.CommandOutput;
 import org.cyclopsgroup.jmxterm.io.UnimplementedCommandInput;

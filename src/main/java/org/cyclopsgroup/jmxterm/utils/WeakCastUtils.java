@@ -10,7 +10,7 @@ import java.util.Map;
 
 import javax.naming.OperationNotSupportedException;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Utility that cast object into given interface(s) even though class doesn't implement interface(s)
