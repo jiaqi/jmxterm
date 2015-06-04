@@ -1,6 +1,6 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * General abstract class to output message and values

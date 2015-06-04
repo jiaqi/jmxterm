@@ -1,11 +1,13 @@
 package org.cyclopsgroup.jmxterm.cc;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.cyclopsgroup.jmxterm.JavaProcessManager;
 import org.cyclopsgroup.jmxterm.jdk5.Jdk5JavaProcessManager;
 import org.cyclopsgroup.jmxterm.jdk6.Jdk6JavaProcessManager;
 import org.cyclopsgroup.jmxterm.pm.JConsoleClassLoaderFactory;
 import org.cyclopsgroup.jmxterm.pm.UnsupportedJavaProcessManager;
+
+import static org.apache.commons.lang3.JavaVersion.*;
 
 /**
  * Internal factory class to create JPM instance
@@ -21,7 +23,7 @@ public class JPMFactory
      */
     public JPMFactory()
     {
-        if ( !SystemUtils.isJavaVersionAtLeast( 150 ) )
+        if ( !SystemUtils.isJavaVersionAtLeast(JAVA_1_5) )
         {
             jpm =
                 new UnsupportedJavaProcessManager( "JDK version " + SystemUtils.JAVA_RUNTIME_VERSION

@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.io.Writer;
 
 import org.apache.commons.io.output.NullWriter;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  * A command output that writes result and message to given writers

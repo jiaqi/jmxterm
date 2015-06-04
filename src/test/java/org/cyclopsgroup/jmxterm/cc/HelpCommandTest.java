@@ -8,7 +8,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.cyclopsgroup.jmxterm.SelfRecordingCommand;
 import org.jmock.Expectations;
