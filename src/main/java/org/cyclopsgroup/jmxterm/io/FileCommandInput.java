@@ -32,7 +32,7 @@ public class FileCommandInput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void close()
@@ -42,7 +42,7 @@ public class FileCommandInput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String readLine()
@@ -52,7 +52,7 @@ public class FileCommandInput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String readMaskedString( String prompt )

@@ -101,7 +101,7 @@ public class GetCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> doSuggestArgument()
@@ -122,7 +122,7 @@ public class GetCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected List<String> doSuggestOption( String optionName )
@@ -143,7 +143,7 @@ public class GetCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

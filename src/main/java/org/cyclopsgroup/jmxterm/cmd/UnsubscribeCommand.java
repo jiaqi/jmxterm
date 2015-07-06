@@ -28,7 +28,7 @@ public class UnsubscribeCommand
     private String domain;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

@@ -43,7 +43,7 @@ public class ConsoleCompletor
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @SuppressWarnings( { "unchecked", "rawtypes" } )
     public int complete( String buffer, int position, List candidates )

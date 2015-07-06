@@ -11,7 +11,7 @@ public class UnimplementedCommandInput
     extends CommandInput
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String readLine()
@@ -21,7 +21,7 @@ public class UnimplementedCommandInput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String readMaskedString( String prompt )

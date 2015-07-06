@@ -32,7 +32,7 @@ public class OpenCommand
     private String user;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

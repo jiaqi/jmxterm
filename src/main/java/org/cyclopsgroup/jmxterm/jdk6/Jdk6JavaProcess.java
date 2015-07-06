@@ -23,7 +23,7 @@ class Jdk6JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public String getDisplayName()
     {
@@ -31,7 +31,7 @@ class Jdk6JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public int getProcessId()
     {
@@ -39,7 +39,7 @@ class Jdk6JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public boolean isManageable()
     {
@@ -47,7 +47,7 @@ class Jdk6JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public void startManagementAgent()
     {
@@ -55,7 +55,7 @@ class Jdk6JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public String toUrl()
     {

@@ -84,7 +84,7 @@ class PredefinedCommandFactory
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Command createCommand( String commandName )
     {
@@ -92,7 +92,7 @@ class PredefinedCommandFactory
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Map<String, Class<? extends Command>> getCommandTypes()
     {

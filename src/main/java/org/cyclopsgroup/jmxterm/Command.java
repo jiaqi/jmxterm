@@ -99,7 +99,7 @@ public abstract class Command
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public final List<String> suggestArgument( String partialArg )
     {
@@ -130,7 +130,7 @@ public abstract class Command
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public final List<String> suggestOption( String name, String partialValue )
     {

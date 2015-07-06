@@ -27,7 +27,7 @@ public class InputStreamCommandInput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String readLine()
@@ -37,7 +37,7 @@ public class InputStreamCommandInput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String readMaskedString( String prompt )
@@ -47,7 +47,7 @@ public class InputStreamCommandInput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void close()

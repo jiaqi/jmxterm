@@ -121,7 +121,7 @@ public abstract class Session
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public final VerboseLevel getVerboseLevel()
     {

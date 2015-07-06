@@ -39,7 +39,7 @@ public class JlineCommandInput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String readLine()
@@ -49,7 +49,7 @@ public class JlineCommandInput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String readMaskedString( String prompt )

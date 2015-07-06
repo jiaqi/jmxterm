@@ -47,7 +47,7 @@ public class PrintStreamCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void print( String output )
@@ -56,7 +56,7 @@ public class PrintStreamCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void printError( Throwable e )
@@ -65,7 +65,7 @@ public class PrintStreamCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void printMessage( String message )

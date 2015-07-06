@@ -53,7 +53,7 @@ public class DomainCommand
     private String domain;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> doSuggestArgument()
@@ -63,7 +63,7 @@ public class DomainCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

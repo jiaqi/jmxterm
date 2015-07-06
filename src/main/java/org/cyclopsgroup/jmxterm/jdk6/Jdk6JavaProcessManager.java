@@ -34,7 +34,7 @@ public class Jdk6JavaProcessManager
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public JavaProcess get( int pid )
@@ -60,7 +60,7 @@ public class Jdk6JavaProcessManager
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<JavaProcess> list()

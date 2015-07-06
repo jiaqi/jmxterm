@@ -35,7 +35,7 @@ public class MockSession
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void connect( JMXServiceURL url, Map<String, Object> env )
@@ -45,7 +45,7 @@ public class MockSession
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void disconnect()
@@ -55,7 +55,7 @@ public class MockSession
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Connection getConnection()
@@ -64,7 +64,7 @@ public class MockSession
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean isConnected()

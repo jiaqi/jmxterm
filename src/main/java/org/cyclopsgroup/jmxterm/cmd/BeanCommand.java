@@ -94,7 +94,6 @@ public class BeanCommand
      * @param session Session
      * @return List of bean names
      * @throws MalformedObjectNameException
-     * @throws IOException
      */
     static List<String> getCandidateBeanNames( Session session )
         throws MalformedObjectNameException
@@ -125,7 +124,7 @@ public class BeanCommand
     private String domain;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> doSuggestArgument()
@@ -135,7 +134,7 @@ public class BeanCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> doSuggestOption( String optionName )
@@ -149,7 +148,7 @@ public class BeanCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

@@ -16,7 +16,7 @@ public class QuitCommand
     extends Command
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

@@ -39,7 +39,7 @@ public class WriterCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void print( String output )
@@ -59,7 +59,7 @@ public class WriterCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void printError( Throwable e )
@@ -68,7 +68,7 @@ public class WriterCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void printMessage( String message )

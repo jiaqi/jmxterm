@@ -127,7 +127,7 @@ public class InfoCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

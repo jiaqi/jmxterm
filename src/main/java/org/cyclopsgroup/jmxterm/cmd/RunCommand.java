@@ -44,7 +44,7 @@ public class RunCommand
     private boolean showQuotationMarks;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> doSuggestArgument()
@@ -67,7 +67,7 @@ public class RunCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

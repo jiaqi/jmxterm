@@ -37,7 +37,7 @@ class Jdk5JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public String getDisplayName()
     {
@@ -45,7 +45,7 @@ class Jdk5JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public int getProcessId()
     {
@@ -53,7 +53,7 @@ class Jdk5JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public boolean isManageable()
     {
@@ -61,7 +61,7 @@ class Jdk5JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public void startManagementAgent()
         throws IOException
@@ -74,7 +74,7 @@ class Jdk5JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public String toUrl()
     {

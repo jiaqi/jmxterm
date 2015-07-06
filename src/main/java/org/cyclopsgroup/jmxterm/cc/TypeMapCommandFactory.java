@@ -27,7 +27,7 @@ public class TypeMapCommandFactory
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Command createCommand( String commandName )
     {
@@ -53,7 +53,7 @@ public class TypeMapCommandFactory
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public Map<String, Class<? extends Command>> getCommandTypes()
     {

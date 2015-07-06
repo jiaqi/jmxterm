@@ -97,7 +97,7 @@ public class WatchCommand
     private int stopAfter;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> doSuggestArgument()
@@ -119,7 +119,7 @@ public class WatchCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

@@ -29,7 +29,7 @@ public class SelfRecordingCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()
@@ -64,7 +64,7 @@ public class SelfRecordingCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString()

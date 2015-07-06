@@ -38,7 +38,7 @@ public class SetCommand
     private String domain;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected List<String> doSuggestArgument()
@@ -61,7 +61,7 @@ public class SetCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected List<String> doSuggestOption( String optionName )
@@ -82,7 +82,7 @@ public class SetCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

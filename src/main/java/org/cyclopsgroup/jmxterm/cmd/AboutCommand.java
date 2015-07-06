@@ -25,7 +25,7 @@ public class AboutCommand
     private boolean showDescription;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @SuppressWarnings( "unchecked" )
     @Override
