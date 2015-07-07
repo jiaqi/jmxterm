@@ -6,8 +6,8 @@ import java.util.Map;
 
 import javax.management.openmbean.CompositeData;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * A utility to print out object values in particular format.

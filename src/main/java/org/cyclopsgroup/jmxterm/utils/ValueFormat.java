@@ -1,7 +1,7 @@
 package org.cyclopsgroup.jmxterm.utils;
 
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This is an utility to parse string value from input. It's only to parse a value such as MBean attribute value or

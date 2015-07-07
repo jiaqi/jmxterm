@@ -12,9 +12,9 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.management.JMException;
 import javax.management.remote.JMXServiceURL;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.caff.token.EscapingValueTokenizer;
 import org.cyclopsgroup.caff.token.TokenEvent;
 import org.cyclopsgroup.caff.token.TokenEventHandler;

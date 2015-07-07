@@ -6,7 +6,7 @@ import java.net.URL;
 import java.util.Enumeration;
 
 import org.apache.commons.collections.ExtendedProperties;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Utilities for loading overlapping properties files from classpath
