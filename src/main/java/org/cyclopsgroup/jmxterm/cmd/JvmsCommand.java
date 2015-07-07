@@ -25,7 +25,7 @@ public class JvmsCommand
     private boolean pidOnly;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Output with a file
@@ -40,7 +40,7 @@ public class FileCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void close()
@@ -50,7 +50,7 @@ public class FileCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void print( String value )
@@ -59,7 +59,7 @@ public class FileCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void printError( Throwable e )
@@ -68,7 +68,7 @@ public class FileCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void printMessage( String message )

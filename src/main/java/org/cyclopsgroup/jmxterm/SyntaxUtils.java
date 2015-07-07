@@ -8,9 +8,9 @@ import javax.management.remote.JMXServiceURL;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.io.output.NullOutputStream;
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.cyclopsgroup.jmxterm.utils.ValueFormat;
 
 /**

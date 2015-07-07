@@ -25,7 +25,6 @@ public class DomainsCommand
      *
      * @param session Current session
      * @return Sorted list of domain names
-     * @throws IOException
      */
     static List<String> getCandidateDomains( Session session )
     {
@@ -44,7 +43,7 @@ public class DomainsCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

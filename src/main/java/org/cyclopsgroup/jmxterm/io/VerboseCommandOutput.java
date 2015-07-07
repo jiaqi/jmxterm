@@ -1,7 +1,7 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * Command output implementation where detail message can be turned on and off dynamically
@@ -28,7 +28,7 @@ public class VerboseCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void close()
@@ -37,7 +37,7 @@ public class VerboseCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void print( String value )
@@ -46,7 +46,7 @@ public class VerboseCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void printError( Throwable e )
@@ -66,7 +66,7 @@ public class VerboseCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void printMessage( String message )

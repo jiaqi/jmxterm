@@ -15,7 +15,7 @@ public class CloseCommand
     extends Command
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

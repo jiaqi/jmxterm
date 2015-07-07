@@ -34,7 +34,7 @@ public class OptionCommand
     private String verboseLevel;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> doSuggestOption( String name )
@@ -43,7 +43,7 @@ public class OptionCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

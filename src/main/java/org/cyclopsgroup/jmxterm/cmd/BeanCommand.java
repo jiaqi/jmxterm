@@ -10,7 +10,7 @@ import javax.management.MBeanServerConnection;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
@@ -94,7 +94,6 @@ public class BeanCommand
      * @param session Session
      * @return List of bean names
      * @throws MalformedObjectNameException
-     * @throws IOException
      */
     static List<String> getCandidateBeanNames( Session session )
         throws MalformedObjectNameException
@@ -125,7 +124,7 @@ public class BeanCommand
     private String domain;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> doSuggestArgument()
@@ -135,7 +134,7 @@ public class BeanCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> doSuggestOption( String optionName )
@@ -149,7 +148,7 @@ public class BeanCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void execute()

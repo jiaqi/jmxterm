@@ -2,7 +2,7 @@ package org.cyclopsgroup.jmxterm.io;
 
 import java.io.PrintStream;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Implementation of CommandOutput where output is written in given PrintStream objects
@@ -47,7 +47,7 @@ public class PrintStreamCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void print( String output )
@@ -56,7 +56,7 @@ public class PrintStreamCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void printError( Throwable e )
@@ -65,7 +65,7 @@ public class PrintStreamCommandOutput
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public void printMessage( String message )

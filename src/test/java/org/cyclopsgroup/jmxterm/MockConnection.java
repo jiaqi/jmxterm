@@ -28,7 +28,7 @@ public class MockConnection
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public final String getConnectorId()
         throws IOException
@@ -37,7 +37,7 @@ public class MockConnection
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public final MBeanServerConnection getServerConnection()
         throws IOException
@@ -46,7 +46,7 @@ public class MockConnection
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public final JMXServiceURL getUrl()
     {

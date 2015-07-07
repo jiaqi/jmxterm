@@ -6,7 +6,7 @@ import javax.management.MBeanServerConnection;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXServiceURL;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jmxterm.Connection;
 
 /**
@@ -24,7 +24,6 @@ class ConnectionImpl
     /**
      * @param connector JMX connector
      * @param url JMX service URL object
-     * @param displayUrl The URL user manually input
      */
     ConnectionImpl( JMXConnector connector, JMXServiceURL url )
     {
@@ -53,9 +52,10 @@ class ConnectionImpl
         return connector;
     }
 
-    /**
-     * @inheritDoc
+     /**
+      * {@inheritDoc}
      */
+    @Override
     public String getConnectorId()
         throws IOException
     {
@@ -63,17 +63,19 @@ class ConnectionImpl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
+    @Override
     public MBeanServerConnection getServerConnection()
         throws IOException
     {
         return connector.getMBeanServerConnection();
     }
 
-    /**
-     * @inheritDoc
+     /**
+      * {@inheritDoc}
      */
+    @Override
     public final JMXServiceURL getUrl()
     {
         return url;

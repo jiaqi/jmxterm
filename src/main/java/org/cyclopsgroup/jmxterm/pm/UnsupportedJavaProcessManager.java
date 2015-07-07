@@ -46,7 +46,7 @@ public class UnsupportedJavaProcessManager
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public JavaProcess get( int pid )
@@ -55,7 +55,7 @@ public class UnsupportedJavaProcessManager
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<JavaProcess> list()

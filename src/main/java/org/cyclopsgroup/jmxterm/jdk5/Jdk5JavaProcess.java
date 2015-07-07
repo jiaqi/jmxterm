@@ -2,7 +2,7 @@ package org.cyclopsgroup.jmxterm.jdk5;
 
 import java.io.IOException;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jmxterm.JavaProcess;
 
 /**
@@ -37,7 +37,7 @@ class Jdk5JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public String getDisplayName()
     {
@@ -45,7 +45,7 @@ class Jdk5JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public int getProcessId()
     {
@@ -53,7 +53,7 @@ class Jdk5JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public boolean isManageable()
     {
@@ -61,7 +61,7 @@ class Jdk5JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public void startManagementAgent()
         throws IOException
@@ -74,7 +74,7 @@ class Jdk5JavaProcess
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public String toUrl()
     {

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.cyclopsgroup.jmxterm.JavaProcess;
@@ -77,7 +77,7 @@ public class Jdk5JavaProcessManager
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public JavaProcess get( int pid )
@@ -106,7 +106,7 @@ public class Jdk5JavaProcessManager
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<JavaProcess> list()
