@@ -15,6 +15,8 @@ import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 
+import jline.console.ConsoleReader;
+
 import org.apache.commons.lang.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -24,8 +26,6 @@ import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
 import org.cyclopsgroup.jmxterm.io.CommandOutput;
 import org.cyclopsgroup.jmxterm.io.JlineCommandInput;
-
-import jline.console.ConsoleReader;
 
 /**
  * Command to watch an MBean attribute TODO Consider the use case for CSV file backend generation
@@ -50,17 +50,18 @@ public class WatchCommand
             this.console = ( (JlineCommandInput) session.getInput() ).getConsole();
         }
 
-        protected void printLine( String line )
+        void printLine( String line )
             throws IOException
         {
             console.redrawLine();
             console.print( line );
+            console.flush();
         }
     }
 
     private static abstract class Output
     {
-        protected abstract void printLine( String line )
+        abstract void printLine( String line )
             throws IOException;
     }
 
@@ -75,7 +76,7 @@ public class WatchCommand
         }
 
         @Override
-        protected void printLine( String line )
+        void printLine( String line )
         {
             out.println( line );
         }
