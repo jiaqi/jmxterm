@@ -1,10 +1,9 @@
 package org.cyclopsgroup.jmxterm.pm;
 
-import static org.junit.Assert.assertNotNull;
-
 import org.apache.commons.lang.SystemUtils;
-import org.cyclopsgroup.jmxterm.pm.JConsoleClassLoaderFactory;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Test loading jconsole classes
@@ -30,13 +29,13 @@ public class JConsoleClassLoaderFactoryTest
         {
             clazz = cl.loadClass( "sun.jvmstat.monitor.MonitoredVm" );
         }
-        else if ( SystemUtils.IS_JAVA_1_6 || SystemUtils.IS_JAVA_1_7 )
+        else if ( SystemUtils.isJavaVersionAtLeast(160) )
         {
             clazz = cl.loadClass( "sun.tools.jconsole.LocalVirtualMachine" );
         }
         else
         {
-            throw new IllegalStateException( "Please build project in from a compatible JDK, 1.5 or 1.6" );
+            throw new IllegalStateException( "Please build project in from a compatible JDK" );
         }
         assertNotNull( clazz );
     }
