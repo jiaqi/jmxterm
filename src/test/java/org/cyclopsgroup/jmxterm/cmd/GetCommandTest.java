@@ -108,6 +108,12 @@ public class GetCommandTest
         getAttributeAndVerify( "a", "type=x", "a", "a:type=x", new Integer( 10 ) );
     }
 
+    @Test
+    public void testExecuteWithSlashInDomainName()
+    {
+        getAttributeAndVerify( "a/b", "type=c", "a", "a/b:type=c", "bingo" );
+    }
+
     /**
      * Verify attribute name with dash, underline and dot is acceptable
      */
