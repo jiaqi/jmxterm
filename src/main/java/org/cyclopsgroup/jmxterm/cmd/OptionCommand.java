@@ -23,10 +23,9 @@ public class OptionCommand
     static
     {
         List<String> verboseLevelValues = new ArrayList<String>();
-        verboseLevelValues.addAll( VerboseLevel.STRING_NAMES );
-        for ( String v : VerboseLevel.STRING_NAMES )
+        for ( VerboseLevel level : VerboseLevel.values() )
         {
-            verboseLevelValues.add( v.toLowerCase() );
+            verboseLevelValues.add( level.name().toLowerCase() );
         }
         VERBOSE_LEVEL_VALUES = Collections.unmodifiableList( verboseLevelValues );
     }
@@ -64,7 +63,7 @@ public class OptionCommand
     /**
      * @param verbose Verbose level of session
      */
-    @Option( name = "v", longName = "verbose", description = "Verbose level: SILENT|BRIEF|VERBOSE" )
+    @Option( name = "v", longName = "verbose", description = "Verbose level(case insensitive): silent|brief|verbose" )
     public final void setVerboseLevel( String verbose )
     {
         this.verboseLevel = verbose;
