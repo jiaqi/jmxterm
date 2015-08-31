@@ -83,4 +83,57 @@ public class RunCommandTest
         context.assertIsSatisfied();
         assertEquals( "bingo", output.toString().trim() );
     }
+
+    /**
+     * @throws Exception
+     */
+    @Test
+    public void testExecuteOverloadedMethod()
+        throws Exception
+    {
+        command.setBean( "a:type=x" );
+        command.setTypes("java.lang.String");
+        command.setParameters( Arrays.asList( "exe", "33" ) );
+
+        final MBeanServerConnection con =
+            context.mock( MBeanServerConnection.class );
+        final MBeanInfo beanInfo = context.mock( MBeanInfo.class );
+        final MBeanOperationInfo opInfo1 = context.mock( MBeanOperationInfo.class, "opInfo1" );
+        final MBeanParameterInfo paramInfoInt = context.mock( MBeanParameterInfo.class, "paramInfoInt" );
+        final MBeanOperationInfo opInfo2 = context.mock( MBeanOperationInfo.class, "opInfo2" );
+        final MBeanParameterInfo paramInfoString = context.mock( MBeanParameterInfo.class, "paramInfoString" );
+        context.checking( new Expectations()
+        {
+            {
+                atLeast( 1 ).of( con ).getMBeanInfo( new ObjectName( "a:type=x" ) );
+                will( returnValue( beanInfo ) );
+                one( beanInfo ).getOperations();
+                will( returnValue( new MBeanOperationInfo[] { opInfo1, opInfo2 } ) );
+                // exe <int>
+                atLeast( 1 ).of( opInfo1 ).getName();
+                will( returnValue( "exe" ) );
+                atLeast( 1 ).of( opInfo1 ).getSignature();
+                will( returnValue( new MBeanParameterInfo[] { paramInfoInt } ) );
+                atLeast( 1 ).of( paramInfoInt ).getType();
+                will( returnValue( "int" ) );
+                never( con ).invoke( new ObjectName( "a:type=x" ), "exe",
+                	new Object[] { 33 }, new String[] { "int" } );
+                will( returnValue( "bingo-int" ) );
+                // exe <java.lang.String>
+                atLeast( 1 ).of( opInfo2 ).getName();
+                will( returnValue( "exe" ) );
+                atLeast( 1 ).of( opInfo2 ).getSignature();
+                will( returnValue( new MBeanParameterInfo[] { paramInfoString} ) );
+                atLeast( 1 ).of( paramInfoString ).getType();
+                will( returnValue( "java.lang.String" ) );
+                one( con ).invoke( new ObjectName( "a:type=x" ), "exe",
+                    new Object[] { "33" }, new String[] { "java.lang.String" } );
+                will( returnValue( "bingo-string" ) );
+            }
+        } );
+        command.setSession( new MockSession( output, con ) );
+        command.execute();
+        context.assertIsSatisfied();
+        assertEquals( "bingo-string", output.toString().trim() );
+    }
 }
