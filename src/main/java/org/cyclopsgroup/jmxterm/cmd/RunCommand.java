@@ -43,6 +43,8 @@ public class RunCommand
 
     private boolean showQuotationMarks;
 
+	private String types;
+
     /**
      * @inheritDoc
      */
@@ -81,6 +83,12 @@ public class RunCommand
         }
 
         Validate.isTrue( parameters.size() > 0, "At least one parameter is needed" );
+		String[] paramTypes = null;
+    	if (types != null)
+    	{
+    		paramTypes = types.split(",");
+    		Validate.isTrue(paramTypes.length == parameters.size() - 1, "Signature does not match parameter count");
+    	}        
         String operationName = parameters.get( 0 );
         ObjectName name = new ObjectName( beanName );
         MBeanServerConnection con = session.getConnection().getServerConnection();
@@ -90,8 +98,25 @@ public class RunCommand
         {
             if ( operationName.equals( info.getName() ) && info.getSignature().length == parameters.size() - 1 )
             {
-                operationInfo = info;
-                break;
+            	if (paramTypes != null)
+            	{
+            		boolean match = true;
+            		MBeanParameterInfo[] paramInfos = info.getSignature();
+            		for (int i = 0; i < paramTypes.length; i++)
+            		{
+            			match &= paramTypes[i].equals(paramInfos[i].getType());
+            		}
+            		if (match)
+            		{
+            			operationInfo = info;
+            			break;
+            		}
+            	}
+            	else
+            	{
+            		operationInfo = info;
+            		break;
+            	}
             }
         }
         if ( operationInfo == null )
@@ -166,6 +191,15 @@ public class RunCommand
     public final void setMeasure( boolean measure )
     {
         this.measure = measure;
+    }
+
+    /**
+     * @param types 
+     */
+    @Option( name = "t", longName = "types", description = "Require parameters to have specific types (comma separated)" )
+    public final void setTypes( String types )
+    {
+		this.types = types;
     }
 
     /**
