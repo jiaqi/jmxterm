@@ -2,6 +2,7 @@ package org.cyclopsgroup.jmxterm.cmd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -165,8 +166,9 @@ public class RunCommand
             params[i] = paramValue;
             signatures[i] = paramInfo.getType();
         }
-        session.output.printMessage( String.format( "calling operation %s of mbean %s",
-                                                    operationName, beanName ) );
+        session.output.printMessage( String.format( "calling operation %s of mbean %s with params %s",
+                operationName, beanName, Arrays.toString(params) ) );
+
 
         // Invoke operation, record execution time if measure flag is on
         Object result;
