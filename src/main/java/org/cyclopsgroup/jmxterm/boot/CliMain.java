@@ -87,7 +87,7 @@ public class CliMain
         else
         {
             File outputFile = new File( options.getOutput() );
-            output = new FileCommandOutput( outputFile );
+            output = new FileCommandOutput( outputFile, options.isAppendToOutput() );
         }
         try
         {
