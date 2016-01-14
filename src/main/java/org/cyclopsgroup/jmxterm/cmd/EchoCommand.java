@@ -1,16 +1,14 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
 import java.io.IOException;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import javax.management.JMException;
 
-import org.apache.commons.collections.ExtendedProperties;
 import org.apache.commons.lang.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -18,8 +16,6 @@ import org.cyclopsgroup.jcli.annotation.MultiValue;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
-import org.cyclopsgroup.jmxterm.io.ValueOutputFormat;
-import org.cyclopsgroup.jmxterm.utils.ExtendedPropertiesUtils;
 
 /**
  * Command to echo text
@@ -44,7 +40,6 @@ public class EchoCommand
     /**
      * @inheritDoc
      */
-    @SuppressWarnings( "unchecked" )
     @Override
     public void execute()
         throws IOException, JMException
