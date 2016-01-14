@@ -69,9 +69,13 @@ public class GetCommand
         {
             for ( String arg : attributes )
             {
+                String[] attributeNameElements = arg.split("\\.");
+
+                String firstPath = attributeNameElements[0];
+
                 for ( MBeanAttributeInfo ai : ais )
                 {
-                    if ( ai.getName().equals( arg ) )
+                    if ( ai.getName().equals( firstPath ) )
                     {
                         attributeNames.put( arg, ai );
                         break;
@@ -86,7 +90,21 @@ public class GetCommand
             MBeanAttributeInfo i = entry.getValue();
             if ( i.isReadable() )
             {
-                Object result = con.getAttribute( name, attributeName );
+                String[] attributeNameElements = attributeName.split("\\.");
+
+                String attributeNameToRequest = attributeName;
+                if ( attributeNameElements.length > 1 ) {
+                    attributeNameToRequest = attributeNameElements[0];
+                }
+
+                Object result = con.getAttribute( name, attributeNameToRequest );
+
+                if ( result instanceof javax.management.openmbean.CompositeDataSupport ) {
+                    if ( attributeNameElements.length > 1 ) {
+                        result = ((javax.management.openmbean.CompositeDataSupport)result).get(attributeNameElements[1]);
+                    }
+                }
+
                 if ( simpleFormat )
                 {
                     format.printValue( session.output, result );
@@ -99,7 +117,7 @@ public class GetCommand
                 if ( !singleLine )
                 {
                 session.output.println( "" );
-            }
+                }
             }
             else
             {
