@@ -36,6 +36,10 @@ public class GetCommand
 
     private String domain;
 
+    private boolean singleLine = false;
+
+    private String delimiter = "";
+
     private boolean showDescription;
 
     private boolean showQuotationMarks;
@@ -91,7 +95,11 @@ public class GetCommand
                 {
                     format.printExpression( session.output, attributeName, result, i.getDescription() );
                 }
+                session.output.print( delimiter );
+                if ( !singleLine )
+                {
                 session.output.println( "" );
+            }
             }
             else
             {
@@ -210,6 +218,18 @@ public class GetCommand
     public final void setSimpleFormat( boolean simpleFormat )
     {
         this.simpleFormat = simpleFormat;
+    }
+
+    @Option( name = "l", longName = "delimiter", description = "Sets an optional delimiter to be printed after the value" )
+    public final void setDelimiter( String delimiter )
+    {
+        this.delimiter = delimiter;
+    }
+
+    @Option( name = "n", longName = "singleLine", description = "Prints result without a newline - default is false" )
+    public final void setSingleLine( boolean singleLine )
+    {
+        this.singleLine = singleLine;
     }
 
 }
