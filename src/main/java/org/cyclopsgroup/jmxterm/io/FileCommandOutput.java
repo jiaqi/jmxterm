@@ -9,7 +9,7 @@ import org.apache.commons.lang.Validate;
 
 /**
  * Output with a file
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class FileCommandOutput
@@ -23,7 +23,7 @@ public class FileCommandOutput
      * @param file File where the result is written to
      * @throws IOException IO error
      */
-    public FileCommandOutput( File file )
+    public FileCommandOutput( File file, boolean appendToOutput )
         throws IOException
     {
         Validate.notNull( file, "File can't be NULL" );
@@ -35,7 +35,7 @@ public class FileCommandOutput
                 throw new IOException( "Couldn't make directory " + af.getParentFile() );
             }
         }
-        fileWriter = new PrintWriter( new FileWriter( af ) );
+        fileWriter = new PrintWriter( new FileWriter( af, appendToOutput ) );
         output = new WriterCommandOutput( fileWriter, new PrintWriter( System.err, true ) );
     }
 

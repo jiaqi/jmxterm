@@ -14,7 +14,7 @@ import org.junit.Test;
 
 /**
  * Test case for {@link FileCommandOutput}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class FileCommandOutputTest
@@ -32,7 +32,7 @@ public class FileCommandOutputTest
 
     /**
      * Delete test file
-     * 
+     *
      * @throws IOException If file operation fails
      */
     @After
@@ -44,18 +44,40 @@ public class FileCommandOutputTest
 
     /**
      * Writes out some output and verify result
-     * 
+     *
      * @throws IOException If file IO fails
      */
     @Test
     public void testWrite()
         throws IOException
     {
-        FileCommandOutput output = new FileCommandOutput( testFile );
+        FileCommandOutput output = new FileCommandOutput( testFile, false );
         output.println( "helloworld" );
         output.printMessage( "say hello" );
         output.close();
 
         assertEquals( "helloworld", FileUtils.readFileToString( testFile ).trim() );
+    }
+    
+    /**
+     * Writes out some output and verify result
+     *
+     * @throws IOException If file IO fails
+     */
+    @Test
+    public void testWriteMultipleTimes()
+        throws IOException
+    {
+        FileCommandOutput output = new FileCommandOutput( testFile, false );
+        output.println( "helloworld" );
+        output.printMessage( "say hello" );
+        output.close();
+        
+        FileCommandOutput output2 = new FileCommandOutput( testFile, true );
+        output2.println( "helloworld2" );
+        output2.printMessage( "say hello2" );
+        output2.close();
+
+        assertEquals( "helloworld" + SystemUtils.LINE_SEPARATOR + "helloworld2", FileUtils.readFileToString( testFile ).trim() );
     }
 }
