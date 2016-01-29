@@ -8,7 +8,7 @@ import org.cyclopsgroup.jcli.annotation.Option;
 
 /**
  * Options for main class
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 @Cli( name = "jmxterm", description = "Main executable of JMX terminal CLI tool", note = "Without any option, this command opens an interactive command line based console. With a given input file, commands in file will be executed and process ends after file is processed" )
@@ -36,6 +36,8 @@ public class CliMainOptions
     private String input = STDIN;
 
     private boolean nonInteractive;
+
+    private boolean appendToOutput = false;
 
     private String output = STDOUT;
 
@@ -101,6 +103,14 @@ public class CliMainOptions
     public final boolean isExitOnFailure()
     {
         return exitOnFailure;
+    }
+
+    /**
+     * @return True if terminal exits on any failure
+     */
+    public final boolean isAppendToOutput()
+    {
+        return appendToOutput;
     }
 
     /**
@@ -204,5 +214,14 @@ public class CliMainOptions
     public final void setVerboseLevel( String verboseLevel )
     {
         this.verboseLevel = verboseLevel;
+    }
+
+    /**
+     * @param appendToOutput True if outputfile is preserved
+     */
+    @Option( name = "a", longName = "appendtooutput", description = "With this flag, the outputfile is preserved and content is appended to it" )
+    public final void setAppendToOutput( boolean appendToOutput )
+    {
+        this.appendToOutput = appendToOutput;
     }
 }

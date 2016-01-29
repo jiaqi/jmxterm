@@ -34,12 +34,15 @@ public class GetCommandTest
     private StringWriter output;
 
     private void getAttributeAndVerify( final String domain, String bean, final String attribute,
-                                        final String expectedBean, final Object expectedValue )
+                                        final String expectedBean, final Object expectedValue,
+                                        final boolean singleLine, final String delimiter)
     {
         command.setDomain( domain );
         command.setBean( bean );
         command.setAttributes( Arrays.asList( attribute ) );
         command.setSimpleFormat( true );
+        command.setSingleLine( singleLine );
+        command.setDelimiter( delimiter );
 
         final MBeanServerConnection con = context.mock( MBeanServerConnection.class );
         final MBeanInfo beanInfo = context.mock( MBeanInfo.class );
@@ -66,7 +69,9 @@ public class GetCommandTest
             command.setSession( new MockSession( output, con ) );
             command.execute();
             context.assertIsSatisfied();
-            assertEquals( expectedValue.toString(), output.toString().trim() );
+            
+            Object nestedExpectedValue = expectedValue;
+            assertEquals( nestedExpectedValue.toString() + delimiter + (singleLine ? "" : SystemUtils.LINE_SEPARATOR), output.toString() );
         }
         catch ( JMException e )
         {
@@ -96,7 +101,7 @@ public class GetCommandTest
     @Test
     public void testExecuteNormally()
     {
-        getAttributeAndVerify( "a", "type=x", "a", "a:type=x", "bingo" );
+        getAttributeAndVerify( "a", "type=x", "a", "a:type=x", "bingo", false, "" );
     }
 
     /**
@@ -105,13 +110,13 @@ public class GetCommandTest
     @Test
     public void testExecuteWithNonStringType()
     {
-        getAttributeAndVerify( "a", "type=x", "a", "a:type=x", new Integer( 10 ) );
+        getAttributeAndVerify( "a", "type=x", "a", "a:type=x", new Integer( 10 ), false, "" );
     }
 
     @Test
     public void testExecuteWithSlashInDomainName()
     {
-        getAttributeAndVerify( "a/b", "type=c", "a", "a/b:type=c", "bingo" );
+        getAttributeAndVerify( "a/b", "type=c", "a", "a/b:type=c", "bingo", false, "" );
     }
 
     /**
@@ -120,7 +125,7 @@ public class GetCommandTest
     @Test
     public void testExecuteWithStrangeAttributeName()
     {
-        getAttributeAndVerify( "a", "type=x", "a_b-c.d", "a:type=x", "bingo" );
+        getAttributeAndVerify( "a", "type=x", "a_b-c.d", "a:type=x", "bingo", false, "" );
     }
 
     /**
@@ -129,6 +134,24 @@ public class GetCommandTest
     @Test
     public void testExecuteWithUnusualDomainAndBeanName()
     {
-        getAttributeAndVerify( "a-a", "a.b-c_d=x-y.z", "a", "a-a:a.b-c_d=x-y.z", "bingo" );
+        getAttributeAndVerify( "a-a", "a.b-c_d=x-y.z", "a", "a-a:a.b-c_d=x-y.z", "bingo", false, "" );
+    }
+    
+    /**
+     * Verify that delimiters are working
+     */
+    @Test
+    public void testExecuteWithDelimiters()
+    {
+        getAttributeAndVerify( "a", "type=x", "a", "a:type=x", "bingo", false, "," );
+    }
+    
+    /**
+     * Verify that single line output is working
+     */
+    @Test
+    public void testExecuteForSingleLineOutput()
+    {
+        getAttributeAndVerify( "a", "type=x", "a", "a:type=x", "bingo", true, "" );
     }
 }
