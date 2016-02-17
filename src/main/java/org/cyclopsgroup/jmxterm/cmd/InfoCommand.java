@@ -19,6 +19,7 @@ import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -56,6 +57,8 @@ public class InfoCommand
     private boolean showDescription;
 
     private String type = "aon";
+
+    private String operation;
 
     private void displayAttributes( MBeanInfo info )
     {
@@ -126,6 +129,38 @@ public class InfoCommand
         }
     }
 
+    private void displaySingleOperation(MBeanInfo info) {
+        Session session = getSession();
+        MBeanOperationInfo[] operationInfos = info.getOperations();
+        if (operationInfos.length == 0) {
+            session.output.printMessage("there's no operations");
+            return;
+        }
+        session.output.println(TEXT_OPERATIONS);
+        int index = 0;
+        boolean found = false;
+        for (MBeanOperationInfo op : operationInfos) {
+            String opName = op.getName();
+            if (StringUtils.equals(opName, operation)) {
+                found = true;
+                MBeanParameterInfo[] paramInfos = op.getSignature();
+                List<String> paramTypes = new ArrayList<String>(paramInfos.length);
+                StringBuilder paramsDesc = new StringBuilder("             parameters:" + SystemUtils.LINE_SEPARATOR);
+                for (MBeanParameterInfo paramInfo : paramInfos) {
+                    String parameter = paramInfo.getName();
+                    paramsDesc.append(String.format("                 + %-20s : %s" + SystemUtils.LINE_SEPARATOR, parameter, paramInfo.getDescription()));
+                    paramTypes.add(paramInfo.getType() + " " + parameter);
+                }
+                session.output.println(String.format("  %%%-3d - %s %s(%s), %s", index++, op.getReturnType(), opName,
+                        StringUtils.join(paramTypes, ','),
+                        op.getDescription()));
+                session.output.println(paramsDesc.toString());
+            }
+        }
+        if (!found) {
+            session.output.printMessage(String.format("The operation '%s' is not found in the bean.", operation));
+        }
+    }
     /**
      * @inheritDoc
      */
@@ -144,22 +179,26 @@ public class InfoCommand
         MBeanInfo info = con.getMBeanInfo( name );
         session.output.printMessage( "mbean = " + beanName );
         session.output.printMessage( "class name = " + info.getClassName() );
-        for ( char t : type.toCharArray() )
-        {
-            switch ( t )
+        if (operation == null) {
+            for (char t : type.toCharArray())
             {
+                switch (t) {
                 case 'a':
-                    displayAttributes( info );
+                    displayAttributes(info);
                     break;
                 case 'o':
-                    displayOperations( info );
+                    displayOperations(info);
                     break;
                 case 'n':
-                    displayNotifications( info );
+                    displayNotifications(info);
                     break;
                 default:
-                    throw new IllegalArgumentException( "Unrecognizable character " + t + " in type option " + type );
+                    throw new IllegalArgumentException("Unrecognizable character " + t + " in type option " + type);
+                }
             }
+        } else {
+            session.output.printMessage("operation = " + operation);
+            displaySingleOperation(info);
         }
     }
 
@@ -201,5 +240,11 @@ public class InfoCommand
         Validate.isTrue( StringUtils.isNotEmpty( type ), "Type can't be NULL" );
         Validate.isTrue( Pattern.matches( "^a?o?n?$", type ), "Type must be a?|o?|n?" );
         this.type = type;
+    }
+
+    @Option(name = "o", longName = "op", description = "Show a single operation with more details (including parameters information)")
+    public void setOperation(String operation) {
+        Validate.isTrue(StringUtils.isNotEmpty(operation), "Operation can't be NULL");
+        this.operation = operation;
     }
 }
