@@ -102,6 +102,11 @@
             <artifactId>commons-io</artifactId>
             <version>1.3.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.main.external</groupId>
+            <artifactId>jmxremote_optional-repackaged</artifactId>
+            <version>4.1</version>
+        </dependency>
     </dependencies>
     <scm>
         <connection>scm:git:git@github.com:jiaqi/jmxterm.git</connection>
