@@ -16,6 +16,9 @@ import org.cyclopsgroup.jmxterm.io.WriterCommandOutput;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.cyclopsgroup.jmxterm.cc.CommandCenter.ESCAPE_CHAR_REGEX;
+
+
 /**
  * Test case of {@link CommandCenter}
  * 
@@ -123,5 +126,22 @@ public class CommandCenterTest
     public void testSingleSimpleArgument()
     {
         runCommandAndVerifyArguments( "test 1", Arrays.asList( "1" ) );
+    }
+
+    @Test
+    public void testRegexEscapesCorrectly() {
+        final String s1 = "".split(ESCAPE_CHAR_REGEX)[0];
+        final String s2 = "a b c".split(ESCAPE_CHAR_REGEX)[0];
+        final String s3 = "a #b c".split(ESCAPE_CHAR_REGEX)[0];
+        final String s4 = "a #b c #".split(ESCAPE_CHAR_REGEX)[0];
+        final String s5 = "a \\#b c #".split(ESCAPE_CHAR_REGEX)[0];
+        final String s6 = "a #b c \\# something".split(ESCAPE_CHAR_REGEX)[0];
+
+        assertEquals("", s1);
+        assertEquals("a b c", s2);
+        assertEquals("a ", s3);
+        assertEquals("a ", s4);
+        assertEquals("a \\#b c ", s5);
+        assertEquals("a ", s6);
     }
 }

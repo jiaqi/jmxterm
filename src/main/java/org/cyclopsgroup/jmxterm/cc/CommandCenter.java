@@ -37,6 +37,7 @@ import org.cyclopsgroup.jmxterm.io.VerboseLevel;
 public class CommandCenter
 {
     private static final String COMMAND_DELIMITER = "&&";
+    static final String ESCAPE_CHAR_REGEX = "(?<!\\\\)#";
 
     /**
      * Argument tokenizer that parses arguments
@@ -124,11 +125,10 @@ public class CommandCenter
             return;
         }
         // Truncate command if there's # character
-        int commandEnds = command.indexOf( '#' );
-        if ( commandEnds != -1 )
-        {
-            command = command.substring( 0, commandEnds );
-        }
+	// Note: this allows people to set properties to values with # (e.g.: set AttributeA /a/\\#something)
+	command = command
+		.split(ESCAPE_CHAR_REGEX)[0] //take out all commented out sections
+		.replace("\\#", "#"); //fix escaped to non-escaped comment charaters
         // If command includes multiple segments, call them one by one using recursive call
         if ( command.indexOf( COMMAND_DELIMITER ) != -1 )
         {
