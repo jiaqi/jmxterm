@@ -17,6 +17,7 @@ import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.MultiValue;
 import org.cyclopsgroup.jcli.annotation.Option;
+import org.cyclopsgroup.jcli.annotation.MultiValue;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
@@ -129,6 +130,7 @@ public class SetCommand
      */
     @MultiValue( listType = ArrayList.class, minValues = 2 )
     @Argument( description = "name, value, value2..." )
+    @MultiValue
     public final void setArguments( List<String> arguments )
     {
         Validate.notNull( arguments, "Arguments can't be NULL" );
