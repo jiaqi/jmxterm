@@ -61,17 +61,17 @@ public class GetCommandTest
             context.checking( new Expectations()
             {
                 {
-                    one( con ).getDomains();
+                    oneOf( con ).getDomains();
                     will( returnValue( new String[] { domain, RandomStringUtils.randomAlphabetic( 5 ) } ) );
                     allowing( con ).getMBeanInfo( new ObjectName( expectedBean ) );
                     will( returnValue( beanInfo ) );
-                    one( beanInfo ).getAttributes();
+                    oneOf( beanInfo ).getAttributes();
                     will( returnValue( new MBeanAttributeInfo[] { attributeInfo } ) );
                     allowing( attributeInfo ).getName();
                     will( returnValue( attributePath[0] ) );
                     allowing( attributeInfo ).isReadable();
                     will( returnValue( true ) );
-                    one( con ).getAttribute( new ObjectName( expectedBean ), attributePath[0] );
+                    oneOf( con ).getAttribute( new ObjectName( expectedBean ), attributePath[0] );
                     will( returnValue( expectedValue ) );
                 }
             } );
@@ -146,9 +146,9 @@ public class GetCommandTest
         context.checking( new Expectations()
         {
             {
-                one( compositeType ).keySet();
+                oneOf( compositeType ).keySet();
                 will( returnValue( entries.keySet() ) );
-                one ( compositeType ).getType( "d" );
+                oneOf ( compositeType ).getType( "d" );
                 will( returnValue( SimpleType.STRING ) );
             }
         } );

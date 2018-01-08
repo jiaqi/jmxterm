@@ -65,7 +65,7 @@ public class RunCommandTest
             {
                 atLeast( 1 ).of( con ).getMBeanInfo( new ObjectName( "a:type=x" ) );
                 will( returnValue( beanInfo ) );
-                one( beanInfo ).getOperations();
+                oneOf( beanInfo ).getOperations();
                 will( returnValue( new MBeanOperationInfo[] { opInfo } ) );
                 atLeast( 1 ).of( opInfo ).getName();
                 will( returnValue( "exe" ) );
@@ -73,7 +73,7 @@ public class RunCommandTest
                 will( returnValue( new MBeanParameterInfo[] { paramInfo } ) );
                 atLeast( 1 ).of( paramInfo ).getType();
                 will( returnValue( "int" ) );
-                one( con ).invoke( new ObjectName( "a:type=x" ), "exe",
+                oneOf( con ).invoke( new ObjectName( "a:type=x" ), "exe",
                                    new Object[] { 33 }, new String[] { "int" } );
                 will( returnValue( "bingo" ) );
             }
@@ -107,7 +107,7 @@ public class RunCommandTest
             {
                 atLeast( 1 ).of( con ).getMBeanInfo( new ObjectName( "a:type=x" ) );
                 will( returnValue( beanInfo ) );
-                one( beanInfo ).getOperations();
+                oneOf( beanInfo ).getOperations();
                 will( returnValue( new MBeanOperationInfo[] { opInfo1, opInfo2 } ) );
                 // exe <int>
                 atLeast( 1 ).of( opInfo1 ).getName();
@@ -126,7 +126,7 @@ public class RunCommandTest
                 will( returnValue( new MBeanParameterInfo[] { paramInfoString} ) );
                 atLeast( 1 ).of( paramInfoString ).getType();
                 will( returnValue( "java.lang.String" ) );
-                one( con ).invoke( new ObjectName( "a:type=x" ), "exe",
+                oneOf( con ).invoke( new ObjectName( "a:type=x" ), "exe",
                     new Object[] { "33" }, new String[] { "java.lang.String" } );
                 will( returnValue( "bingo-string" ) );
             }

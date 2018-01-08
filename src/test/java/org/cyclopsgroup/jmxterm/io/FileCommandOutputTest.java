@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -56,7 +57,7 @@ public class FileCommandOutputTest
         output.printMessage( "say hello" );
         output.close();
 
-        assertEquals( "helloworld", FileUtils.readFileToString( testFile ).trim() );
+        assertEquals( "helloworld", FileUtils.readFileToString( testFile, Charset.forName("UTF-8")).trim() );
     }
     
     /**

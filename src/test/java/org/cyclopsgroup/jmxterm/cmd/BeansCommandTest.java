@@ -56,7 +56,7 @@ public class BeansCommandTest
         context.checking( new Expectations()
         {
             {
-                one( conn ).getDomains();
+                oneOf( conn ).getDomains();
                 will( returnValue( new String[] { "a", "b" } ) );
                 atLeast( 1 ).of( conn ).queryNames( new ObjectName( "a:*" ), null );
                 will( returnValue( new HashSet<ObjectName>( Arrays.asList( new ObjectName( "a:type=1" ),
@@ -135,7 +135,7 @@ public class BeansCommandTest
         context.checking( new Expectations()
         {
             {
-                one( conn ).getDomains();
+                oneOf( conn ).getDomains();
                 will( returnValue( new String[] { "a", "b" } ) );
                 atLeast( 1 ).of( conn ).queryNames( new ObjectName( "a:*" ), null );
                 will( returnValue( new HashSet<ObjectName>( Arrays.asList( new ObjectName( "a:type=1" ),

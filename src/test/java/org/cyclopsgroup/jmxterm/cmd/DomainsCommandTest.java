@@ -48,7 +48,7 @@ public class DomainsCommandTest
         context.checking( new Expectations()
         {
             {
-                one( con ).getDomains();
+                oneOf( con ).getDomains();
                 will( returnValue( new String[] { "a", "b" } ) );
             }
         } );

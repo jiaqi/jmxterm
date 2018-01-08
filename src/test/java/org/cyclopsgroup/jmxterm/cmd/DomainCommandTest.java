@@ -35,7 +35,7 @@ public class DomainCommandTest
         context.checking( new Expectations()
         {
             {
-                one( con ).getDomains();
+                oneOf( con ).getDomains();
                 will( returnValue( knownDomains ) );
             }
         } );

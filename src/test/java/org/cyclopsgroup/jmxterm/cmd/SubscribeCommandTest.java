@@ -65,7 +65,7 @@ public class SubscribeCommandTest
                 atLeast(1).of(con).getMBeanInfo(objectName);
                 will(returnValue(beanInfo));
 
-                one(con).addNotificationListener(
+                oneOf(con).addNotificationListener(
                         with(equal(objectName)),
                         with(any(NotificationListener.class)),
                         with(aNull(NotificationFilter.class)),
@@ -117,7 +117,7 @@ public class SubscribeCommandTest
                 atLeast(1).of(con).getMBeanInfo(objectName);
                 will(returnValue(beanInfo));
 
-                one(con).addNotificationListener(
+                oneOf(con).addNotificationListener(
                         with(equal(objectName)),
                         with(any(NotificationListener.class)),
                         with(aNull(NotificationFilter.class)),

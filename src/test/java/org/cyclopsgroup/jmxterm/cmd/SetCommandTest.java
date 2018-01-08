@@ -73,8 +73,8 @@ public class SetCommandTest
                     will( returnValue( type ) );
                     atLeast( 1 ).of( attributeInfo ).isWritable();
                     will( returnValue( true ) );
-                    one( con ).setAttribute( with( equal( new ObjectName( "a:type=x" ) ) ),
-                                             (Attribute) with( a( Attribute.class ) ) );
+                    oneOf( con ).setAttribute( with( equal( new ObjectName( "a:type=x" ) ) ),
+                                             (Attribute) with( aNonNull( Attribute.class ) ) );
                     will( doAll( new CustomAction( "SetAttribute" )
                     {
 

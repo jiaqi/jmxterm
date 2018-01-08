@@ -68,13 +68,13 @@ public class UnsubscribeCommandTest
                 atLeast(2).of(con).getMBeanInfo(objectName);
                 will(returnValue(beanInfo));
 
-                one(con).addNotificationListener(
+                oneOf(con).addNotificationListener(
                         with(equal(objectName)),
                         with(any(NotificationListener.class)),
                         with(aNull(NotificationFilter.class)),
                         with(aNull(Object.class)));
 
-                one(con).removeNotificationListener(
+                oneOf(con).removeNotificationListener(
                         with(equal(objectName)),
                         with(any(NotificationListener.class)));
             }
@@ -112,7 +112,7 @@ public class UnsubscribeCommandTest
                 atLeast(1).of(con).getMBeanInfo(objectName);
                 will(returnValue(beanInfo));
 
-                one(con).addNotificationListener(
+                oneOf(con).addNotificationListener(
                         with(equal(objectName)),
                         with(any(NotificationListener.class)),
                         with(aNull(NotificationFilter.class)),
