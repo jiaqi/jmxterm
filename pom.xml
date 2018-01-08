@@ -8,8 +8,7 @@
         <artifactId>cyclopsgroup-java-parent</artifactId>
         <version>0.6.1</version>
     </parent>
-    <groupId>org.cyclopsgroup</groupId>
-    <artifactId>jmxterm</artifactId>
+	<artifactId>jmxterm</artifactId>
     <name>JMXTerm</name>
     <packaging>jar</packaging>
     <version>1.0.0</version>
