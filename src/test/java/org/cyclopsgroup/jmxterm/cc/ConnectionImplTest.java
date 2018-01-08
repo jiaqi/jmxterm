@@ -36,7 +36,7 @@ public class ConnectionImplTest
         context.checking( new Expectations()
         {
             {
-                one( con ).getConnectionId();
+                oneOf( con ).getConnectionId();
                 will( returnValue( "xyz" ) );
             }
         } );

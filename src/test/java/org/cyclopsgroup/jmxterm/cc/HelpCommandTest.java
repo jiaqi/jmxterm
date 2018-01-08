@@ -59,9 +59,9 @@ public class HelpCommandTest
         context.checking( new Expectations()
         {
             {
-                one( cc ).getCommandType( "a" );
+                oneOf( cc ).getCommandType( "a" );
                 will( returnValue( SelfRecordingCommand.class ) );
-                one( cc ).getCommandType( "b" );
+                oneOf( cc ).getCommandType( "b" );
                 will( returnValue( SelfRecordingCommand.class ) );
             }
         } );
@@ -84,11 +84,11 @@ public class HelpCommandTest
         context.checking( new Expectations()
         {
             {
-                one( cc ).getCommandNames();
+                oneOf( cc ).getCommandNames();
                 will( returnValue( new HashSet<String>( Arrays.asList( "a", "b" ) ) ) );
-                one( cc ).getCommandType( "a" );
+                oneOf( cc ).getCommandType( "a" );
                 will( returnValue( SelfRecordingCommand.class ) );
-                one( cc ).getCommandType( "b" );
+                oneOf( cc ).getCommandType( "b" );
                 will( returnValue( SelfRecordingCommand.class ) );
             }
         } );
