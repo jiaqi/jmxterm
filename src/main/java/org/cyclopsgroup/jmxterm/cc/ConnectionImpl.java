@@ -24,7 +24,6 @@ class ConnectionImpl
     /**
      * @param connector JMX connector
      * @param url JMX service URL object
-     * @param displayUrl The URL user manually input
      */
     ConnectionImpl( JMXConnector connector, JMXServiceURL url )
     {
