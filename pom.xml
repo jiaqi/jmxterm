@@ -20,7 +20,7 @@
         <url>https://launchpad.net/jmxterm</url>
     </issueManagement>
 	<properties>
-		<jmock.version>2.8.3</jmock.version>
+        <jmock.version>2.8.3</jmock.version>
 	</properties>
     <dependencies>
         <dependency>
