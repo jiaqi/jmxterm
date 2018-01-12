@@ -1,9 +1,10 @@
 package org.cyclopsgroup.jmxterm.pm;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test loading jconsole classes
@@ -28,8 +29,7 @@ public class JConsoleClassLoaderFactoryTest
         if ( SystemUtils.IS_JAVA_1_5 )
         {
             clazz = cl.loadClass( "sun.jvmstat.monitor.MonitoredVm" );
-        }
-        else if ( SystemUtils.isJavaVersionAtLeast(160) )
+        } else if ( SystemUtils.isJavaVersionAtLeast( JavaVersion.JAVA_1_6 ) )
         {
             clazz = cl.loadClass( "sun.tools.jconsole.LocalVirtualMachine" );
         }

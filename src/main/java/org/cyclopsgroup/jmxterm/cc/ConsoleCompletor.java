@@ -1,18 +1,20 @@
 package org.cyclopsgroup.jmxterm.cc;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+import org.cyclopsgroup.jcli.jline.CliCompletor;
+import org.cyclopsgroup.jmxterm.Command;
+import org.jline.reader.Candidate;
+import org.jline.reader.Completer;
+import org.jline.reader.LineReader;
+import org.jline.reader.ParsedLine;
+import org.jline.reader.impl.completer.ArgumentCompleter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.cyclopsgroup.jcli.jline.CliCompletor;
-import org.cyclopsgroup.jmxterm.Command;
-
-import jline.console.completer.Completer;
 
 /**
  * JLine completor that handles tab key
@@ -22,11 +24,11 @@ import jline.console.completer.Completer;
 public class ConsoleCompletor
     implements Completer
 {
-    private static final Log LOG = LogFactory.getLog( ConsoleCompletor.class );
+    private static final Logger LOG = LoggerFactory.getLogger( ConsoleCompletor.class );
 
     private final CommandCenter commandCenter;
 
-    private final List<String> commandNames;
+    private final List<Candidate> commandNames;
 
     /**
      * Constructor using a command center
@@ -39,20 +41,25 @@ public class ConsoleCompletor
         this.commandCenter = commandCenter;
         List<String> commandNames = new ArrayList<String>( commandCenter.getCommandNames() );
         Collections.sort( commandNames );
-        this.commandNames = Collections.unmodifiableList( commandNames );
+        this.commandNames = new ArrayList<>( commandNames.size() );
+        for ( String commandName : commandNames )
+        {
+            this.commandNames.add( new Candidate( commandName ) );
+        }
     }
 
     /**
      * @inheritDoc
      */
     @SuppressWarnings( { "unchecked", "rawtypes" } )
-    public int complete( String buffer, int position, List candidates )
+    public void complete( LineReader reader, ParsedLine line, List<Candidate> candidates )
     {
         try
         {
+            String buffer = line.line();
             if ( StringUtils.isEmpty( buffer ) || buffer.indexOf( ' ' ) == -1 )
             {
-                return completeCommandName( buffer, candidates );
+                completeCommandName( buffer, candidates );
             }
             int separatorPos = buffer.indexOf( ' ' );
             String commandName = buffer.substring( 0, separatorPos );
@@ -69,8 +76,8 @@ public class ConsoleCompletor
             Command cmd = commandCenter.commandFactory.createCommand( commandName );
             cmd.setSession( commandCenter.session );
             CliCompletor commandCompletor = new CliCompletor( cmd, commandCenter.argTokenizer );
-            return commandCompletor.complete( commandArguments, position - separatorPos, candidates ) + separatorPos
-                + 1;
+            int position = line.cursor();
+            commandCompletor.complete( reader, new ArgumentCompleter.ArgumentLine( commandArguments, position - separatorPos ), candidates );
         }
         catch ( RuntimeException e )
         {
@@ -78,11 +85,10 @@ public class ConsoleCompletor
             {
                 LOG.debug( "Couldn't complete input", e );
             }
-            return position;
         }
     }
 
-    private int completeCommandName( String buf, List<String> candidates )
+    private void completeCommandName( String buf, List<Candidate> candidates )
     {
         if ( buf == null )
         {
@@ -92,10 +98,10 @@ public class ConsoleCompletor
         else if ( buf.indexOf( ' ' ) == -1 )
         {
             // Partial one word
-            List<String> matchedNames = new ArrayList<String>();
-            for ( String commandName : commandNames )
+            List<Candidate> matchedNames = new ArrayList<>();
+            for ( Candidate commandName : commandNames )
             {
-                if ( commandName.startsWith( buf ) )
+                if ( commandName.value().startsWith( buf ) )
                 {
                     matchedNames.add( commandName );
                 }
@@ -106,6 +112,5 @@ public class ConsoleCompletor
         {
             throw new IllegalStateException( "Invalid state" );
         }
-        return 0;
     }
 }

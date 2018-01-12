@@ -1,13 +1,12 @@
 package org.cyclopsgroup.jmxterm.cc;
 
-import java.io.IOException;
+import org.apache.commons.lang3.Validate;
+import org.cyclopsgroup.jmxterm.Connection;
 
 import javax.management.MBeanServerConnection;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXServiceURL;
-
-import org.apache.commons.lang.Validate;
-import org.cyclopsgroup.jmxterm.Connection;
+import java.io.IOException;
 
 /**
  * Identifies a JMX connection

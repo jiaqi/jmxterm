@@ -1,11 +1,10 @@
 package org.cyclopsgroup.jmxterm.io;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+import org.jline.reader.impl.LineReaderImpl;
+
 import java.io.IOException;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
-
-import jline.console.ConsoleReader;
 
 /**
  * Implementation of input that reads command from jloin console input
@@ -15,7 +14,7 @@ import jline.console.ConsoleReader;
 public class JlineCommandInput
     extends CommandInput
 {
-    private final ConsoleReader console;
+    private final LineReaderImpl console;
 
     private final String prompt;
 
@@ -23,7 +22,7 @@ public class JlineCommandInput
      * @param console Jline console reader
      * @param prompt Prompt string
      */
-    public JlineCommandInput( ConsoleReader console, String prompt )
+    public JlineCommandInput( LineReaderImpl console, String prompt )
     {
         Validate.notNull( console, "Jline console reader can't be NULL" );
         this.console = console;
@@ -33,7 +32,7 @@ public class JlineCommandInput
     /**
      * @return Jline console
      */
-    public final ConsoleReader getConsole()
+    public final LineReaderImpl getConsole()
     {
         return console;
     }

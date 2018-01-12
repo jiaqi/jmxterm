@@ -1,14 +1,14 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import static org.junit.Assert.assertEquals;
+import org.apache.commons.collections4.map.ListOrderedMap;
+import org.junit.Test;
 
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.collections.map.ListOrderedMap;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link ValueOutputFormat}
@@ -51,7 +51,7 @@ public class ValueOutputFormatTest
     {
         ValueOutputFormat f = new ValueOutputFormat();
         StringWriter out = new StringWriter();
-        Map<String, String> map = ListOrderedMap.decorate( new HashMap<String, String>() );
+        Map<String, String> map = ListOrderedMap.listOrderedMap( new HashMap<String, String>() );
         map.put( "a", "aaa" );
         map.put( "b", "bbb" );
         f.printValue( new WriterCommandOutput( out ), map );

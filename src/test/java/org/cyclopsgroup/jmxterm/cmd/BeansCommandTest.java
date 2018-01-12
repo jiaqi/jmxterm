@@ -22,6 +22,8 @@ import org.junit.Test;
  */
 public class BeansCommandTest
 {
+	private static final String EOL = System.getProperty("line.separator");
+	
     private BeansCommand command;
 
     private MBeanServerConnection conn;
@@ -66,7 +68,7 @@ public class BeansCommandTest
         command.setSession( new MockSession( output, conn ) );
         command.execute();
         context.assertIsSatisfied();
-        assertEquals( "a:type=1\na:type=2\nb:type=1\n", output.toString() );
+        assertEquals( "a:type=1" + EOL + "a:type=2" + EOL + "b:type=1" + EOL, output.toString() );
     }
 
     /**
@@ -92,7 +94,7 @@ public class BeansCommandTest
         command.setSession( session );
         command.execute();
         context.assertIsSatisfied();
-        assertEquals( "b:type=1\n", output.toString() );
+        assertEquals( "b:type=1" + EOL, output.toString() );
     }
 
     /**
@@ -117,7 +119,7 @@ public class BeansCommandTest
         command.setSession( new MockSession( output, conn ) );
         command.execute();
         context.assertIsSatisfied();
-        assertEquals( "b:type=1\n", output.toString() );
+        assertEquals( "b:type=1" + EOL, output.toString() );
     }
 
     /**
@@ -147,6 +149,6 @@ public class BeansCommandTest
         command.setSession( session );
         command.execute();
         context.assertIsSatisfied();
-        assertEquals( "a:type=1\na:type=2\nb:type=1\n", output.toString() );
+        assertEquals( "a:type=1" + EOL + "a:type=2" + EOL + "b:type=1" + EOL, output.toString() );
     }
 }

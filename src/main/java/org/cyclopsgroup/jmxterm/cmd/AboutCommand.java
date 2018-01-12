@@ -1,17 +1,17 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import java.io.IOException;
-import java.util.Map;
-
-import javax.management.JMException;
-
-import org.apache.commons.collections.ExtendedProperties;
+import org.apache.commons.configuration2.Configuration;
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
 import org.cyclopsgroup.jmxterm.io.ValueOutputFormat;
-import org.cyclopsgroup.jmxterm.utils.ExtendedPropertiesUtils;
+import org.cyclopsgroup.jmxterm.utils.ConfigurationUtils;
+
+import javax.management.JMException;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Command to show about page
@@ -34,14 +34,15 @@ public class AboutCommand
     {
         Session session = getSession();
         // output predefined about properties
-        ExtendedProperties props =
-            ExtendedPropertiesUtils.loadFromOverlappingResources( "META-INF/cyclopsgroup/jmxterm.properties",
+        Configuration props =
+                ConfigurationUtils.loadFromOverlappingResources( "META-INF/cyclopsgroup/jmxterm.properties",
                                                                   getClass().getClassLoader() );
         ValueOutputFormat format = new ValueOutputFormat( 2, showDescription, true );
-        for ( Object entryObject : props.subset( "jmxterm.about" ).entrySet() )
+        Configuration subset = props.subset( "jmxterm.about" );
+        for ( Iterator<String> iterator = subset.getKeys(); iterator.hasNext(); )
         {
-            Map.Entry<String, Object> entry = (Map.Entry<String, Object>) entryObject;
-            format.printExpression( session.output, entry.getKey(), entry.getValue(), null );
+            String key = iterator.next();
+            format.printExpression( session.output, key, subset.getProperty( key ), null );
         }
 
         // output Java runtime properties

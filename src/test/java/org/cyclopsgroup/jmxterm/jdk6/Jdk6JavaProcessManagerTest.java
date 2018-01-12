@@ -1,13 +1,13 @@
 package org.cyclopsgroup.jmxterm.jdk6;
 
-import static org.junit.Assert.assertFalse;
-
-import java.util.List;
-
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.cyclopsgroup.jmxterm.JavaProcess;
 import org.cyclopsgroup.jmxterm.pm.JConsoleClassLoaderFactory;
 import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.assertFalse;
 
 /**
  * Test case of Jdk6JavaProcessManager

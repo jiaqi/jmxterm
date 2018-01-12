@@ -1,16 +1,6 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.management.InstanceNotFoundException;
-import javax.management.JMException;
-import javax.management.MBeanServerConnection;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
-
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
@@ -18,6 +8,15 @@ import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
 import org.cyclopsgroup.jmxterm.io.RuntimeIOException;
+
+import javax.management.InstanceNotFoundException;
+import javax.management.JMException;
+import javax.management.MBeanServerConnection;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Command to display or set current bean

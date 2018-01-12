@@ -1,17 +1,17 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import static org.junit.Assert.assertEquals;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.SystemUtils;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.SystemUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link FileCommandOutput}
@@ -79,6 +79,7 @@ public class FileCommandOutputTest
         output2.printMessage( "say hello2" );
         output2.close();
 
-        assertEquals( "helloworld" + SystemUtils.LINE_SEPARATOR + "helloworld2", FileUtils.readFileToString( testFile ).trim() );
+        assertEquals( "helloworld" + System.lineSeparator() + "helloworld2", FileUtils.readFileToString( testFile,
+                Charset.forName( "UTF-8" ) ).trim() );
     }
 }

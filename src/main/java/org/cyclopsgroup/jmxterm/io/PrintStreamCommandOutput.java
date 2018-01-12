@@ -1,8 +1,8 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import java.io.PrintStream;
+import org.apache.commons.lang3.Validate;
 
-import org.apache.commons.lang.Validate;
+import java.io.PrintStream;
 
 /**
  * Implementation of CommandOutput where output is written in given PrintStream objects

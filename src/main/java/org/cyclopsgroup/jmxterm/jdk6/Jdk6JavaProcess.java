@@ -1,6 +1,6 @@
 package org.cyclopsgroup.jmxterm.jdk6;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jmxterm.JavaProcess;
 
 /**

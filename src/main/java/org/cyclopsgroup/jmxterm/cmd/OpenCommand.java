@@ -1,12 +1,6 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.management.remote.JMXConnector;
-
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
@@ -14,6 +8,11 @@ import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Connection;
 import org.cyclopsgroup.jmxterm.Session;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
+
+import javax.management.remote.JMXConnector;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Command to open JMX connection

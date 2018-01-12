@@ -1,20 +1,8 @@
 package org.cyclopsgroup.jmxterm.cc;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.management.JMException;
-import javax.management.remote.JMXServiceURL;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.caff.token.EscapingValueTokenizer;
 import org.cyclopsgroup.caff.token.TokenEvent;
 import org.cyclopsgroup.caff.token.TokenEventHandler;
@@ -28,6 +16,17 @@ import org.cyclopsgroup.jmxterm.io.CommandInput;
 import org.cyclopsgroup.jmxterm.io.CommandOutput;
 import org.cyclopsgroup.jmxterm.io.RuntimeIOException;
 import org.cyclopsgroup.jmxterm.io.VerboseLevel;
+
+import javax.management.JMException;
+import javax.management.remote.JMXServiceURL;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Facade class where commands are maintained and executed
@@ -171,7 +170,7 @@ public class CommandCenter
         {
             ( (HelpCommand) cmd ).setCommandCenter( this );
         }
-        ArgumentProcessor<Command> ap = (ArgumentProcessor<Command>) ArgumentProcessor.newInstance( cmd.getClass() );
+        ArgumentProcessor<Command> ap = (ArgumentProcessor<Command>) ArgumentProcessor.forType( cmd.getClass() );
 
         ap.process( commandArgs, cmd );
         // Print out usage if help option is specified

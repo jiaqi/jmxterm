@@ -1,17 +1,14 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.List;
-
-import javax.management.JMException;
-
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.JavaProcess;
 import org.cyclopsgroup.jmxterm.Session;
-import org.cyclopsgroup.jmxterm.SyntaxUtils;
+
+import javax.management.JMException;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Command to list all running local JVM processes
@@ -32,20 +29,7 @@ public class JvmsCommand
         throws IOException, JMException
     {
         Session session = getSession();
-        List<JavaProcess> processList;
-
-        // classworlds has some hard coded stdout printing. Therefore stdout needs to be redirected temporarily to avoid
-        // meaningless console output
-        PrintStream stdOut = System.out;
-        System.setOut( SyntaxUtils.NULL_PRINT_STREAM );
-        try
-        {
-            processList = session.getProcessManager().list();
-        }
-        finally
-        {
-            System.setOut( stdOut );
-        }
+        List<JavaProcess> processList = session.getProcessManager().list();
         for ( JavaProcess p : processList )
         {
             if ( pidOnly )
