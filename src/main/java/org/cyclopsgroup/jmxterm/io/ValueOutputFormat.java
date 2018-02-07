@@ -1,13 +1,12 @@
 package org.cyclopsgroup.jmxterm.io;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+
+import javax.management.openmbean.CompositeData;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
-
-import javax.management.openmbean.CompositeData;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 
 /**
  * A utility to print out object values in particular format.

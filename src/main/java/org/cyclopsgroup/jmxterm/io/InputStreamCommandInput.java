@@ -1,11 +1,11 @@
 package org.cyclopsgroup.jmxterm.io;
 
+import org.apache.commons.lang3.Validate;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-
-import org.apache.commons.lang.Validate;
 
 /**
  * Implementation of {@link CommandInput} with an input stream

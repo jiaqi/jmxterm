@@ -1,18 +1,7 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.management.JMException;
-import javax.management.MBeanAttributeInfo;
-import javax.management.MBeanServerConnection;
-import javax.management.ObjectName;
-
-import org.apache.commons.collections.map.ListOrderedMap;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.collections4.map.ListOrderedMap;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.MultiValue;
@@ -20,6 +9,16 @@ import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
 import org.cyclopsgroup.jmxterm.io.ValueOutputFormat;
+
+import javax.management.JMException;
+import javax.management.MBeanAttributeInfo;
+import javax.management.MBeanServerConnection;
+import javax.management.ObjectName;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Get value of MBean attribute(s)
@@ -57,7 +56,7 @@ public class GetCommand
         MBeanServerConnection con = session.getConnection().getServerConnection();
         MBeanAttributeInfo[] ais = con.getMBeanInfo( name ).getAttributes();
         Map<String, MBeanAttributeInfo> attributeNames =
-            ListOrderedMap.decorate( new HashMap<String, MBeanAttributeInfo>() );
+                ListOrderedMap.listOrderedMap( new HashMap<String, MBeanAttributeInfo>() );
         if ( attributes.contains( "*" ) )
         {
             for ( MBeanAttributeInfo ai : ais )

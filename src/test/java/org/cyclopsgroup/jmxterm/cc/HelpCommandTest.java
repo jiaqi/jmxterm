@@ -1,14 +1,5 @@
 package org.cyclopsgroup.jmxterm.cc;
 
-import static org.junit.Assert.assertEquals;
-
-import java.beans.IntrospectionException;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.HashSet;
-
-import org.apache.commons.lang.SystemUtils;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.cyclopsgroup.jmxterm.SelfRecordingCommand;
 import org.jmock.Expectations;
@@ -16,6 +7,14 @@ import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.beans.IntrospectionException;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.HashSet;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link HelpCommand}
@@ -94,6 +93,6 @@ public class HelpCommandTest
         } );
         command.setSession( new MockSession( output, null ) );
         command.execute();
-        assertEquals( "a        - desc" + SystemUtils.LINE_SEPARATOR + "b        - desc", output.toString().trim() );
+        assertEquals( "a        - desc" + System.lineSeparator() + "b        - desc", output.toString().trim() );
     }
 }

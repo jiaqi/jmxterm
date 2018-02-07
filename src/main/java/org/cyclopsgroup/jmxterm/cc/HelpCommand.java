@@ -1,18 +1,18 @@
 package org.cyclopsgroup.jmxterm.cc;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.ArgumentProcessor;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.MultiValue;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.io.RuntimeIOException;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Command that display a help message
@@ -43,7 +43,7 @@ public class HelpCommand
             {
                 Class<? extends Command> commandType = commandCenter.getCommandType( commandName );
                 org.cyclopsgroup.jcli.spi.Cli cli =
-                    ArgumentProcessor.newInstance( commandType ).createParsingContext().cli();
+                        ArgumentProcessor.forType( commandType ).createParsingContext().cli();
                 getSession().output.println( String.format( "%-8s - %s", commandName, cli.getDescription() ) );
             }
         }
@@ -56,7 +56,7 @@ public class HelpCommand
                 {
                     throw new IllegalArgumentException( "Command " + argName + " is not found" );
                 }
-                ArgumentProcessor<Command> ap = ArgumentProcessor.newInstance( commandType );
+                ArgumentProcessor<? extends Command> ap = ArgumentProcessor.forType( commandType );
                 try
                 {
                     ap.printHelp( new PrintWriter( System.out, true ) );

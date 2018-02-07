@@ -1,21 +1,20 @@
 package org.cyclopsgroup.jmxterm;
 
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.io.output.NullOutputStream;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.cyclopsgroup.jmxterm.utils.ValueFormat;
+
+import javax.management.remote.JMXServiceURL;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.regex.Pattern;
 
-import javax.management.remote.JMXServiceURL;
-
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.io.output.NullOutputStream;
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
-import org.cyclopsgroup.jmxterm.utils.ValueFormat;
-
 /**
  * Utility class for syntax checking
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public final class SyntaxUtils
@@ -50,32 +49,22 @@ public final class SyntaxUtils
             Integer pid = Integer.parseInt( url );
             JavaProcess p;
 
-            // classworlds has some hard coded stdout printing. Therefore stdout needs to be redirected temporarily to
-            // avoid meaningless console output
-            PrintStream stdOut = System.out;
-            System.setOut( NULL_PRINT_STREAM );
-            try
+            p = jpm.get( pid );
+            if ( p == null )
             {
-                p = jpm.get( pid );
-                if ( p == null )
-                {
-                    throw new NullPointerException( "No such PID " + pid );
-                }
+                throw new NullPointerException( "No such PID " + pid );
+            }
+            if ( !p.isManageable() )
+            {
+                p.startManagementAgent();
                 if ( !p.isManageable() )
                 {
-                    p.startManagementAgent();
-                    if ( !p.isManageable() )
-                    {
-                        throw new IllegalStateException( "Managed agent for PID " + pid + " couldn't start. PID " +
+                    throw new IllegalStateException( "Managed agent for PID " + pid + " couldn't start. PID " +
                             pid + " is not manageable" );
-                    }
                 }
-                return new JMXServiceURL( p.toUrl() );
             }
-            finally
-            {
-                System.setOut( stdOut );
-            }
+            return new JMXServiceURL( p.toUrl() );
+
         }
         else if ( PATTERN_HOST_PORT.matcher( url ).find() )
         {
@@ -89,7 +78,7 @@ public final class SyntaxUtils
 
     /**
      * Check if string value is <code>null</code>
-     * 
+     *
      * @param s String value
      * @return True if value is <code>null</code>
      */
@@ -100,7 +89,7 @@ public final class SyntaxUtils
 
     /**
      * Parse given string expression to expected type of value
-     * 
+     *
      * @param expression String expression
      * @param type Target type
      * @return Object of value

@@ -1,6 +1,5 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import org.apache.commons.lang.SystemUtils;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -9,12 +8,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.management.*;
+import javax.management.MBeanInfo;
+import javax.management.MBeanServerConnection;
+import javax.management.Notification;
+import javax.management.NotificationFilter;
+import javax.management.NotificationListener;
+import javax.management.ObjectName;
 import java.io.StringWriter;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Test case for {@link RunCommand}
@@ -142,7 +144,7 @@ public class UnsubscribeCommandTest
         notificationListener.handleNotification( notification, null );
 
         String expected = "notification received: timestamp=123,class=" + notification.getClass().getName() + ",source=xyz,type=azerty,message=qwerty"
-                + SystemUtils.LINE_SEPARATOR
+                + System.lineSeparator()
                 + "notification received: timestamp=123,class=" + notification.getClass().getName() + ",source=xyz,type=azerty,message=qwerty";
 
         assertEquals( expected, output.toString().trim() );

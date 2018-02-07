@@ -1,12 +1,12 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.cyclopsgroup.jmxterm.MockSession;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
@@ -17,15 +17,13 @@ import javax.management.openmbean.CompositeDataSupport;
 import javax.management.openmbean.CompositeType;
 import javax.management.openmbean.OpenDataException;
 import javax.management.openmbean.SimpleType;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.SystemUtils;
-import org.cyclopsgroup.jmxterm.MockSession;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case of {@link GetCommand}
@@ -84,8 +82,9 @@ public class GetCommandTest
             if ( expectedValue instanceof CompositeDataSupport ) {
             	nestedExpectedValue = ((CompositeDataSupport)expectedValue).get(attributePath[1]);
             }
-            
-            assertEquals( nestedExpectedValue.toString() + delimiter + (singleLine ? "" : SystemUtils.LINE_SEPARATOR), output.toString() );
+
+            assertEquals( nestedExpectedValue.toString() + delimiter + ( singleLine ? "" : System.lineSeparator() ),
+                    output.toString() );
         }
         catch ( JMException e )
         {

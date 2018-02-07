@@ -1,17 +1,15 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.StringWriter;
-
-import javax.management.MBeanServerConnection;
-
-import org.apache.commons.lang.SystemUtils;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.management.MBeanServerConnection;
+import java.io.StringWriter;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test case of {@link DomainsCommand}
@@ -55,6 +53,6 @@ public class DomainsCommandTest
         command.setSession( new MockSession( output, con ) );
         command.execute();
         context.assertIsSatisfied();
-        assertEquals( "a" + SystemUtils.LINE_SEPARATOR + "b", output.toString().trim() );
+        assertEquals( "a" + System.lineSeparator() + "b", output.toString().trim() );
     }
 }

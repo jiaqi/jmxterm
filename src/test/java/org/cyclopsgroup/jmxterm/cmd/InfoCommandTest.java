@@ -1,17 +1,5 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.StringWriter;
-
-import javax.management.MBeanAttributeInfo;
-import javax.management.MBeanInfo;
-import javax.management.MBeanOperationInfo;
-import javax.management.MBeanParameterInfo;
-import javax.management.MBeanServerConnection;
-import javax.management.ObjectName;
-
-import org.apache.commons.lang.SystemUtils;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.cyclopsgroup.jmxterm.Session;
 import org.jmock.Expectations;
@@ -19,6 +7,16 @@ import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
+
+import javax.management.MBeanAttributeInfo;
+import javax.management.MBeanInfo;
+import javax.management.MBeanOperationInfo;
+import javax.management.MBeanParameterInfo;
+import javax.management.MBeanServerConnection;
+import javax.management.ObjectName;
+import java.io.StringWriter;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test for {@link InfoCommand}
@@ -84,7 +82,7 @@ public class InfoCommandTest
         command.setSession( session );
         command.execute();
         context.assertIsSatisfied();
-        assertEquals( "# attributes" + SystemUtils.LINE_SEPARATOR + "  %0   - b (int, r)", output.toString().trim() );
+        assertEquals( "# attributes" + System.lineSeparator() + "  %0   - b (int, r)", output.toString().trim() );
     }
 
     /**
@@ -129,7 +127,7 @@ public class InfoCommandTest
         command.setSession( session );
         command.execute();
         context.assertIsSatisfied();
-        assertEquals( "# operations" + SystemUtils.LINE_SEPARATOR + "  %0   - int x(java.lang.String a)",
+        assertEquals( "# operations" + System.lineSeparator() + "  %0   - int x(java.lang.String a)",
                       output.toString().trim() );
     }
 
@@ -174,9 +172,9 @@ public class InfoCommandTest
         command.setSession(session);
         command.execute();
         context.assertIsSatisfied();
-        StringBuilder result = new StringBuilder("# operations").append(SystemUtils.LINE_SEPARATOR);
-        result.append("  %0   - int x(java.lang.String myfakeparameter), bingo").append(SystemUtils.LINE_SEPARATOR);
-        result.append("             parameters:").append(SystemUtils.LINE_SEPARATOR);
+        StringBuilder result = new StringBuilder( "# operations" ).append( System.lineSeparator() );
+        result.append( "  %0   - int x(java.lang.String myfakeparameter), bingo" ).append( System.lineSeparator() );
+        result.append( "             parameters:" ).append( System.lineSeparator() );
         result.append("                 + myfakeparameter      : My param description");
         assertEquals(result.toString(), output.toString().trim());
     }
@@ -270,12 +268,13 @@ public class InfoCommandTest
         command.setSession(session);
         command.execute();
         context.assertIsSatisfied();
-        StringBuilder result = new StringBuilder("# operations").append(SystemUtils.LINE_SEPARATOR);
-        result.append("  %0   - int x(java.lang.String a), bingo").append(SystemUtils.LINE_SEPARATOR);
-        result.append("             parameters:").append(SystemUtils.LINE_SEPARATOR);
-        result.append("                 + a                    : My param description").append(SystemUtils.LINE_SEPARATOR).append(SystemUtils.LINE_SEPARATOR);
-        result.append("  %1   - void x(double b), pilou").append(SystemUtils.LINE_SEPARATOR);
-        result.append("             parameters:").append(SystemUtils.LINE_SEPARATOR);
+        StringBuilder result = new StringBuilder( "# operations" ).append( System.lineSeparator() );
+        result.append( "  %0   - int x(java.lang.String a), bingo" ).append( System.lineSeparator() );
+        result.append( "             parameters:" ).append( System.lineSeparator() );
+        result.append( "                 + a                    : My param description" ).append( System
+                .lineSeparator() ).append( System.lineSeparator() );
+        result.append( "  %1   - void x(double b), pilou" ).append( System.lineSeparator() );
+        result.append( "             parameters:" ).append( System.lineSeparator() );
         result.append("                 + b                    : My param 2 description");
         assertEquals(result.toString(), output.toString().trim());
     }

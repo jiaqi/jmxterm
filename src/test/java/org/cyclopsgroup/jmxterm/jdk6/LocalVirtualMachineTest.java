@@ -1,15 +1,15 @@
 package org.cyclopsgroup.jmxterm.jdk6;
 
-import static org.junit.Assert.assertTrue;
+import org.apache.commons.lang3.SystemUtils;
+import org.cyclopsgroup.jmxterm.pm.JConsoleClassLoaderFactory;
+import org.cyclopsgroup.jmxterm.utils.WeakCastUtils;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.SystemUtils;
-import org.cyclopsgroup.jmxterm.pm.JConsoleClassLoaderFactory;
-import org.cyclopsgroup.jmxterm.utils.WeakCastUtils;
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test of LocalVirtualMachine

@@ -1,7 +1,5 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import org.apache.commons.lang.SystemUtils;
-
 /**
  * General abstract class to output message and values
  * 
@@ -36,7 +34,7 @@ public abstract class CommandOutput
     public void println( String output )
     {
         print( output );
-        print( SystemUtils.LINE_SEPARATOR );
+        print( System.lineSeparator() );
     }
 
     /**

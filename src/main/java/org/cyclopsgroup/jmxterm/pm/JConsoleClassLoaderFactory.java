@@ -1,13 +1,13 @@
 package org.cyclopsgroup.jmxterm.pm;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-
-import org.apache.commons.lang.SystemUtils;
 
 /**
  * Utility to get class loader that understands tools.jar and jconsole.jar

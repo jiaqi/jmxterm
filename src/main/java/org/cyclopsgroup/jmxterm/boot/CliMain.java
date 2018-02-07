@@ -1,15 +1,6 @@
 package org.cyclopsgroup.jmxterm.boot;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.management.remote.JMXConnector;
-
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.cyclopsgroup.jcli.ArgumentProcessor;
 import org.cyclopsgroup.jcli.GnuParser;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
@@ -23,9 +14,18 @@ import org.cyclopsgroup.jmxterm.io.InputStreamCommandInput;
 import org.cyclopsgroup.jmxterm.io.JlineCommandInput;
 import org.cyclopsgroup.jmxterm.io.PrintStreamCommandOutput;
 import org.cyclopsgroup.jmxterm.io.VerboseLevel;
+import org.jline.reader.History;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.reader.impl.LineReaderImpl;
 
-import jline.console.ConsoleReader;
-import jline.console.history.FileHistory;
+import javax.management.remote.JMXConnector;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Main class invoked directly from command line
@@ -100,10 +100,11 @@ public class CliMain
                 }
                 else
                 {
-                    ConsoleReader consoleReader = new ConsoleReader( System.in, System.err );
-                    final FileHistory history = new FileHistory(
-                        new File(System.getProperty("user.home"), ".jmxterm_history"));
-                    consoleReader.setHistory(history);
+                    LineReaderImpl consoleReader = (LineReaderImpl) LineReaderBuilder.builder().build();
+                    File historyFile = new File( System.getProperty( "user.home" ), ".jmxterm_history" );
+                    consoleReader.setVariable( LineReader.HISTORY_FILE, historyFile );
+                    final History history = consoleReader.getHistory();
+                    history.load();
                     Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
                     {
                         @Override
@@ -111,7 +112,7 @@ public class CliMain
                         {
                             try
                             {
-                                history.flush();
+                                history.save();
                             }
                             catch (IOException e)
                             {
@@ -136,7 +137,7 @@ public class CliMain
                 CommandCenter commandCenter = new CommandCenter( output, input );
                 if ( input instanceof JlineCommandInput )
                 {
-                    ( (JlineCommandInput) input ).getConsole().addCompleter(new ConsoleCompletor(commandCenter));
+                    ( (JlineCommandInput) input ).getConsole().setCompleter( new ConsoleCompletor( commandCenter ) );
                 }
                 if ( options.getUrl() != null )
                 {

@@ -1,12 +1,12 @@
 package org.cyclopsgroup.jmxterm.io;
 
+import org.apache.commons.lang3.Validate;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
-
-import org.apache.commons.lang.Validate;
 
 /**
  * Implementation of CommandInput with given File

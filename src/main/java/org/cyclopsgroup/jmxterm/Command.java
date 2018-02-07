@@ -1,15 +1,14 @@
 package org.cyclopsgroup.jmxterm;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.management.JMException;
-
-import org.apache.commons.lang.Validate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.AutoCompletable;
 import org.cyclopsgroup.jcli.annotation.Option;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.management.JMException;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Base class of all commands. Command is executed in single thread. Extending classes don't need to worry about
@@ -21,7 +20,7 @@ import org.cyclopsgroup.jcli.annotation.Option;
 public abstract class Command
     implements AutoCompletable
 {
-    private static final Log LOG = LogFactory.getLog( Command.class );
+    private static final Logger LOG = LoggerFactory.getLogger( Command.class );
 
     private boolean help;
 

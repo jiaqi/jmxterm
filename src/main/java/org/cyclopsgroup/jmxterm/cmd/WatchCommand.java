@@ -1,5 +1,20 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
+import org.apache.commons.lang3.Validate;
+import org.cyclopsgroup.jcli.annotation.Argument;
+import org.cyclopsgroup.jcli.annotation.Cli;
+import org.cyclopsgroup.jcli.annotation.MultiValue;
+import org.cyclopsgroup.jcli.annotation.Option;
+import org.cyclopsgroup.jmxterm.Command;
+import org.cyclopsgroup.jmxterm.Session;
+import org.cyclopsgroup.jmxterm.io.CommandOutput;
+import org.cyclopsgroup.jmxterm.io.JlineCommandInput;
+import org.jline.reader.impl.LineReaderImpl;
+
+import javax.management.JMException;
+import javax.management.MBeanAttributeInfo;
+import javax.management.MBeanServerConnection;
+import javax.management.ObjectName;
 import java.io.IOException;
 import java.text.FieldPosition;
 import java.text.MessageFormat;
@@ -9,23 +24,6 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import javax.management.JMException;
-import javax.management.MBeanAttributeInfo;
-import javax.management.MBeanServerConnection;
-import javax.management.ObjectName;
-
-import jline.console.ConsoleReader;
-
-import org.apache.commons.lang.Validate;
-import org.cyclopsgroup.jcli.annotation.Argument;
-import org.cyclopsgroup.jcli.annotation.Cli;
-import org.cyclopsgroup.jcli.annotation.MultiValue;
-import org.cyclopsgroup.jcli.annotation.Option;
-import org.cyclopsgroup.jmxterm.Command;
-import org.cyclopsgroup.jmxterm.Session;
-import org.cyclopsgroup.jmxterm.io.CommandOutput;
-import org.cyclopsgroup.jmxterm.io.JlineCommandInput;
 
 /**
  * Command to watch an MBean attribute TODO Consider the use case for CSV file backend generation
@@ -39,7 +37,7 @@ public class WatchCommand
     private static class ConsoleOutput
         extends Output
     {
-        private final ConsoleReader console;
+        private final LineReaderImpl console;
 
         private ConsoleOutput( Session session )
         {
@@ -54,7 +52,7 @@ public class WatchCommand
             throws IOException
         {
             console.redrawLine();
-            console.print( line );
+            console.getTerminal().writer().print( line );
             console.flush();
         }
     }

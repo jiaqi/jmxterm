@@ -1,18 +1,18 @@
 package org.cyclopsgroup.jmxterm.jdk5;
 
+import org.apache.commons.lang3.Validate;
+import org.cyclopsgroup.jmxterm.JavaProcess;
+import org.cyclopsgroup.jmxterm.JavaProcessManager;
+import org.cyclopsgroup.jmxterm.utils.WeakCastUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.apache.commons.lang.Validate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.cyclopsgroup.jmxterm.JavaProcess;
-import org.cyclopsgroup.jmxterm.JavaProcessManager;
-import org.cyclopsgroup.jmxterm.utils.WeakCastUtils;
 
 /**
  * JDK5 specific implementation of {@link JavaProcessManager}
@@ -30,7 +30,7 @@ public class Jdk5JavaProcessManager
 
     private static final String CLASS_VM_IDENTIFIER = "sun.jvmstat.monitor.VmIdentifier";
 
-    private static final Log LOG = LogFactory.getLog( Jdk5JavaProcessManager.class );
+    private static final Logger LOG = LoggerFactory.getLogger( Jdk5JavaProcessManager.class );
 
     private final ConnectorAddressLink connectorAddressLink;
 

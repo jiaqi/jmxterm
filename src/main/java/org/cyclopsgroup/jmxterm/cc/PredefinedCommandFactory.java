@@ -1,16 +1,16 @@
 package org.cyclopsgroup.jmxterm.cc;
 
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.Validate;
+import org.cyclopsgroup.jmxterm.Command;
+import org.cyclopsgroup.jmxterm.CommandFactory;
+import org.cyclopsgroup.jmxterm.utils.ConfigurationUtils;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.collections.ExtendedProperties;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.Validate;
-import org.cyclopsgroup.jmxterm.Command;
-import org.cyclopsgroup.jmxterm.CommandFactory;
-import org.cyclopsgroup.jmxterm.utils.ExtendedPropertiesUtils;
 
 /**
  * Factory class of commands which knows how to create Command class with given command name
@@ -45,7 +45,7 @@ class PredefinedCommandFactory
     {
         Validate.notNull( configPath, "configPath can't be NULL" );
         ClassLoader classLoader = getClass().getClassLoader();
-        ExtendedProperties props = ExtendedPropertiesUtils.loadFromOverlappingResources( configPath, classLoader );
+        Configuration props = ConfigurationUtils.loadFromOverlappingResources( configPath, classLoader );
         if ( props == null )
         {
             throw new FileNotFoundException( "Couldn't load configuration from " + configPath

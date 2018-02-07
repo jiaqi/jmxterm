@@ -1,12 +1,12 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.cyclopsgroup.jcli.annotation.Cli;
+import org.cyclopsgroup.jcli.annotation.Option;
+import org.cyclopsgroup.jmxterm.Command;
+import org.cyclopsgroup.jmxterm.Session;
 
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
@@ -17,15 +17,13 @@ import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
-import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.builder.CompareToBuilder;
-import org.cyclopsgroup.jcli.annotation.Cli;
-import org.cyclopsgroup.jcli.annotation.Option;
-import org.cyclopsgroup.jmxterm.Command;
-import org.cyclopsgroup.jmxterm.Session;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Command that displays attributes and operations of an MBean
@@ -145,10 +143,11 @@ public class InfoCommand
                 found = true;
                 MBeanParameterInfo[] paramInfos = op.getSignature();
                 List<String> paramTypes = new ArrayList<String>(paramInfos.length);
-                StringBuilder paramsDesc = new StringBuilder("             parameters:" + SystemUtils.LINE_SEPARATOR);
+                StringBuilder paramsDesc = new StringBuilder( "             parameters:" + System.lineSeparator() );
                 for (MBeanParameterInfo paramInfo : paramInfos) {
                     String parameter = paramInfo.getName();
-                    paramsDesc.append(String.format("                 + %-20s : %s" + SystemUtils.LINE_SEPARATOR, parameter, paramInfo.getDescription()));
+                    paramsDesc.append( String.format( "                 + %-20s : %s" + System.lineSeparator(),
+                            parameter, paramInfo.getDescription() ) );
                     paramTypes.add(paramInfo.getType() + " " + parameter);
                 }
                 session.output.println(String.format("  %%%-3d - %s %s(%s), %s", index++, op.getReturnType(), opName,

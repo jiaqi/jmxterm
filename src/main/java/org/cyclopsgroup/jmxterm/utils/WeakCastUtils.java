@@ -1,5 +1,8 @@
 package org.cyclopsgroup.jmxterm.utils;
 
+import org.apache.commons.lang3.Validate;
+
+import javax.naming.OperationNotSupportedException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -7,10 +10,6 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.naming.OperationNotSupportedException;
-
-import org.apache.commons.lang.Validate;
 
 /**
  * Utility that cast object into given interface(s) even though class doesn't implement interface(s)

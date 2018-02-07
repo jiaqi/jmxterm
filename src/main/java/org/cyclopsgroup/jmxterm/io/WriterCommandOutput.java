@@ -1,11 +1,11 @@
 package org.cyclopsgroup.jmxterm.io;
 
+import org.apache.commons.io.output.NullWriter;
+import org.apache.commons.lang3.Validate;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-
-import org.apache.commons.io.output.NullWriter;
-import org.apache.commons.lang.Validate;
 
 /**
  * A command output that writes result and message to given writers
