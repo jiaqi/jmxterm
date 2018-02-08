@@ -13,28 +13,22 @@ import org.junit.Test;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class FileCommandInputTest
-{
-    /**
-     * Read commands from given test text file and verify result
-     * 
-     * @throws IOException If file IO is failed
-     */
-    @Test
-    public void testRead()
-        throws IOException
-    {
-        File testFile = new File( "src/test/testscript.jmx" );
-        FileCommandInput input = new FileCommandInput( testFile );
-        try
-        {
-            assertEquals( "beans", input.readLine() );
-            assertEquals( "exit", input.readLine() );
-            assertNull( input.readLine() );
-        }
-        finally
-        {
-            input.close();
-        }
+public class FileCommandInputTest {
+  /**
+   * Read commands from given test text file and verify result
+   * 
+   * @throws IOException If file IO is failed
+   */
+  @Test
+  public void testRead() throws IOException {
+    File testFile = new File("src/test/testscript.jmx");
+    FileCommandInput input = new FileCommandInput(testFile);
+    try {
+      assertEquals("beans", input.readLine());
+      assertEquals("exit", input.readLine());
+      assertNull(input.readLine());
+    } finally {
+      input.close();
     }
+  }
 }

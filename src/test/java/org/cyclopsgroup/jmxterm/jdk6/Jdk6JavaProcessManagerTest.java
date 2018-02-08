@@ -14,25 +14,22 @@ import static org.junit.Assert.assertFalse;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class Jdk6JavaProcessManagerTest
-{
-    /**
-     * Test to list processes
-     * 
-     * @throws Exception
-     * @throws NoSuchMethodException
-     * @throws SecurityException
-     */
-    @Test
-    public void testList()
-        throws Exception
-    {
-        if ( !SystemUtils.IS_JAVA_1_6 )
-        {
-            return;
-        }
-        Jdk6JavaProcessManager m = new Jdk6JavaProcessManager( JConsoleClassLoaderFactory.getClassLoader() );
-        List<JavaProcess> ps = m.list();
-        assertFalse( ps.isEmpty() );
+public class Jdk6JavaProcessManagerTest {
+  /**
+   * Test to list processes
+   * 
+   * @throws Exception
+   * @throws NoSuchMethodException
+   * @throws SecurityException
+   */
+  @Test
+  public void testList() throws Exception {
+    if (!SystemUtils.IS_JAVA_1_6) {
+      return;
     }
+    Jdk6JavaProcessManager m =
+        new Jdk6JavaProcessManager(JConsoleClassLoaderFactory.getClassLoader());
+    List<JavaProcess> ps = m.list();
+    assertFalse(ps.isEmpty());
+  }
 }

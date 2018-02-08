@@ -18,46 +18,37 @@ import java.util.Map;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli( name = "about", description = "Display about page" )
-public class AboutCommand
-    extends Command
-{
-    private boolean showDescription;
+@Cli(name = "about", description = "Display about page")
+public class AboutCommand extends Command {
+  private boolean showDescription;
 
-    @Override
-    public void execute()
-        throws IOException, JMException
-    {
-        Session session = getSession();
-        // output predefined about properties
-        Configuration props =
-                ConfigurationUtils.loadFromOverlappingResources( "META-INF/cyclopsgroup/jmxterm.properties",
-                                                                  getClass().getClassLoader() );
-        ValueOutputFormat format = new ValueOutputFormat( 2, showDescription, true );
-        Configuration subset = props.subset( "jmxterm.about" );
-        for ( Iterator<String> iterator = subset.getKeys(); iterator.hasNext(); )
-        {
-            String key = iterator.next();
-            format.printExpression( session.output, key, subset.getProperty( key ), null );
-        }
-
-        // output Java runtime properties
-        for ( Map.Entry<Object, Object> entry : System.getProperties().entrySet() )
-        {
-            String keyName = entry.toString();
-            if ( keyName.startsWith( "java." ) )
-            {
-                format.printExpression( session.output, keyName, entry.getValue(), null );
-            }
-        }
+  @Override
+  public void execute() throws IOException, JMException {
+    Session session = getSession();
+    // output predefined about properties
+    Configuration props = ConfigurationUtils.loadFromOverlappingResources(
+        "META-INF/cyclopsgroup/jmxterm.properties", getClass().getClassLoader());
+    ValueOutputFormat format = new ValueOutputFormat(2, showDescription, true);
+    Configuration subset = props.subset("jmxterm.about");
+    for (Iterator<String> iterator = subset.getKeys(); iterator.hasNext();) {
+      String key = iterator.next();
+      format.printExpression(session.output, key, subset.getProperty(key), null);
     }
 
-    /**
-     * @param showDescription True to show detail description
-     */
-    @Option( name = "s", longName = "show", description = "Show detail description" )
-    public final void setShowDescription( boolean showDescription )
-    {
-        this.showDescription = showDescription;
+    // output Java runtime properties
+    for (Map.Entry<Object, Object> entry : System.getProperties().entrySet()) {
+      String keyName = entry.toString();
+      if (keyName.startsWith("java.")) {
+        format.printExpression(session.output, keyName, entry.getValue(), null);
+      }
     }
+  }
+
+  /**
+   * @param showDescription True to show detail description
+   */
+  @Option(name = "s", longName = "show", description = "Show detail description")
+  public final void setShowDescription(boolean showDescription) {
+    this.showDescription = showDescription;
+  }
 }

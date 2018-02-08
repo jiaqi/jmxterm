@@ -15,33 +15,29 @@ import org.junit.Test;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class QuitCommandTest
-{
-    private QuitCommand command;
+public class QuitCommandTest {
+  private QuitCommand command;
 
-    private StringWriter output;
+  private StringWriter output;
 
-    /**
-     * Setup objects to test
-     */
-    @Before
-    public void setUp()
-    {
-        command = new QuitCommand();
-        output = new StringWriter();
-    }
+  /**
+   * Setup objects to test
+   */
+  @Before
+  public void setUp() {
+    command = new QuitCommand();
+    output = new StringWriter();
+  }
 
-    /**
-     * @throws Exception
-     */
-    @Test
-    public void testExecute()
-        throws Exception
-    {
-        Session session = new MockSession( output, null );
-        command.setSession( session );
-        command.execute();
-        assertFalse( session.isConnected() );
-        assertTrue( session.isClosed() );
-    }
+  /**
+   * @throws Exception
+   */
+  @Test
+  public void testExecute() throws Exception {
+    Session session = new MockSession(output, null);
+    command.setSession(session);
+    command.execute();
+    assertFalse(session.isConnected());
+    assertTrue(session.isClosed());
+  }
 }

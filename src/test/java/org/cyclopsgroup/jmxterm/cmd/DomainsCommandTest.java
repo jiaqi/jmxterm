@@ -16,43 +16,38 @@ import static org.junit.Assert.assertEquals;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class DomainsCommandTest
-{
-    private DomainsCommand command;
+public class DomainsCommandTest {
+  private DomainsCommand command;
 
-    private Mockery context;
+  private Mockery context;
 
-    /**
-     * Set up objects to test
-     */
-    @Before
-    public void setUp()
-    {
-        command = new DomainsCommand();
-        context = new Mockery();
-    }
+  /**
+   * Set up objects to test
+   */
+  @Before
+  public void setUp() {
+    command = new DomainsCommand();
+    context = new Mockery();
+  }
 
-    /**
-     * Test normal execution
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void testExecution()
-        throws Exception
-    {
-        final MBeanServerConnection con = context.mock( MBeanServerConnection.class );
-        StringWriter output = new StringWriter();
-        context.checking( new Expectations()
-        {
-            {
-                oneOf( con ).getDomains();
-                will( returnValue( new String[] { "a", "b" } ) );
-            }
-        } );
-        command.setSession( new MockSession( output, con ) );
-        command.execute();
-        context.assertIsSatisfied();
-        assertEquals( "a" + System.lineSeparator() + "b", output.toString().trim() );
-    }
+  /**
+   * Test normal execution
+   * 
+   * @throws Exception
+   */
+  @Test
+  public void testExecution() throws Exception {
+    final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
+    StringWriter output = new StringWriter();
+    context.checking(new Expectations() {
+      {
+        oneOf(con).getDomains();
+        will(returnValue(new String[] {"a", "b"}));
+      }
+    });
+    command.setSession(new MockSession(output, con));
+    command.execute();
+    context.assertIsSatisfied();
+    assertEquals("a" + System.lineSeparator() + "b", output.toString().trim());
+  }
 }

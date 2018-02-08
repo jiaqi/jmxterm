@@ -5,10 +5,9 @@ package org.cyclopsgroup.jmxterm.io;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public interface VerboseCommandOutputConfig
-{
-    /**
-     * @return Dynamic value of verbose level
-     */
-    VerboseLevel getVerboseLevel();
+public interface VerboseCommandOutputConfig {
+  /**
+   * @return Dynamic value of verbose level
+   */
+  VerboseLevel getVerboseLevel();
 }

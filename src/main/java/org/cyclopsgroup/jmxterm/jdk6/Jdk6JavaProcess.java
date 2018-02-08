@@ -8,47 +8,39 @@ import org.cyclopsgroup.jmxterm.JavaProcess;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-class Jdk6JavaProcess
-    implements JavaProcess
-{
-    private final LocalVirtualMachine vm;
+class Jdk6JavaProcess implements JavaProcess {
+  private final LocalVirtualMachine vm;
 
-    /**
-     * @param vm Local VM
-     */
-    Jdk6JavaProcess( LocalVirtualMachine vm )
-    {
-        Validate.notNull( vm, "VM can't be NULL" );
-        this.vm = vm;
-    }
+  /**
+   * @param vm Local VM
+   */
+  Jdk6JavaProcess(LocalVirtualMachine vm) {
+    Validate.notNull(vm, "VM can't be NULL");
+    this.vm = vm;
+  }
 
-    @Override
-    public String getDisplayName()
-    {
-        return vm.displayName();
-    }
+  @Override
+  public String getDisplayName() {
+    return vm.displayName();
+  }
 
-    @Override
-    public int getProcessId()
-    {
-        return vm.vmid();
-    }
+  @Override
+  public int getProcessId() {
+    return vm.vmid();
+  }
 
-    @Override
-    public boolean isManageable()
-    {
-        return vm.isManageable();
-    }
+  @Override
+  public boolean isManageable() {
+    return vm.isManageable();
+  }
 
-    @Override
-    public void startManagementAgent()
-    {
-        vm.startManagementAgent();
-    }
+  @Override
+  public void startManagementAgent() {
+    vm.startManagementAgent();
+  }
 
-    @Override
-    public String toUrl()
-    {
-        return vm.connectorAddress();
-    }
+  @Override
+  public String toUrl() {
+    return vm.connectorAddress();
+  }
 }

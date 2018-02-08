@@ -25,217 +25,183 @@ import java.util.Map;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli( name = "get", description = "Get value of MBean attribute(s)", note = "* stands for all attributes. eg. get Attribute1 Attribute2 or get *" )
-public class GetCommand
-    extends Command
-{
-    private List<String> attributes = new ArrayList<String>();
+@Cli(name = "get", description = "Get value of MBean attribute(s)",
+    note = "* stands for all attributes. eg. get Attribute1 Attribute2 or get *")
+public class GetCommand extends Command {
+  private List<String> attributes = new ArrayList<String>();
 
-    private String bean;
+  private String bean;
 
-    private String domain;
+  private String domain;
 
-    private boolean singleLine = false;
+  private boolean singleLine = false;
 
-    private String delimiter = "";
+  private String delimiter = "";
 
-    private boolean showDescription;
+  private boolean showDescription;
 
-    private boolean showQuotationMarks;
+  private boolean showQuotationMarks;
 
-    private boolean simpleFormat;
+  private boolean simpleFormat;
 
-    private void displayAttributes()
-        throws IOException, JMException
-    {
-        Session session = getSession();
-        String beanName = BeanCommand.getBeanName( bean, domain, session );
-        ObjectName name = new ObjectName( beanName );
-        session.output.printMessage( "mbean = " + beanName + ":" );
-        MBeanServerConnection con = session.getConnection().getServerConnection();
-        MBeanAttributeInfo[] ais = con.getMBeanInfo( name ).getAttributes();
-        Map<String, MBeanAttributeInfo> attributeNames =
-                ListOrderedMap.listOrderedMap( new HashMap<String, MBeanAttributeInfo>() );
-        if ( attributes.contains( "*" ) )
-        {
-            for ( MBeanAttributeInfo ai : ais )
-            {
-                attributeNames.put( ai.getName(), ai );
-            }
+  private void displayAttributes() throws IOException, JMException {
+    Session session = getSession();
+    String beanName = BeanCommand.getBeanName(bean, domain, session);
+    ObjectName name = new ObjectName(beanName);
+    session.output.printMessage("mbean = " + beanName + ":");
+    MBeanServerConnection con = session.getConnection().getServerConnection();
+    MBeanAttributeInfo[] ais = con.getMBeanInfo(name).getAttributes();
+    Map<String, MBeanAttributeInfo> attributeNames =
+        ListOrderedMap.listOrderedMap(new HashMap<String, MBeanAttributeInfo>());
+    if (attributes.contains("*")) {
+      for (MBeanAttributeInfo ai : ais) {
+        attributeNames.put(ai.getName(), ai);
+      }
+    } else {
+      for (String arg : attributes) {
+        String[] attributeNameElements = arg.split("\\.");
+
+        String firstPath = attributeNameElements[0];
+
+        for (MBeanAttributeInfo ai : ais) {
+          if (ai.getName().equals(firstPath)) {
+            attributeNames.put(arg, ai);
+            break;
+          }
         }
-        else
-        {
-            for ( String arg : attributes )
-            {
-                String[] attributeNameElements = arg.split("\\.");
+      }
+    }
+    ValueOutputFormat format = new ValueOutputFormat(2, showDescription, showQuotationMarks);
+    for (Map.Entry<String, MBeanAttributeInfo> entry : attributeNames.entrySet()) {
+      String attributeName = entry.getKey();
+      MBeanAttributeInfo i = entry.getValue();
+      if (i.isReadable()) {
+        String[] attributeNameElements = attributeName.split("\\.");
 
-                String firstPath = attributeNameElements[0];
-
-                for ( MBeanAttributeInfo ai : ais )
-                {
-                    if ( ai.getName().equals( firstPath ) )
-                    {
-                        attributeNames.put( arg, ai );
-                        break;
-                    }
-                }
-            }
+        String attributeNameToRequest = attributeName;
+        if (attributeNameElements.length > 1) {
+          attributeNameToRequest = attributeNameElements[0];
         }
-        ValueOutputFormat format = new ValueOutputFormat( 2, showDescription, showQuotationMarks );
-        for ( Map.Entry<String, MBeanAttributeInfo> entry : attributeNames.entrySet() )
-        {
-            String attributeName = entry.getKey();
-            MBeanAttributeInfo i = entry.getValue();
-            if ( i.isReadable() )
-            {
-                String[] attributeNameElements = attributeName.split("\\.");
 
-                String attributeNameToRequest = attributeName;
-                if ( attributeNameElements.length > 1 ) {
-                    attributeNameToRequest = attributeNameElements[0];
-                }
+        Object result = con.getAttribute(name, attributeNameToRequest);
 
-                Object result = con.getAttribute( name, attributeNameToRequest );
-
-                if ( result instanceof javax.management.openmbean.CompositeDataSupport ) {
-                    if ( attributeNameElements.length > 1 ) {
-                        result = ((javax.management.openmbean.CompositeDataSupport)result).get(attributeNameElements[1]);
-                    }
-                }
-
-                if ( simpleFormat )
-                {
-                    format.printValue( session.output, result );
-                }
-                else
-                {
-                    format.printExpression( session.output, attributeName, result, i.getDescription() );
-                }
-                session.output.print( delimiter );
-                if ( !singleLine )
-                {
-                session.output.println( "" );
-                }
-            }
-            else
-            {
-                session.output.printMessage( i.getName() + " is not readable" );
-            }
+        if (result instanceof javax.management.openmbean.CompositeDataSupport) {
+          if (attributeNameElements.length > 1) {
+            result = ((javax.management.openmbean.CompositeDataSupport) result)
+                .get(attributeNameElements[1]);
+          }
         }
-    }
 
-    @Override
-    public List<String> doSuggestArgument()
-        throws IOException, JMException
-    {
-        if ( getSession().getBean() != null )
-        {
-            MBeanServerConnection con = getSession().getConnection().getServerConnection();
-            MBeanAttributeInfo[] ais = con.getMBeanInfo( new ObjectName( getSession().getBean() ) ).getAttributes();
-            List<String> results = new ArrayList<String>( ais.length );
-            for ( MBeanAttributeInfo ai : ais )
-            {
-                results.add( ai.getName() );
-            }
-            return results;
+        if (simpleFormat) {
+          format.printValue(session.output, result);
+        } else {
+          format.printExpression(session.output, attributeName, result, i.getDescription());
         }
-        return null;
-    }
-
-    @Override
-    protected List<String> doSuggestOption( String optionName )
-        throws JMException
-    {
-        if ( optionName.equals( "d" ) )
-        {
-            return DomainsCommand.getCandidateDomains( getSession() );
+        session.output.print(delimiter);
+        if (!singleLine) {
+          session.output.println("");
         }
-        else if ( optionName.equals( "b" ) )
-        {
-            return BeanCommand.getCandidateBeanNames( getSession() );
-        }
-        else
-        {
-            return null;
-        }
+      } else {
+        session.output.printMessage(i.getName() + " is not readable");
+      }
     }
+  }
 
-    @Override
-    public void execute()
-        throws JMException, IOException
-    {
-        if ( attributes.isEmpty() )
-        {
-            throw new IllegalArgumentException( "Please specify at least one attribute" );
-        }
-        displayAttributes();
+  @Override
+  public List<String> doSuggestArgument() throws IOException, JMException {
+    if (getSession().getBean() != null) {
+      MBeanServerConnection con = getSession().getConnection().getServerConnection();
+      MBeanAttributeInfo[] ais =
+          con.getMBeanInfo(new ObjectName(getSession().getBean())).getAttributes();
+      List<String> results = new ArrayList<String>(ais.length);
+      for (MBeanAttributeInfo ai : ais) {
+        results.add(ai.getName());
+      }
+      return results;
     }
+    return null;
+  }
 
-    /**
-     * @param attributes List of attribute names
-     */
-    @MultiValue( listType = ArrayList.class, minValues = 1 )
-    @Argument( displayName = "attr", description = "Name of attributes to select" )
-    public final void setAttributes( List<String> attributes )
-    {
-        Validate.notNull( attributes, "Attributes can't be NULL" );
-        this.attributes = attributes;
+  @Override
+  protected List<String> doSuggestOption(String optionName) throws JMException {
+    if (optionName.equals("d")) {
+      return DomainsCommand.getCandidateDomains(getSession());
+    } else if (optionName.equals("b")) {
+      return BeanCommand.getCandidateBeanNames(getSession());
+    } else {
+      return null;
     }
+  }
 
-    /**
-     * @param bean Bean under which attribute is get
-     */
-    @Option( name = "b", longName = "bean", description = "MBean name where the attribute is. Optional if bean has been set" )
-    public final void setBean( String bean )
-    {
-        this.bean = bean;
+  @Override
+  public void execute() throws JMException, IOException {
+    if (attributes.isEmpty()) {
+      throw new IllegalArgumentException("Please specify at least one attribute");
     }
+    displayAttributes();
+  }
 
-    /**
-     * @param domain Domain under which bean is selected
-     */
-    @Option( name = "d", longName = "domain", description = "Domain of bean, optional" )
-    public final void setDomain( String domain )
-    {
-        this.domain = domain;
-    }
+  /**
+   * @param attributes List of attribute names
+   */
+  @MultiValue(listType = ArrayList.class, minValues = 1)
+  @Argument(displayName = "attr", description = "Name of attributes to select")
+  public final void setAttributes(List<String> attributes) {
+    Validate.notNull(attributes, "Attributes can't be NULL");
+    this.attributes = attributes;
+  }
 
-    /**
-     * @param showDescription True to show detail description
-     */
-    @Option( name = "i", longName = "info", description = "Show detail information of each attribute" )
-    public final void setShowDescription( boolean showDescription )
-    {
-        this.showDescription = showDescription;
-    }
+  /**
+   * @param bean Bean under which attribute is get
+   */
+  @Option(name = "b", longName = "bean",
+      description = "MBean name where the attribute is. Optional if bean has been set")
+  public final void setBean(String bean) {
+    this.bean = bean;
+  }
 
-    /**
-     * @param noQuotationMarks True if value is not surrounded by quotation marsk
-     */
-    @Option( name = "q", longName = "quots", description = "Quotation marks around value" )
-    public final void setShowQuotationMarks( boolean noQuotationMarks )
-    {
-        this.showQuotationMarks = noQuotationMarks;
-    }
+  /**
+   * @param domain Domain under which bean is selected
+   */
+  @Option(name = "d", longName = "domain", description = "Domain of bean, optional")
+  public final void setDomain(String domain) {
+    this.domain = domain;
+  }
 
-    /**
-     * @param simpleFormat True if value is printed out in a simple format without full expression
-     */
-    @Option( name = "s", longName = "simple", description = "Print simple expression of value without full expression" )
-    public final void setSimpleFormat( boolean simpleFormat )
-    {
-        this.simpleFormat = simpleFormat;
-    }
+  /**
+   * @param showDescription True to show detail description
+   */
+  @Option(name = "i", longName = "info", description = "Show detail information of each attribute")
+  public final void setShowDescription(boolean showDescription) {
+    this.showDescription = showDescription;
+  }
 
-    @Option( name = "l", longName = "delimiter", description = "Sets an optional delimiter to be printed after the value" )
-    public final void setDelimiter( String delimiter )
-    {
-        this.delimiter = delimiter;
-    }
+  /**
+   * @param noQuotationMarks True if value is not surrounded by quotation marsk
+   */
+  @Option(name = "q", longName = "quots", description = "Quotation marks around value")
+  public final void setShowQuotationMarks(boolean noQuotationMarks) {
+    this.showQuotationMarks = noQuotationMarks;
+  }
 
-    @Option( name = "n", longName = "singleLine", description = "Prints result without a newline - default is false" )
-    public final void setSingleLine( boolean singleLine )
-    {
-        this.singleLine = singleLine;
-    }
+  /**
+   * @param simpleFormat True if value is printed out in a simple format without full expression
+   */
+  @Option(name = "s", longName = "simple",
+      description = "Print simple expression of value without full expression")
+  public final void setSimpleFormat(boolean simpleFormat) {
+    this.simpleFormat = simpleFormat;
+  }
+
+  @Option(name = "l", longName = "delimiter",
+      description = "Sets an optional delimiter to be printed after the value")
+  public final void setDelimiter(String delimiter) {
+    this.delimiter = delimiter;
+  }
+
+  @Option(name = "n", longName = "singleLine",
+      description = "Prints result without a newline - default is false")
+  public final void setSingleLine(boolean singleLine) {
+    this.singleLine = singleLine;
+  }
 }

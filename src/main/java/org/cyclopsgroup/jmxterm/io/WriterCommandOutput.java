@@ -12,65 +12,51 @@ import java.io.Writer;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class WriterCommandOutput
-    extends CommandOutput
-{
-    private final Writer messageOutput;
+public class WriterCommandOutput extends CommandOutput {
+  private final Writer messageOutput;
 
-    private final Writer resultOutput;
+  private final Writer resultOutput;
 
-    /**
-     * @param output Writer for both result and message
-     */
-    public WriterCommandOutput( Writer output )
-    {
-        this( output, output );
+  /**
+   * @param output Writer for both result and message
+   */
+  public WriterCommandOutput(Writer output) {
+    this(output, output);
+  }
+
+  /**
+   * @param resultOutput IO Writer for result output
+   * @param messageOutput IO Writer for message output
+   */
+  public WriterCommandOutput(Writer resultOutput, Writer messageOutput) {
+    Validate.notNull(resultOutput, "Result output can't be NULL");
+    this.resultOutput = resultOutput;
+    this.messageOutput = messageOutput == null ? new NullWriter() : messageOutput;
+  }
+
+  @Override
+  public void print(String output) {
+    if (output == null) {
+      return;
     }
-
-    /**
-     * @param resultOutput IO Writer for result output
-     * @param messageOutput IO Writer for message output
-     */
-    public WriterCommandOutput( Writer resultOutput, Writer messageOutput )
-    {
-        Validate.notNull( resultOutput, "Result output can't be NULL" );
-        this.resultOutput = resultOutput;
-        this.messageOutput = messageOutput == null ? new NullWriter() : messageOutput;
+    try {
+      resultOutput.write(output);
+    } catch (IOException e) {
+      throw new RuntimeIOException("Can't print out result", e);
     }
+  }
 
-    @Override
-    public void print( String output )
-    {
-        if ( output == null )
-        {
-            return;
-        }
-        try
-        {
-            resultOutput.write( output );
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeIOException( "Can't print out result", e );
-        }
-    }
+  @Override
+  public void printError(Throwable e) {
+    e.printStackTrace(new PrintWriter(messageOutput, true));
+  }
 
-    @Override
-    public void printError( Throwable e )
-    {
-        e.printStackTrace( new PrintWriter( messageOutput, true ) );
+  @Override
+  public void printMessage(String message) {
+    try {
+      messageOutput.write(message);
+    } catch (IOException e) {
+      throw new RuntimeIOException("Can't print out message", e);
     }
-
-    @Override
-    public void printMessage( String message )
-    {
-        try
-        {
-            messageOutput.write( message );
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeIOException( "Can't print out message", e );
-        }
-    }
+  }
 }

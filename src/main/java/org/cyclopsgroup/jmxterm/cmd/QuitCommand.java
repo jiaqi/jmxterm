@@ -11,17 +11,13 @@ import org.cyclopsgroup.jmxterm.Session;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli( name = "quit", description = "Terminate console and exit" )
-public class QuitCommand
-    extends Command
-{
-    @Override
-    public void execute()
-        throws IOException
-    {
-        Session session = getSession();
-        session.disconnect();
-        session.close();
-        session.output.printMessage( "bye" );
-    }
+@Cli(name = "quit", description = "Terminate console and exit")
+public class QuitCommand extends Command {
+  @Override
+  public void execute() throws IOException {
+    Session session = getSession();
+    session.disconnect();
+    session.close();
+    session.output.printMessage("bye");
+  }
 }

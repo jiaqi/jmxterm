@@ -12,32 +12,28 @@ import org.junit.Test;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class OptionCommandTest
-{
-    private OptionCommand command;
+public class OptionCommandTest {
+  private OptionCommand command;
 
-    private StringWriter output;
+  private StringWriter output;
 
-    /**
-     * Set up object to test
-     */
-    @Before
-    public void setUp()
-    {
-        command = new OptionCommand();
-        output = new StringWriter();
-    }
+  /**
+   * Set up object to test
+   */
+  @Before
+  public void setUp() {
+    command = new OptionCommand();
+    output = new StringWriter();
+  }
 
-    /**
-     * @throws Exception
-     */
-    @Test( expected = IllegalArgumentException.class )
-    public void testExecuteWithInvalidVerbose()
-        throws Exception
-    {
-        Session session = new MockSession( output, null );
-        command.setVerboseLevel( "xyz" );
-        command.setSession( session );
-        command.execute();
-    }
+  /**
+   * @throws Exception
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testExecuteWithInvalidVerbose() throws Exception {
+    Session session = new MockSession(output, null);
+    command.setVerboseLevel("xyz");
+    command.setSession(session);
+    command.execute();
+  }
 }

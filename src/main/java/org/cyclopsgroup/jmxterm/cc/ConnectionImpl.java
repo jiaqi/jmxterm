@@ -13,61 +13,50 @@ import java.io.IOException;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-class ConnectionImpl
-    implements Connection
-{
-    private final JMXConnector connector;
+class ConnectionImpl implements Connection {
+  private final JMXConnector connector;
 
-    private final JMXServiceURL url;
+  private final JMXServiceURL url;
 
-    /**
-     * @param connector JMX connector
-     * @param url JMX service URL object
-     */
-    ConnectionImpl( JMXConnector connector, JMXServiceURL url )
-    {
-        Validate.notNull( connector, "JMX connector can't be NULL" );
-        Validate.notNull( url, "JMX service URL can't be NULL" );
-        this.connector = connector;
-        this.url = url;
-    }
+  /**
+   * @param connector JMX connector
+   * @param url JMX service URL object
+   */
+  ConnectionImpl(JMXConnector connector, JMXServiceURL url) {
+    Validate.notNull(connector, "JMX connector can't be NULL");
+    Validate.notNull(url, "JMX service URL can't be NULL");
+    this.connector = connector;
+    this.url = url;
+  }
 
-    /**
-     * Close current connection
-     *
-     * @throws IOException Communication error
-     */
-    void close()
-        throws IOException
-    {
-        connector.close();
-    }
+  /**
+   * Close current connection
+   *
+   * @throws IOException Communication error
+   */
+  void close() throws IOException {
+    connector.close();
+  }
 
-    /**
-     * @return JMX connector
-     */
-    public final JMXConnector getConnector()
-    {
-        return connector;
-    }
+  /**
+   * @return JMX connector
+   */
+  public final JMXConnector getConnector() {
+    return connector;
+  }
 
-    @Override
-    public String getConnectorId()
-        throws IOException
-    {
-        return connector.getConnectionId();
-    }
+  @Override
+  public String getConnectorId() throws IOException {
+    return connector.getConnectionId();
+  }
 
-    @Override
-    public MBeanServerConnection getServerConnection()
-        throws IOException
-    {
-        return connector.getMBeanServerConnection();
-    }
+  @Override
+  public MBeanServerConnection getServerConnection() throws IOException {
+    return connector.getMBeanServerConnection();
+  }
 
-    @Override
-    public final JMXServiceURL getUrl()
-    {
-        return url;
-    }
+  @Override
+  public final JMXServiceURL getUrl() {
+    return url;
+  }
 }

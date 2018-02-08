@@ -16,87 +16,70 @@ import java.util.List;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli( name = "domain", description = "Display or set current selected domain. ", note = "With a parameter, parameter defined domain is selected, otherwise it displays current selected domain."
-    + " eg. domain java.lang" )
-public class DomainCommand
-    extends Command
-{
-    /**
-     * Get domain name from given domain expression
-     *
-     * @param domain Domain expression, which can be a name or NULL
-     * @param session Current JMX session
-     * @return String name of domain coming from given parameter or current session
-     * @throws IOException
-     */
-    static String getDomainName( String domain, Session session )
-        throws IOException
-    {
-        Validate.notNull( session, "Session can't be NULL" );
-        Validate.isTrue( session.getConnection() != null, "Session isn't opened" );
-        if ( domain == null )
-        {
-            return session.getDomain();
-        }
-        if ( SyntaxUtils.isNull( domain ) )
-        {
-            return null;
-        }
-        HashSet<String> domains = new HashSet<String>( DomainsCommand.getCandidateDomains( session ) );
-        if ( !domains.contains( domain ) )
-        {
-            throw new IllegalArgumentException( "Domain " + domain + " doesn't exist, check your spelling" );
-        }
-        return domain;
+@Cli(name = "domain", description = "Display or set current selected domain. ",
+    note = "With a parameter, parameter defined domain is selected, otherwise it displays current selected domain."
+        + " eg. domain java.lang")
+public class DomainCommand extends Command {
+  /**
+   * Get domain name from given domain expression
+   *
+   * @param domain Domain expression, which can be a name or NULL
+   * @param session Current JMX session
+   * @return String name of domain coming from given parameter or current session
+   * @throws IOException
+   */
+  static String getDomainName(String domain, Session session) throws IOException {
+    Validate.notNull(session, "Session can't be NULL");
+    Validate.isTrue(session.getConnection() != null, "Session isn't opened");
+    if (domain == null) {
+      return session.getDomain();
     }
-
-    private String domain;
-
-    @Override
-    public List<String> doSuggestArgument()
-        throws IOException
-    {
-        return DomainsCommand.getCandidateDomains( getSession() );
+    if (SyntaxUtils.isNull(domain)) {
+      return null;
     }
-
-    @Override
-    public void execute()
-        throws IOException
-    {
-        Session session = getSession();
-        if ( domain == null )
-        {
-            if ( session.getDomain() == null )
-            {
-                session.output.printMessage( "domain is not set" );
-                session.output.println( SyntaxUtils.NULL );
-            }
-            else
-            {
-                session.output.printMessage( "domain = " + session.getDomain() );
-                session.output.println( session.getDomain() );
-            }
-            return;
-        }
-        String domainName = getDomainName( domain, session );
-        if ( domainName == null )
-        {
-            session.unsetDomain();
-            session.output.printMessage( "domain is unset" );
-        }
-        else
-        {
-            session.setDomain( domainName );
-            session.output.printMessage( "domain is set to " + session.getDomain() );
-        }
+    HashSet<String> domains = new HashSet<String>(DomainsCommand.getCandidateDomains(session));
+    if (!domains.contains(domain)) {
+      throw new IllegalArgumentException(
+          "Domain " + domain + " doesn't exist, check your spelling");
     }
+    return domain;
+  }
 
-    /**
-     * @param domain Domain to select
-     */
-    @Argument( displayName = "domain", description = "Name of domain to set" )
-    public final void setDomain( String domain )
-    {
-        this.domain = domain;
+  private String domain;
+
+  @Override
+  public List<String> doSuggestArgument() throws IOException {
+    return DomainsCommand.getCandidateDomains(getSession());
+  }
+
+  @Override
+  public void execute() throws IOException {
+    Session session = getSession();
+    if (domain == null) {
+      if (session.getDomain() == null) {
+        session.output.printMessage("domain is not set");
+        session.output.println(SyntaxUtils.NULL);
+      } else {
+        session.output.printMessage("domain = " + session.getDomain());
+        session.output.println(session.getDomain());
+      }
+      return;
     }
+    String domainName = getDomainName(domain, session);
+    if (domainName == null) {
+      session.unsetDomain();
+      session.output.printMessage("domain is unset");
+    } else {
+      session.setDomain(domainName);
+      session.output.printMessage("domain is set to " + session.getDomain());
+    }
+  }
+
+  /**
+   * @param domain Domain to select
+   */
+  @Argument(displayName = "domain", description = "Name of domain to set")
+  public final void setDomain(String domain) {
+    this.domain = domain;
+  }
 }

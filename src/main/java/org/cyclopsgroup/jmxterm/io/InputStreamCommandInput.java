@@ -12,38 +12,29 @@ import java.io.LineNumberReader;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class InputStreamCommandInput
-    extends CommandInput
-{
-    private final LineNumberReader reader;
+public class InputStreamCommandInput extends CommandInput {
+  private final LineNumberReader reader;
 
-    /**
-     * @param in Given input stream
-     */
-    public InputStreamCommandInput( InputStream in )
-    {
-        Validate.notNull( in, "Input stream can't be NULL" );
-        reader = new LineNumberReader( new InputStreamReader( in ) );
-    }
+  /**
+   * @param in Given input stream
+   */
+  public InputStreamCommandInput(InputStream in) {
+    Validate.notNull(in, "Input stream can't be NULL");
+    reader = new LineNumberReader(new InputStreamReader(in));
+  }
 
-    @Override
-    public String readLine()
-        throws IOException
-    {
-        return reader.readLine();
-    }
+  @Override
+  public String readLine() throws IOException {
+    return reader.readLine();
+  }
 
-    @Override
-    public String readMaskedString( String prompt )
-        throws IOException
-    {
-        throw new UnsupportedOperationException( "Reading password from stream is not supported" );
-    }
+  @Override
+  public String readMaskedString(String prompt) throws IOException {
+    throw new UnsupportedOperationException("Reading password from stream is not supported");
+  }
 
-    @Override
-    public void close()
-        throws IOException
-    {
-        reader.close();
-    }
+  @Override
+  public void close() throws IOException {
+    reader.close();
+  }
 }

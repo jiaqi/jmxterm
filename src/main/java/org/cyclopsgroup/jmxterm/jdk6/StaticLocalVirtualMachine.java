@@ -7,10 +7,9 @@ import java.util.Map;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public interface StaticLocalVirtualMachine
-{
-    /**
-     * @return Map of all virtual machines running on local
-     */
-    Map<Integer, Object> getAllVirtualMachines();
+public interface StaticLocalVirtualMachine {
+  /**
+   * @return Map of all virtual machines running on local
+   */
+  Map<Integer, Object> getAllVirtualMachines();
 }

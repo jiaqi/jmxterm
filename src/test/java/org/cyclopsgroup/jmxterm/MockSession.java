@@ -15,48 +15,39 @@ import org.cyclopsgroup.jmxterm.pm.UnsupportedJavaProcessManager;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class MockSession
-    extends Session
-{
-    private boolean connected = true;
+public class MockSession extends Session {
+  private boolean connected = true;
 
-    private MockConnection connection;
+  private MockConnection connection;
 
-    /**
-     * @param output Output writer
-     * @param con MBean service connection
-     * @throws IOException
-     */
-    public MockSession( Writer output, MBeanServerConnection con )
-        throws IOException
-    {
-        super( new WriterCommandOutput( output, null ), null, new UnsupportedJavaProcessManager( "testing" ) );
-        connection = new MockConnection( SyntaxUtils.getUrl( "localhost:9991", null ), con );
-    }
+  /**
+   * @param output Output writer
+   * @param con MBean service connection
+   * @throws IOException
+   */
+  public MockSession(Writer output, MBeanServerConnection con) throws IOException {
+    super(new WriterCommandOutput(output, null), null,
+        new UnsupportedJavaProcessManager("testing"));
+    connection = new MockConnection(SyntaxUtils.getUrl("localhost:9991", null), con);
+  }
 
-    @Override
-    public void connect( JMXServiceURL url, Map<String, Object> env )
-        throws IOException
-    {
-        connected = true;
-    }
+  @Override
+  public void connect(JMXServiceURL url, Map<String, Object> env) throws IOException {
+    connected = true;
+  }
 
-    @Override
-    public void disconnect()
-        throws IOException
-    {
-        connected = false;
-    }
+  @Override
+  public void disconnect() throws IOException {
+    connected = false;
+  }
 
-    @Override
-    public Connection getConnection()
-    {
-        return connection;
-    }
+  @Override
+  public Connection getConnection() {
+    return connection;
+  }
 
-    @Override
-    public boolean isConnected()
-    {
-        return connected;
-    }
+  @Override
+  public boolean isConnected() {
+    return connected;
+  }
 }

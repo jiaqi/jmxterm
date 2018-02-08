@@ -15,51 +15,42 @@ import org.cyclopsgroup.jmxterm.io.VerboseLevel;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli( name = "option", description = "Set options for command session" )
-public class OptionCommand
-    extends Command
-{
-    private static final List<String> VERBOSE_LEVEL_VALUES;
-    static
-    {
-        List<String> verboseLevelValues = new ArrayList<String>();
-        for ( VerboseLevel level : VerboseLevel.values() )
-        {
-            verboseLevelValues.add( level.name().toLowerCase() );
-        }
-        VERBOSE_LEVEL_VALUES = Collections.unmodifiableList( verboseLevelValues );
+@Cli(name = "option", description = "Set options for command session")
+public class OptionCommand extends Command {
+  private static final List<String> VERBOSE_LEVEL_VALUES;
+  static {
+    List<String> verboseLevelValues = new ArrayList<String>();
+    for (VerboseLevel level : VerboseLevel.values()) {
+      verboseLevelValues.add(level.name().toLowerCase());
     }
+    VERBOSE_LEVEL_VALUES = Collections.unmodifiableList(verboseLevelValues);
+  }
 
-    private String verboseLevel;
+  private String verboseLevel;
 
-    @Override
-    public List<String> doSuggestOption( String name )
-    {
-        return VERBOSE_LEVEL_VALUES;
+  @Override
+  public List<String> doSuggestOption(String name) {
+    return VERBOSE_LEVEL_VALUES;
+  }
+
+  @Override
+  public void execute() {
+    Session session = getSession();
+    if (verboseLevel == null) {
+      session.output.printMessage("no change for verbose, verbose = " + session.getVerboseLevel());
+    } else {
+      VerboseLevel v = VerboseLevel.valueOf(verboseLevel.toUpperCase());
+      session.setVerboseLevel(v);
+      session.output.printMessage("verbose option is turned to " + v);
     }
+  }
 
-    @Override
-    public void execute()
-    {
-        Session session = getSession();
-        if ( verboseLevel == null )
-        {
-            session.output.printMessage( "no change for verbose, verbose = " + session.getVerboseLevel() );
-        }
-        else
-        {
-            VerboseLevel v = VerboseLevel.valueOf( verboseLevel.toUpperCase() );
-            session.setVerboseLevel( v );
-            session.output.printMessage( "verbose option is turned to " + v );
-        }
-    }
-
-    /**
-     * @param verbose Verbose level of session
-     */
-    @Option( name = "v", longName = "verbose", description = "Verbose level(case insensitive): silent|brief|verbose" )
-    public final void setVerboseLevel( String verbose )
-    {
-        this.verboseLevel = verbose;
-    }
+  /**
+   * @param verbose Verbose level of session
+   */
+  @Option(name = "v", longName = "verbose",
+      description = "Verbose level(case insensitive): silent|brief|verbose")
+  public final void setVerboseLevel(String verbose) {
+    this.verboseLevel = verbose;
+  }
 }

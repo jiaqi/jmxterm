@@ -13,34 +13,30 @@ import org.junit.Test;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class CloseCommandTest
-{
-    private CloseCommand command;
+public class CloseCommandTest {
+  private CloseCommand command;
 
-    private StringWriter output;
+  private StringWriter output;
 
-    /**
-     * Set up classes to test
-     */
-    @Before
-    public void setUp()
-    {
-        command = new CloseCommand();
-        output = new StringWriter();
-    }
+  /**
+   * Set up classes to test
+   */
+  @Before
+  public void setUp() {
+    command = new CloseCommand();
+    output = new StringWriter();
+  }
 
-    /**
-     * Test execution
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void testExecute()
-        throws Exception
-    {
-        MockSession session = new MockSession( output, null );
-        command.setSession( session );
-        command.execute();
-        assertFalse( session.isConnected() );
-    }
+  /**
+   * Test execution
+   * 
+   * @throws Exception
+   */
+  @Test
+  public void testExecute() throws Exception {
+    MockSession session = new MockSession(output, null);
+    command.setSession(session);
+    command.execute();
+    assertFalse(session.isConnected());
+  }
 }

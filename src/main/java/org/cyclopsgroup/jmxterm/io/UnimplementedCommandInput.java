@@ -7,20 +7,14 @@ import java.io.IOException;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class UnimplementedCommandInput
-    extends CommandInput
-{
-    @Override
-    public String readLine()
-        throws IOException
-    {
-        throw new UnsupportedOperationException();
-    }
+public class UnimplementedCommandInput extends CommandInput {
+  @Override
+  public String readLine() throws IOException {
+    throw new UnsupportedOperationException();
+  }
 
-    @Override
-    public String readMaskedString( String prompt )
-        throws IOException
-    {
-        throw new UnsupportedOperationException();
-    }
+  @Override
+  public String readMaskedString(String prompt) throws IOException {
+    throw new UnsupportedOperationException();
+  }
 }

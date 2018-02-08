@@ -7,10 +7,9 @@ import org.cyclopsgroup.jmxterm.utils.WeakCastUtils;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public interface SizeAware
-{
-    /**
-     * @return Size of object
-     */
-    int size();
+public interface SizeAware {
+  /**
+   * @return Size of object
+   */
+  int size();
 }

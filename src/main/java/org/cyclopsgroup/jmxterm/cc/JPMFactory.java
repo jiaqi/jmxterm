@@ -13,53 +13,39 @@ import org.cyclopsgroup.jmxterm.pm.UnsupportedJavaProcessManager;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class JPMFactory
-{
-    private final JavaProcessManager jpm;
+public class JPMFactory {
+  private final JavaProcessManager jpm;
 
-    /**
-     * Default constructor that figures out an implementation of JPM
-     */
-    public JPMFactory()
-    {
-        if ( !SystemUtils.isJavaVersionAtLeast( JavaVersion.JAVA_1_5 ) )
-        {
-            jpm =
-                new UnsupportedJavaProcessManager( "JDK version " + SystemUtils.JAVA_RUNTIME_VERSION
-                    + " doesn't support this command" );
-            return;
-        }
-        JavaProcessManager j;
-        try
-        {
-            ClassLoader cl = JConsoleClassLoaderFactory.getClassLoader();
-            if ( SystemUtils.IS_JAVA_1_5 )
-            {
-                j = new Jdk5JavaProcessManager( cl );
-            }
-            else
-            {
-                j = new Jdk6JavaProcessManager( cl );
-            }
-        }
-        catch ( ClassNotFoundException e )
-        {
-            j =
-                new UnsupportedJavaProcessManager( e.getMessage() + ", operation on this JDK("
-                    + SystemUtils.JAVA_RUNTIME_VERSION + ") isn't fully supported", e );
-        }
-        catch ( Exception e )
-        {
-            j = new UnsupportedJavaProcessManager( e );
-        }
-        jpm = j;
+  /**
+   * Default constructor that figures out an implementation of JPM
+   */
+  public JPMFactory() {
+    if (!SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5)) {
+      jpm = new UnsupportedJavaProcessManager(
+          "JDK version " + SystemUtils.JAVA_RUNTIME_VERSION + " doesn't support this command");
+      return;
     }
+    JavaProcessManager j;
+    try {
+      ClassLoader cl = JConsoleClassLoaderFactory.getClassLoader();
+      if (SystemUtils.IS_JAVA_1_5) {
+        j = new Jdk5JavaProcessManager(cl);
+      } else {
+        j = new Jdk6JavaProcessManager(cl);
+      }
+    } catch (ClassNotFoundException e) {
+      j = new UnsupportedJavaProcessManager(e.getMessage() + ", operation on this JDK("
+          + SystemUtils.JAVA_RUNTIME_VERSION + ") isn't fully supported", e);
+    } catch (Exception e) {
+      j = new UnsupportedJavaProcessManager(e);
+    }
+    jpm = j;
+  }
 
-    /**
-     * @return Java process manager instance
-     */
-    final JavaProcessManager getProcessManager()
-    {
-        return jpm;
-    }
+  /**
+   * @return Java process manager instance
+   */
+  final JavaProcessManager getProcessManager() {
+    return jpm;
+  }
 }

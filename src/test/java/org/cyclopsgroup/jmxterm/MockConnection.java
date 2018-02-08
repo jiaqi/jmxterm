@@ -10,40 +10,32 @@ import javax.management.remote.JMXServiceURL;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class MockConnection
-    implements Connection
-{
-    private final MBeanServerConnection con;
+public class MockConnection implements Connection {
+  private final MBeanServerConnection con;
 
-    private final JMXServiceURL url;
+  private final JMXServiceURL url;
 
-    /**
-     * @param url Service URL
-     * @param con Server connection
-     */
-    public MockConnection( JMXServiceURL url, MBeanServerConnection con )
-    {
-        this.url = url;
-        this.con = con;
-    }
+  /**
+   * @param url Service URL
+   * @param con Server connection
+   */
+  public MockConnection(JMXServiceURL url, MBeanServerConnection con) {
+    this.url = url;
+    this.con = con;
+  }
 
-    @Override
-    public final String getConnectorId()
-        throws IOException
-    {
-        return "id";
-    }
+  @Override
+  public final String getConnectorId() throws IOException {
+    return "id";
+  }
 
-    @Override
-    public final MBeanServerConnection getServerConnection()
-        throws IOException
-    {
-        return con;
-    }
+  @Override
+  public final MBeanServerConnection getServerConnection() throws IOException {
+    return con;
+  }
 
-    @Override
-    public final JMXServiceURL getUrl()
-    {
-        return url;
-    }
+  @Override
+  public final JMXServiceURL getUrl() {
+    return url;
+  }
 }

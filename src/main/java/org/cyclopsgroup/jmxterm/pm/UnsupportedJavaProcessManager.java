@@ -10,50 +10,43 @@ import org.cyclopsgroup.jmxterm.JavaProcessManager;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class UnsupportedJavaProcessManager
-    extends JavaProcessManager
-{
-    private final Throwable cause;
+public class UnsupportedJavaProcessManager extends JavaProcessManager {
+  private final Throwable cause;
 
-    private final String message;
+  private final String message;
 
-    /**
-     * @param message Error message to display
-     */
-    public UnsupportedJavaProcessManager( String message )
-    {
-        this.message = message;
-        this.cause = null;
-    }
-    
-    /**
-     * @param message Message to show
-     * @param cause Root cause
-     */
-    public UnsupportedJavaProcessManager(String message, Throwable cause)
-    {
-        this.message = message;
-        this.cause = cause;
-    }
+  /**
+   * @param message Error message to display
+   */
+  public UnsupportedJavaProcessManager(String message) {
+    this.message = message;
+    this.cause = null;
+  }
 
-    /**
-     * @param cause Root cause of original error
-     */
-    public UnsupportedJavaProcessManager( Throwable cause )
-    {
-        this.cause = cause;
-        this.message = cause.getMessage();
-    }
+  /**
+   * @param message Message to show
+   * @param cause Root cause
+   */
+  public UnsupportedJavaProcessManager(String message, Throwable cause) {
+    this.message = message;
+    this.cause = cause;
+  }
 
-    @Override
-    public JavaProcess get( int pid )
-    {
-        throw new UnsupportedOperationException( message, cause );
-    }
+  /**
+   * @param cause Root cause of original error
+   */
+  public UnsupportedJavaProcessManager(Throwable cause) {
+    this.cause = cause;
+    this.message = cause.getMessage();
+  }
 
-    @Override
-    public List<JavaProcess> list()
-    {
-        throw new UnsupportedOperationException( message, cause );
-    }
+  @Override
+  public JavaProcess get(int pid) {
+    throw new UnsupportedOperationException(message, cause);
+  }
+
+  @Override
+  public List<JavaProcess> list() {
+    throw new UnsupportedOperationException(message, cause);
+  }
 }

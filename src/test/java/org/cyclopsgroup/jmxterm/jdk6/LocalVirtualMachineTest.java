@@ -16,33 +16,28 @@ import static org.junit.Assert.assertTrue;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class LocalVirtualMachineTest
-{
-    /**
-     * Test run
-     * 
-     * @throws SecurityException
-     * @throws NoSuchMethodException
-     * @throws ClassNotFoundException
-     */
-    @Test
-    public void testRun()
-        throws SecurityException, NoSuchMethodException, ClassNotFoundException
-    {
-        if ( !SystemUtils.IS_JAVA_1_6 )
-        {
-            return;
-        }
-        ClassLoader cl = JConsoleClassLoaderFactory.getClassLoader();
-        Class<?> type = cl.loadClass( "sun.tools.jconsole.LocalVirtualMachine" );
-        StaticLocalVirtualMachine s = WeakCastUtils.staticCast( type, StaticLocalVirtualMachine.class );
-        Map<Integer, Object> vms = s.getAllVirtualMachines();
-        List<LocalVirtualMachine> lvms = new ArrayList<LocalVirtualMachine>( vms.size() );
-        for ( Object vm : vms.values() )
-        {
-            LocalVirtualMachine m = WeakCastUtils.cast( vm, LocalVirtualMachine.class );
-            lvms.add( m );
-        }
-        assertTrue( lvms.size() != 0 );
+public class LocalVirtualMachineTest {
+  /**
+   * Test run
+   * 
+   * @throws SecurityException
+   * @throws NoSuchMethodException
+   * @throws ClassNotFoundException
+   */
+  @Test
+  public void testRun() throws SecurityException, NoSuchMethodException, ClassNotFoundException {
+    if (!SystemUtils.IS_JAVA_1_6) {
+      return;
     }
+    ClassLoader cl = JConsoleClassLoaderFactory.getClassLoader();
+    Class<?> type = cl.loadClass("sun.tools.jconsole.LocalVirtualMachine");
+    StaticLocalVirtualMachine s = WeakCastUtils.staticCast(type, StaticLocalVirtualMachine.class);
+    Map<Integer, Object> vms = s.getAllVirtualMachines();
+    List<LocalVirtualMachine> lvms = new ArrayList<LocalVirtualMachine>(vms.size());
+    for (Object vm : vms.values()) {
+      LocalVirtualMachine m = WeakCastUtils.cast(vm, LocalVirtualMachine.class);
+      lvms.add(m);
+    }
+    assertTrue(lvms.size() != 0);
+  }
 }

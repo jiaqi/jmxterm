@@ -14,65 +14,48 @@ import org.cyclopsgroup.jmxterm.utils.WeakCastUtils;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class Jdk6JavaProcessManager
-    extends JavaProcessManager
-{
-    private final StaticLocalVirtualMachine staticVm;
+public class Jdk6JavaProcessManager extends JavaProcessManager {
+  private final StaticLocalVirtualMachine staticVm;
 
-    public Jdk6JavaProcessManager( ClassLoader classLoader )
-        throws SecurityException, NoSuchMethodException, ClassNotFoundException
-    {
-        Validate.notNull( classLoader, "ClassLoader can't be NULL" );
-        Class<?> originalClass = classLoader.loadClass( LocalVirtualMachine.ORIGINAL_CLASS_NAME );
-        staticVm = WeakCastUtils.staticCast( originalClass, StaticLocalVirtualMachine.class );
-    }
+  public Jdk6JavaProcessManager(ClassLoader classLoader)
+      throws SecurityException, NoSuchMethodException, ClassNotFoundException {
+    Validate.notNull(classLoader, "ClassLoader can't be NULL");
+    Class<?> originalClass = classLoader.loadClass(LocalVirtualMachine.ORIGINAL_CLASS_NAME);
+    staticVm = WeakCastUtils.staticCast(originalClass, StaticLocalVirtualMachine.class);
+  }
 
-    @Override
-    public JavaProcess get( int pid )
-    {
-        Map<Integer, Object> lvms = staticVm.getAllVirtualMachines();
-        Object vm = lvms.get( pid );
-        if ( vm == null )
-        {
-            return null;
-        }
-        try
-        {
-            return new Jdk6JavaProcess( WeakCastUtils.cast( vm, LocalVirtualMachine.class ) );
-        }
-        catch ( SecurityException e )
-        {
-            throw new RuntimeException( "Can't cast " + vm + " to LocalVirtualMachine", e );
-        }
-        catch ( NoSuchMethodException e )
-        {
-            throw new RuntimeException( "Can't cast " + vm + " to LocalVirtualMachine", e );
-        }
+  @Override
+  public JavaProcess get(int pid) {
+    Map<Integer, Object> lvms = staticVm.getAllVirtualMachines();
+    Object vm = lvms.get(pid);
+    if (vm == null) {
+      return null;
     }
+    try {
+      return new Jdk6JavaProcess(WeakCastUtils.cast(vm, LocalVirtualMachine.class));
+    } catch (SecurityException e) {
+      throw new RuntimeException("Can't cast " + vm + " to LocalVirtualMachine", e);
+    } catch (NoSuchMethodException e) {
+      throw new RuntimeException("Can't cast " + vm + " to LocalVirtualMachine", e);
+    }
+  }
 
-    @Override
-    public List<JavaProcess> list()
-    {
-        Map<Integer, Object> lvms = staticVm.getAllVirtualMachines();
-        List<JavaProcess> result = new ArrayList<JavaProcess>( lvms.size() );
-        for ( Object lvm : lvms.values() )
-        {
-            LocalVirtualMachine vm;
-            try
-            {
-                vm = WeakCastUtils.cast( lvm, LocalVirtualMachine.class );
-                result.add( new Jdk6JavaProcess( vm ) );
-            }
-            catch ( SecurityException e )
-            {
-                throw new RuntimeException( "Can't cast " + lvm + " to LocalVirtualMachine", e );
-            }
-            catch ( NoSuchMethodException e )
-            {
-                throw new RuntimeException( "Can't cast " + lvm + " to LocalVirtualMachine", e );
-            }
-        }
-        return result;
+  @Override
+  public List<JavaProcess> list() {
+    Map<Integer, Object> lvms = staticVm.getAllVirtualMachines();
+    List<JavaProcess> result = new ArrayList<JavaProcess>(lvms.size());
+    for (Object lvm : lvms.values()) {
+      LocalVirtualMachine vm;
+      try {
+        vm = WeakCastUtils.cast(lvm, LocalVirtualMachine.class);
+        result.add(new Jdk6JavaProcess(vm));
+      } catch (SecurityException e) {
+        throw new RuntimeException("Can't cast " + lvm + " to LocalVirtualMachine", e);
+      } catch (NoSuchMethodException e) {
+        throw new RuntimeException("Can't cast " + lvm + " to LocalVirtualMachine", e);
+      }
     }
+    return result;
+  }
 
 }

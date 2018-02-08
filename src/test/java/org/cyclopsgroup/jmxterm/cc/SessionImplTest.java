@@ -22,46 +22,39 @@ import org.junit.Test;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class SessionImplTest
-{
-    private JMXConnector con;
+public class SessionImplTest {
+  private JMXConnector con;
 
-    private Mockery context;
+  private Mockery context;
 
-    private SessionImpl session;
+  private SessionImpl session;
 
-    /**
-     * Set up objects to test
-     */
-    @Before
-    public void setUp()
-    {
-        context = new Mockery();
-        con = context.mock( JMXConnector.class );
-        session =
-            new SessionImpl( new WriterCommandOutput( new NullWriter() ), null,
-                             new UnsupportedJavaProcessManager( "testing" ) )
-            {
-                @Override
-                protected JMXConnector doConnect( JMXServiceURL url, Map<String, Object> env )
-                    throws IOException
-                {
-                    return con;
-                }
-            };
-    }
+  /**
+   * Set up objects to test
+   */
+  @Before
+  public void setUp() {
+    context = new Mockery();
+    con = context.mock(JMXConnector.class);
+    session = new SessionImpl(new WriterCommandOutput(new NullWriter()), null,
+        new UnsupportedJavaProcessManager("testing")) {
+      @Override
+      protected JMXConnector doConnect(JMXServiceURL url, Map<String, Object> env)
+          throws IOException {
+        return con;
+      }
+    };
+  }
 
-    /**
-     * Verify connect() runs correctly
-     * 
-     * @throws IOException
-     */
-    @Test
-    public void testConnect()
-        throws IOException
-    {
-        session.connect( SyntaxUtils.getUrl( "localhost:9991", null ), null );
-        Connection con = session.getConnection();
-        assertEquals( "service:jmx:rmi:///jndi/rmi://localhost:9991/jmxrmi", con.getUrl().toString() );
-    }
+  /**
+   * Verify connect() runs correctly
+   * 
+   * @throws IOException
+   */
+  @Test
+  public void testConnect() throws IOException {
+    session.connect(SyntaxUtils.getUrl("localhost:9991", null), null);
+    Connection con = session.getConnection();
+    assertEquals("service:jmx:rmi:///jndi/rmi://localhost:9991/jmxrmi", con.getUrl().toString());
+  }
 }

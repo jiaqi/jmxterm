@@ -16,39 +16,30 @@ import org.cyclopsgroup.jmxterm.io.RuntimeIOException;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli( name = "domains", description = "List all available domain names" )
-public class DomainsCommand
-    extends Command
-{
-    /**
-     * Gets list of domains for current JMX connection.
-     */
-    static List<String> getCandidateDomains( Session session )
-    {
-        String[] domains;
-        try
-        {
-            domains = session.getConnection().getServerConnection().getDomains();
-        }
-        catch ( IOException e )
-        {
-            throw new RuntimeIOException( "Couldn't get candate domains", e );
-        }
-        List<String> result = new ArrayList<String>( Arrays.asList( domains ) );
-        Collections.sort( result );
-        return result;
+@Cli(name = "domains", description = "List all available domain names")
+public class DomainsCommand extends Command {
+  /**
+   * Gets list of domains for current JMX connection.
+   */
+  static List<String> getCandidateDomains(Session session) {
+    String[] domains;
+    try {
+      domains = session.getConnection().getServerConnection().getDomains();
+    } catch (IOException e) {
+      throw new RuntimeIOException("Couldn't get candate domains", e);
     }
+    List<String> result = new ArrayList<String>(Arrays.asList(domains));
+    Collections.sort(result);
+    return result;
+  }
 
-    @Override
-    public void execute()
-        throws IOException
-    {
-        Session session = getSession();
+  @Override
+  public void execute() throws IOException {
+    Session session = getSession();
 
-        session.output.printMessage( "following domains are available" );
-        for ( String domain : getCandidateDomains( session ) )
-        {
-            session.output.println( domain );
-        }
+    session.output.printMessage("following domains are available");
+    for (String domain : getCandidateDomains(session)) {
+      session.output.println(domain);
     }
+  }
 }

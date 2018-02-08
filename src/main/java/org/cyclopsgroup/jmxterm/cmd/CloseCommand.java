@@ -10,15 +10,11 @@ import org.cyclopsgroup.jmxterm.Command;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli( name = "close", description = "Close current JMX connection" )
-public class CloseCommand
-    extends Command
-{
-    @Override
-    public void execute()
-        throws IOException
-    {
-        getSession().disconnect();
-        getSession().output.printMessage( "disconnected" );
-    }
+@Cli(name = "close", description = "Close current JMX connection")
+public class CloseCommand extends Command {
+  @Override
+  public void execute() throws IOException {
+    getSession().disconnect();
+    getSession().output.printMessage("disconnected");
+  }
 }

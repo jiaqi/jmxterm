@@ -18,79 +18,63 @@ import java.util.Map;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-class SessionImpl
-    extends Session
-{
-    private ConnectionImpl connection;
+class SessionImpl extends Session {
+  private ConnectionImpl connection;
 
-    /**
-     * @param output Output result
-     * @param input Command line input
-     * @param jpm Java process manager
-     */
-    SessionImpl( CommandOutput output, CommandInput input, JavaProcessManager jpm )
-    {
-        super( output, input, jpm );
-    }
+  /**
+   * @param output Output result
+   * @param input Command line input
+   * @param jpm Java process manager
+   */
+  SessionImpl(CommandOutput output, CommandInput input, JavaProcessManager jpm) {
+    super(output, input, jpm);
+  }
 
-    @Override
-    public void connect( JMXServiceURL url, Map<String, Object> env )
-        throws IOException
-    {
-        Validate.notNull( url, "URL can't be NULL" );
-        if ( connection != null )
-        {
-            throw new IllegalStateException( "Session is already opened" );
-        }
-        JMXConnector connector = doConnect( url, env );
-        connection = new ConnectionImpl( connector, url );
+  @Override
+  public void connect(JMXServiceURL url, Map<String, Object> env) throws IOException {
+    Validate.notNull(url, "URL can't be NULL");
+    if (connection != null) {
+      throw new IllegalStateException("Session is already opened");
     }
+    JMXConnector connector = doConnect(url, env);
+    connection = new ConnectionImpl(connector, url);
+  }
 
-    @Override
-    public void disconnect()
-        throws IOException
-    {
-        if ( connection == null )
-        {
-            return;
-        }
-        try
-        {
-            connection.close();
-        }
-        finally
-        {
-            connection = null;
-        }
+  @Override
+  public void disconnect() throws IOException {
+    if (connection == null) {
+      return;
     }
+    try {
+      connection.close();
+    } finally {
+      connection = null;
+    }
+  }
 
-    /**
-     * Connect to MBean server
-     *
-     * @param url MBean server URL
-     * @param env A map of environment
-     * @return Connector that holds connection to MBean server
-     * @throws IOException Network errors
-     */
-    protected JMXConnector doConnect( JMXServiceURL url, Map<String, Object> env )
-        throws IOException
-    {
-        return JMXConnectorFactory.connect( url, env );
-    }
+  /**
+   * Connect to MBean server
+   *
+   * @param url MBean server URL
+   * @param env A map of environment
+   * @return Connector that holds connection to MBean server
+   * @throws IOException Network errors
+   */
+  protected JMXConnector doConnect(JMXServiceURL url, Map<String, Object> env) throws IOException {
+    return JMXConnectorFactory.connect(url, env);
+  }
 
-    @Override
-    public Connection getConnection()
-    {
-        if ( connection == null )
-        {
-            throw new IllegalStateException( "Connection isn't open yet. Run open command to open a connection" );
-        }
-        return connection;
+  @Override
+  public Connection getConnection() {
+    if (connection == null) {
+      throw new IllegalStateException(
+          "Connection isn't open yet. Run open command to open a connection");
     }
+    return connection;
+  }
 
-    @Override
-    public boolean isConnected()
-    {
-        return connection != null;
-    }
+  @Override
+  public boolean isConnected() {
+    return connection != null;
+  }
 }
