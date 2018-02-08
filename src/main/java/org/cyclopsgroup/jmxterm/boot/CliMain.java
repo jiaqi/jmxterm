@@ -38,12 +38,6 @@ public class CliMain
 
     private static final String COMMAND_PROMPT = "$> ";
 
-    /**
-     * Main entry
-     *
-     * @param args Main command
-     * @throws Exception
-     */
     public static final void main( String[] args )
         throws Exception
     {

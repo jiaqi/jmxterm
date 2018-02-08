@@ -37,9 +37,6 @@ public class JlineCommandInput
         return console;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public String readLine()
         throws IOException
@@ -47,14 +44,10 @@ public class JlineCommandInput
         return console.readLine( prompt );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public String readMaskedString( String prompt )
         throws IOException
     {
         return console.readLine( prompt, '*' );
     }
-
 }

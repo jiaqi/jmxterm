@@ -24,7 +24,7 @@ public class ConfigurationUtils
      * @param resourcePath Path of overlapping properties files
      * @param classLoader  Class loader where the resources are loaded
      * @return Configuration result
-     * @throws IOException
+     * @throws IOException allows IO exceptions.
      */
     public static Configuration loadFromOverlappingResources( String resourcePath, ClassLoader classLoader )
             throws IOException

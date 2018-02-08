@@ -45,18 +45,12 @@ public class UnsupportedJavaProcessManager
         this.message = cause.getMessage();
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public JavaProcess get( int pid )
     {
         throw new UnsupportedOperationException( message, cause );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<JavaProcess> list()
     {

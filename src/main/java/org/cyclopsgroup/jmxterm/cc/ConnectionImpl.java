@@ -51,27 +51,21 @@ class ConnectionImpl
         return connector;
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public String getConnectorId()
         throws IOException
     {
         return connector.getConnectionId();
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public MBeanServerConnection getServerConnection()
         throws IOException
     {
         return connector.getMBeanServerConnection();
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public final JMXServiceURL getUrl()
     {
         return url;

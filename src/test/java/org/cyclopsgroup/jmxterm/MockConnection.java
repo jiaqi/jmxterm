@@ -27,27 +27,21 @@ public class MockConnection
         this.con = con;
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public final String getConnectorId()
         throws IOException
     {
         return "id";
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public final MBeanServerConnection getServerConnection()
         throws IOException
     {
         return con;
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public final JMXServiceURL getUrl()
     {
         return url;

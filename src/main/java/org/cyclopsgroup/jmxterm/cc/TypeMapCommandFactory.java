@@ -26,9 +26,7 @@ public class TypeMapCommandFactory
         this.commandTypes = Collections.unmodifiableMap( commandTypes );
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public Command createCommand( String commandName )
     {
         Validate.notNull( commandName, "commandName can't be NULL" );
@@ -52,9 +50,7 @@ public class TypeMapCommandFactory
         }
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public Map<String, Class<? extends Command>> getCommandTypes()
     {
         return commandTypes;

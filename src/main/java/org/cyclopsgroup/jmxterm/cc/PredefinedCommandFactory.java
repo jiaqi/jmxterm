@@ -83,17 +83,13 @@ class PredefinedCommandFactory
         delegate = new TypeMapCommandFactory( commands );
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public Command createCommand( String commandName )
     {
         return delegate.createCommand( commandName );
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public Map<String, Class<? extends Command>> getCommandTypes()
     {
         return delegate.getCommandTypes();

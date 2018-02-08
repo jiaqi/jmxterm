@@ -27,27 +27,18 @@ public class VerboseCommandOutput
         this.config = config;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void close()
     {
         output.close();
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void print( String value )
     {
         output.print( value );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void printError( Throwable e )
     {
@@ -65,9 +56,6 @@ public class VerboseCommandOutput
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void printMessage( String message )
     {

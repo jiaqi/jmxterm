@@ -14,9 +14,6 @@ import org.cyclopsgroup.jmxterm.Command;
 public class CloseCommand
     extends Command
 {
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws IOException

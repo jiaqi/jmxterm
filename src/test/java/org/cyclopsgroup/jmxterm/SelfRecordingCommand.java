@@ -28,9 +28,6 @@ public class SelfRecordingCommand
         this.records = records;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
     {
@@ -63,9 +60,6 @@ public class SelfRecordingCommand
         this.arguments = arguments;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public String toString()
     {

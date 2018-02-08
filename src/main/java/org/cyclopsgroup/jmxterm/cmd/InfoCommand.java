@@ -160,9 +160,7 @@ public class InfoCommand
             session.output.printMessage(String.format("The operation '%s' is not found in the bean.", operation));
         }
     }
-    /**
-     * @inheritDoc
-     */
+
     @Override
     public void execute()
         throws IOException, JMException

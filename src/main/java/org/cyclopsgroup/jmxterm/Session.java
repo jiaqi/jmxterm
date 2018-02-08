@@ -1,5 +1,10 @@
 package org.cyclopsgroup.jmxterm;
 
+import java.io.IOException;
+import java.util.Map;
+
+import javax.management.remote.JMXServiceURL;
+
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jmxterm.io.CommandInput;
 import org.cyclopsgroup.jmxterm.io.CommandOutput;
@@ -7,10 +12,6 @@ import org.cyclopsgroup.jmxterm.io.UnimplementedCommandInput;
 import org.cyclopsgroup.jmxterm.io.VerboseCommandOutput;
 import org.cyclopsgroup.jmxterm.io.VerboseCommandOutputConfig;
 import org.cyclopsgroup.jmxterm.io.VerboseLevel;
-
-import javax.management.remote.JMXServiceURL;
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * JMX communication context. This class exists for the whole lifecycle of a command execution. It is NOT thread safe.
@@ -69,7 +70,7 @@ public abstract class Session
      * 
      * @param url URL to connect
      * @param env Environment variables
-     * @throws IOException
+     * @throws IOException allows IO exceptions.
      */
     public abstract void connect( JMXServiceURL url, Map<String, Object> env )
         throws IOException;
@@ -119,9 +120,7 @@ public abstract class Session
         return processManager;
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public final VerboseLevel getVerboseLevel()
     {
         return verboseLevel;

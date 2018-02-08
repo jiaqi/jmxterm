@@ -22,44 +22,33 @@ class Jdk6JavaProcess
         this.vm = vm;
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public String getDisplayName()
     {
         return vm.displayName();
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public int getProcessId()
     {
         return vm.vmid();
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public boolean isManageable()
     {
         return vm.isManageable();
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public void startManagementAgent()
     {
         vm.startManagementAgent();
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public String toUrl()
     {
         return vm.connectorAddress();
     }
-
 }

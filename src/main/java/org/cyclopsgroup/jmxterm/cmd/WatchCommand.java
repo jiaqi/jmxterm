@@ -95,9 +95,6 @@ public class WatchCommand
 
     private int stopAfter;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<String> doSuggestArgument()
         throws IOException, JMException
@@ -117,9 +114,6 @@ public class WatchCommand
         return null;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws IOException, JMException

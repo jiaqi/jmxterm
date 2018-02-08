@@ -38,9 +38,6 @@ public class WriterCommandOutput
         this.messageOutput = messageOutput == null ? new NullWriter() : messageOutput;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void print( String output )
     {
@@ -58,18 +55,12 @@ public class WriterCommandOutput
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void printError( Throwable e )
     {
         e.printStackTrace( new PrintWriter( messageOutput, true ) );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void printMessage( String message )
     {

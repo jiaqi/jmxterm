@@ -46,12 +46,6 @@ public class Jdk5JavaProcessManager
 
     private final Constructor<?> vmIdentifierConstructor;
 
-    /**
-     * Default constructor
-     * 
-     * @param classLoader ClassLoader to load JDK internal classes
-     * @throws Exception
-     */
     public Jdk5JavaProcessManager( ClassLoader classLoader )
         throws Exception
     {
@@ -76,9 +70,6 @@ public class Jdk5JavaProcessManager
         getMonitoredVm = mhc.getMethod( "getMonitoredVm", vmIdentifierType );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public JavaProcess get( int pid )
     {
@@ -105,9 +96,6 @@ public class Jdk5JavaProcessManager
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<JavaProcess> list()
     {

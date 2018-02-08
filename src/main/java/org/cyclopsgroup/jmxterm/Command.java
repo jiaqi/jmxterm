@@ -97,9 +97,6 @@ public abstract class Command
         this.session = session;
     }
 
-    /**
-     * @inheritDoc
-     */
     public final List<String> suggestArgument( String partialArg )
     {
         if ( partialArg != null )
@@ -128,9 +125,6 @@ public abstract class Command
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     public final List<String> suggestOption( String name, String partialValue )
     {
         if ( partialValue != null )

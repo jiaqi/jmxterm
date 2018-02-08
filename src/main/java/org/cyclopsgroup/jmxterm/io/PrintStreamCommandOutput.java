@@ -46,27 +46,18 @@ public class PrintStreamCommandOutput
         this.messageOutput = messageOutput;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void print( String output )
     {
         resultOutput.print( output );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void printError( Throwable e )
     {
         e.printStackTrace( messageOutput );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void printMessage( String message )
     {

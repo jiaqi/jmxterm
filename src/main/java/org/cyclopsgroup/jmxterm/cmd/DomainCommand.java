@@ -52,9 +52,6 @@ public class DomainCommand
 
     private String domain;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<String> doSuggestArgument()
         throws IOException
@@ -62,9 +59,6 @@ public class DomainCommand
         return DomainsCommand.getCandidateDomains( getSession() );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws IOException

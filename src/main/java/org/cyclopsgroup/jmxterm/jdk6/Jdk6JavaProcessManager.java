@@ -1,13 +1,13 @@
 package org.cyclopsgroup.jmxterm.jdk6;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jmxterm.JavaProcess;
 import org.cyclopsgroup.jmxterm.JavaProcessManager;
 import org.cyclopsgroup.jmxterm.utils.WeakCastUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * JDK6 specific java process manager
@@ -19,12 +19,6 @@ public class Jdk6JavaProcessManager
 {
     private final StaticLocalVirtualMachine staticVm;
 
-    /**
-     * @param classLoader ClassLoader to load JDK internal classes
-     * @throws SecurityException
-     * @throws NoSuchMethodException
-     * @throws ClassNotFoundException
-     */
     public Jdk6JavaProcessManager( ClassLoader classLoader )
         throws SecurityException, NoSuchMethodException, ClassNotFoundException
     {
@@ -33,9 +27,6 @@ public class Jdk6JavaProcessManager
         staticVm = WeakCastUtils.staticCast( originalClass, StaticLocalVirtualMachine.class );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public JavaProcess get( int pid )
     {
@@ -59,9 +50,6 @@ public class Jdk6JavaProcessManager
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<JavaProcess> list()
     {

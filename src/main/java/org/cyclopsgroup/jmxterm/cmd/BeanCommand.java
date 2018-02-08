@@ -36,7 +36,7 @@ public class BeanCommand
      * @param session Current session
      * @return Full qualified name of MBean
      * @throws JMException Thrown when given MBean name is malformed
-     * @throws IOException
+     * @throws IOException allows IO exceptions.
      */
     public static String getBeanName( String bean, String domain, Session session )
         throws JMException, IOException
@@ -88,12 +88,7 @@ public class BeanCommand
     }
 
     /**
-     * Get list of candidate beans
-     *
-     * @param session Session
-     * @return List of bean names
-     * @throws MalformedObjectNameException
-     * @throws IOException
+     * Gets a list of candidate beans.
      */
     static List<String> getCandidateBeanNames( Session session )
         throws MalformedObjectNameException
@@ -123,9 +118,6 @@ public class BeanCommand
 
     private String domain;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<String> doSuggestArgument()
         throws IOException, MalformedObjectNameException
@@ -133,9 +125,6 @@ public class BeanCommand
         return getCandidateBeanNames( getSession() );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<String> doSuggestOption( String optionName )
         throws IOException
@@ -147,9 +136,6 @@ public class BeanCommand
         return null;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws IOException, JMException

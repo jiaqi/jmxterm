@@ -36,9 +36,6 @@ public class SetCommand
 
     private String domain;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     protected List<String> doSuggestArgument()
         throws IOException, JMException
@@ -59,9 +56,6 @@ public class SetCommand
         return null;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     protected List<String> doSuggestOption( String optionName )
         throws JMException
@@ -80,9 +74,6 @@ public class SetCommand
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws JMException, IOException

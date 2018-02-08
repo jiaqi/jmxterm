@@ -36,33 +36,25 @@ class Jdk5JavaProcess
         this.connectorAddressLink = connectorAddressLink;
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public String getDisplayName()
     {
         return command;
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public int getProcessId()
     {
         return processId;
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public boolean isManageable()
     {
         return url != null;
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public void startManagementAgent()
         throws IOException
     {
@@ -73,9 +65,7 @@ class Jdk5JavaProcess
         url = connectorAddressLink.importFrom( processId );
     }
 
-    /**
-     * @inheritDoc
-     */
+    @Override
     public String toUrl()
     {
         return url;

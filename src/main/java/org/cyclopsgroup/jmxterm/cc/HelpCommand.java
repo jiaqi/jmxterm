@@ -27,9 +27,6 @@ public class HelpCommand
 
     private CommandCenter commandCenter = null;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
     {

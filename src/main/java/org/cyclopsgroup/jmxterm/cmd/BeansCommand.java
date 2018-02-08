@@ -52,9 +52,6 @@ public class BeansCommand
 
     private String domain;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<String> doSuggestOption( String optionName )
         throws IOException
@@ -66,9 +63,6 @@ public class BeansCommand
         return null;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws MalformedObjectNameException, IOException

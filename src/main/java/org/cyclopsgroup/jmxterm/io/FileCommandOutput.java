@@ -20,8 +20,9 @@ public class FileCommandOutput
     private final WriterCommandOutput output;
 
     /**
-     * @param file File where the result is written to
-     * @throws IOException IO error
+     * @param file where the result is written to.
+     * @param appendToOutput whether to write to output.
+     * @throws IOException allows IO error.
      */
     public FileCommandOutput( File file, boolean appendToOutput )
         throws IOException
@@ -39,9 +40,6 @@ public class FileCommandOutput
         output = new WriterCommandOutput( fileWriter, new PrintWriter( System.err, true ) );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void close()
     {
@@ -49,27 +47,18 @@ public class FileCommandOutput
         fileWriter.close();
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void print( String value )
     {
         output.print( value );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void printError( Throwable e )
     {
         output.printError( e );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void printMessage( String message )
     {

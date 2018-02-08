@@ -45,9 +45,6 @@ public class RunCommand
 
     private String types;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<String> doSuggestArgument()
         throws IOException, JMException
@@ -69,9 +66,6 @@ public class RunCommand
         return null;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws MalformedObjectNameException, IOException, JMException
@@ -223,9 +217,6 @@ public class RunCommand
         this.measure = measure;
     }
 
-    /**
-     * @param types
-     */
     @Option( name = "t", longName = "types", description = "Require parameters to have specific types (comma separated)" )
     public final void setTypes( String types )
     {

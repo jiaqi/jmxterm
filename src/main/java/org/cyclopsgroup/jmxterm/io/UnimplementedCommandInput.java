@@ -10,9 +10,6 @@ import java.io.IOException;
 public class UnimplementedCommandInput
     extends CommandInput
 {
-    /**
-     * @inheritDoc
-     */
     @Override
     public String readLine()
         throws IOException
@@ -20,9 +17,6 @@ public class UnimplementedCommandInput
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public String readMaskedString( String prompt )
         throws IOException

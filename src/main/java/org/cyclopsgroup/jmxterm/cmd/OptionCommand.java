@@ -32,18 +32,12 @@ public class OptionCommand
 
     private String verboseLevel;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<String> doSuggestOption( String name )
     {
         return VERBOSE_LEVEL_VALUES;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
     {

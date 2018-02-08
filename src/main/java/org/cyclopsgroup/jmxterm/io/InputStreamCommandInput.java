@@ -26,9 +26,6 @@ public class InputStreamCommandInput
         reader = new LineNumberReader( new InputStreamReader( in ) );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public String readLine()
         throws IOException
@@ -36,9 +33,6 @@ public class InputStreamCommandInput
         return reader.readLine();
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public String readMaskedString( String prompt )
         throws IOException
@@ -46,9 +40,6 @@ public class InputStreamCommandInput
         throw new UnsupportedOperationException( "Reading password from stream is not supported" );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void close()
         throws IOException

@@ -34,9 +34,6 @@ public class MockSession
         connection = new MockConnection( SyntaxUtils.getUrl( "localhost:9991", null ), con );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void connect( JMXServiceURL url, Map<String, Object> env )
         throws IOException
@@ -44,9 +41,6 @@ public class MockSession
         connected = true;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void disconnect()
         throws IOException
@@ -54,18 +48,12 @@ public class MockSession
         connected = false;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public Connection getConnection()
     {
         return connection;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public boolean isConnected()
     {

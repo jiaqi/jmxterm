@@ -21,11 +21,7 @@ public class DomainsCommand
     extends Command
 {
     /**
-     * Get list of domains for current JMX connection
-     *
-     * @param session Current session
-     * @return Sorted list of domain names
-     * @throws IOException
+     * Gets list of domains for current JMX connection.
      */
     static List<String> getCandidateDomains( Session session )
     {
@@ -43,9 +39,6 @@ public class DomainsCommand
         return result;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws IOException

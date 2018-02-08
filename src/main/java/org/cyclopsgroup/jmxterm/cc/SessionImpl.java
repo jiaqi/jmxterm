@@ -33,9 +33,6 @@ class SessionImpl
         super( output, input, jpm );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void connect( JMXServiceURL url, Map<String, Object> env )
         throws IOException
@@ -49,9 +46,6 @@ class SessionImpl
         connection = new ConnectionImpl( connector, url );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void disconnect()
         throws IOException
@@ -84,9 +78,6 @@ class SessionImpl
         return JMXConnectorFactory.connect( url, env );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public Connection getConnection()
     {
@@ -97,9 +88,6 @@ class SessionImpl
         return connection;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public boolean isConnected()
     {

@@ -45,7 +45,6 @@ public class GetCommand
 
     private boolean simpleFormat;
 
-    @SuppressWarnings( "unchecked" )
     private void displayAttributes()
         throws IOException, JMException
     {
@@ -125,9 +124,6 @@ public class GetCommand
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public List<String> doSuggestArgument()
         throws IOException, JMException
@@ -146,9 +142,6 @@ public class GetCommand
         return null;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     protected List<String> doSuggestOption( String optionName )
         throws JMException
@@ -167,9 +160,6 @@ public class GetCommand
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws JMException, IOException
@@ -248,5 +238,4 @@ public class GetCommand
     {
         this.singleLine = singleLine;
     }
-
 }

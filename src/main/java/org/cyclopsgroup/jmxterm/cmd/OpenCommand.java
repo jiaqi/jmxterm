@@ -30,9 +30,6 @@ public class OpenCommand
 
     private String user;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws IOException

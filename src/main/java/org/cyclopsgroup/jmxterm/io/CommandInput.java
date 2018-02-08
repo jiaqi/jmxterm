@@ -7,32 +7,19 @@ import java.io.IOException;
  * 
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public abstract class CommandInput
-{
-    /**
-     * Close this input
-     * 
-     * @throws IOException
-     */
-    public void close()
-        throws IOException
-    {
-    }
+public abstract class CommandInput {
+  /**
+   * Closes and releases relevant resources.
+   */
+  public void close() throws IOException {}
 
-    /**
-     * @return A line of input
-     * @throws IOException
-     */
-    public abstract String readLine()
-        throws IOException;
+  /**
+   * Reads a single line from linput.
+   */
+  public abstract String readLine() throws IOException;
 
-    /**
-     * Read input without echo'ing back keyboard input
-     * 
-     * @param prompt Message before the input
-     * @return A line of input
-     * @throws IOException
-     */
-    public abstract String readMaskedString( String prompt )
-        throws IOException;
+  /**
+   * Reads input without echo'ing back keyboard input.
+   */
+  public abstract String readMaskedString(String prompt) throws IOException;
 }

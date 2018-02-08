@@ -48,9 +48,6 @@ public class SubscribeCommand
 
     private String domain;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws MalformedObjectNameException, IOException, JMException

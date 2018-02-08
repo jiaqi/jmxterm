@@ -24,10 +24,6 @@ public class AboutCommand
 {
     private boolean showDescription;
 
-    /**
-     * @inheritDoc
-     */
-    @SuppressWarnings( "unchecked" )
     @Override
     public void execute()
         throws IOException, JMException

@@ -15,9 +15,6 @@ import org.cyclopsgroup.jmxterm.Session;
 public class QuitCommand
     extends Command
 {
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws IOException

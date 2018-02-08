@@ -31,9 +31,6 @@ public class FileCommandInput
         this.in = new LineNumberReader( new FileReader( inputFile ) );
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void close()
         throws IOException
@@ -41,9 +38,6 @@ public class FileCommandInput
         in.close();
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public String readLine()
         throws IOException
@@ -51,9 +45,6 @@ public class FileCommandInput
         return in.readLine();
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public String readMaskedString( String prompt )
         throws IOException

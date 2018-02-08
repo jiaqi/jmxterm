@@ -45,7 +45,6 @@ public class ValueOutputFormatTest
     /**
      * Print out a map and verify output
      */
-    @SuppressWarnings( "unchecked" )
     @Test
     public void testPrintMap()
     {

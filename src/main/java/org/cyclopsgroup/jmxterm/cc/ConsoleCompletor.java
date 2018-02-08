@@ -1,5 +1,9 @@
 package org.cyclopsgroup.jmxterm.cc;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.jline.CliCompletor;
@@ -11,10 +15,6 @@ import org.jline.reader.ParsedLine;
 import org.jline.reader.impl.completer.ArgumentCompleter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * JLine completor that handles tab key
@@ -30,28 +30,20 @@ public class ConsoleCompletor
 
     private final List<Candidate> commandNames;
 
-    /**
-     * Constructor using a command center
-     *
-     * @param commandCenter
-     */
     public ConsoleCompletor( CommandCenter commandCenter )
     {
         Validate.notNull( commandCenter, "Command center can't be NULL" );
         this.commandCenter = commandCenter;
         List<String> commandNames = new ArrayList<String>( commandCenter.getCommandNames() );
         Collections.sort( commandNames );
-        this.commandNames = new ArrayList<>( commandNames.size() );
+        this.commandNames = new ArrayList<Candidate>( commandNames.size() );
         for ( String commandName : commandNames )
         {
             this.commandNames.add( new Candidate( commandName ) );
         }
     }
 
-    /**
-     * @inheritDoc
-     */
-    @SuppressWarnings( { "unchecked", "rawtypes" } )
+    @Override
     public void complete( LineReader reader, ParsedLine line, List<Candidate> candidates )
     {
         try
@@ -98,7 +90,7 @@ public class ConsoleCompletor
         else if ( buf.indexOf( ' ' ) == -1 )
         {
             // Partial one word
-            List<Candidate> matchedNames = new ArrayList<>();
+            List<Candidate> matchedNames = new ArrayList<Candidate>();
             for ( Candidate commandName : commandNames )
             {
                 if ( commandName.value().startsWith( buf ) )

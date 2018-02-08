@@ -21,9 +21,6 @@ public class JvmsCommand
 {
     private boolean pidOnly;
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public void execute()
         throws IOException, JMException
