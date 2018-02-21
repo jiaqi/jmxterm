@@ -9,7 +9,7 @@ JMXTerm can also be used to integrate with non-Java programming language such as
 to access Java MBean server programmatically. However as this page will point out later, there's no point of using
 JMXTerm to access MBean server programmatically in Java, as Java already provides good API.
 
-Fund out more in [Wiki site](http://wiki.cyclopsgroup.org/jmxterm).
+Find out more in [Wiki site](http://wiki.cyclopsgroup.org/jmxterm).
 
 # Build
 
