@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="JMXTERM: Command line based interative JMX client">
     <bannerLeft>
-        <name>jmxterm - JMX terminal</name>
+        <name>jmxterm - Command line JMX</name>
         <src>images/logo.png</src>
         <href>index.html</href>
     </bannerLeft>
@@ -23,31 +23,11 @@
             </script>
         </head>
         <links>
-            <item name="wiki site" href="http://wiki.cyclopsgroup.org/jmxterm" />
+            <item name="wiki site" href="https://github.com/jiaqi/jmxterm/wiki" />
             <item name="cyclopsgroup.org" href="http://www.cyclopsgroup.org/" />
-            <item name="sf.net/cyclops-group"
-                href="http://sourceforge.net/projects/cyclops-group" />
+            <item name="github"
+                href="https://github.com/jiaqi/jmxterm" />
         </links>
-        <menu name="JMXTERM">
-            <item name="Home page" href="index.html" />
-            <item name="Release note" href="release/index.html"
-                collapse="true">
-                <item name="0.2" href="release/0.2.html" />
-                <item name="1.0-alpha-1" href="release/1.0-alpha-1.html" />
-                <item name="1.0-alpha-2" href="release/1.0-alpha-2.html" />
-                <item name="1.0-alpha-3" href="release/1.0-alpha-3.html" />
-            </item>
-        </menu>
         <menu ref="reports" />
-        <menu name="Source code">
-            <item name="Browse Fisheye"
-                href="http://fisheye3.atlassian.com/browse/cyclops-group/jmxterm" />
-            <item name="Search Fisheye"
-                href="http://fisheye3.atlassian.com/search/cyclops-group/jmxterm" />
-            <item name="Change Log"
-                href="http://fisheye3.atlassian.com/changelog/cyclops-group/jmxterm" />
-            <item name="Activity Chart"
-                href="http://fisheye3.atlassian.com/chart/cyclops-group/jmxterm" />
-        </menu>
     </body>
 </project>

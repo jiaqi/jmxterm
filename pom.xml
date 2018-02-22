@@ -16,8 +16,8 @@
     <url>http://www.cyclopsgroup.org/projects/jmxterm</url>
     <inceptionYear>2008</inceptionYear>
     <issueManagement>
-        <system>launchpad</system>
-        <url>https://launchpad.net/jmxterm</url>
+        <system>github</system>
+        <url>https://github.com/jiaqi/jmxterm/issues</url>
     </issueManagement>
     <properties>
         <jmock.version>2.8.3</jmock.version>
