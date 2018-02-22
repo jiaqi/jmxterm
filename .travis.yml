@@ -1,6 +1,8 @@
 language: java
 jdk:
-  - openjdk6
+  - openjdk8
+before_install:
+  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 script:
   - mvn clean
   - mvn verify
