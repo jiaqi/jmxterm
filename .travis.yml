@@ -6,3 +6,7 @@ before_install:
 script:
   - mvn clean
   - mvn verify
+notifications:
+  email:
+    recipients:
+      - ci-notification@cyclopsgroup.org
