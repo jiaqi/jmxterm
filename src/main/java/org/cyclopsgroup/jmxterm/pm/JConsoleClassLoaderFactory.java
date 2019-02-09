@@ -1,5 +1,6 @@
 package org.cyclopsgroup.jmxterm.pm;
 
+import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.File;
@@ -11,7 +12,7 @@ import java.security.PrivilegedAction;
 
 /**
  * Utility to get class loader that understands tools.jar and jconsole.jar
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class JConsoleClassLoaderFactory {
@@ -21,6 +22,11 @@ public class JConsoleClassLoaderFactory {
    * @return ClassLoader that understands tools.jar and jconsole.jar
    */
   public static ClassLoader getClassLoader() {
+    if (isJava9Plus()) {
+      // java9 removed rt and tools jars
+      return JConsoleClassLoaderFactory.class.getClassLoader();
+    }
+
     File javaHome = new File(SystemUtils.JAVA_HOME).getAbsoluteFile().getParentFile();
     final File toolsJar, jconsoleJar;
     if (isBeforeJava7() && isMacOs()) {
@@ -50,6 +56,8 @@ public class JConsoleClassLoaderFactory {
       }
     });
   }
+
+  private static boolean isJava9Plus() { return SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9); }
 
   private static boolean isBeforeJava7() {
     return SystemUtils.IS_JAVA_1_5 || SystemUtils.IS_JAVA_1_6;
