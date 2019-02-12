@@ -49,6 +49,8 @@ public class CliMainOptions {
 
   private String verboseLevel;
 
+  private boolean isSecureRmiRegistry;
+
   /**
    * @return #setInput(String)
    */
@@ -117,6 +119,14 @@ public class CliMainOptions {
    */
   public final boolean isNonInteractive() {
     return nonInteractive;
+  }
+
+  /**
+   * @return True if the server's RMI registry is protected with SSL/TLS
+   *         (com.sun.management.jmxremote.registry.ssl=true)
+   */
+  public final boolean isSecureRmiRegistry() {
+    return isSecureRmiRegistry;
   }
 
   /**
@@ -211,5 +221,15 @@ public class CliMainOptions {
       description = "With this flag, the outputfile is preserved and content is appended to it")
   public final void setAppendToOutput(boolean appendToOutput) {
     this.appendToOutput = appendToOutput;
+  }
+
+  /**
+   * @param isSecureRmiRegistry Whether the server's RMI registry is protected with SSL/TLS
+   *                            (com.sun.management.jmxremote.registry.ssl=true)
+   */
+  @Option(name = "s", longName = "sslrmiregistry",
+          description = "Whether the server's RMI registry is protected with SSL/TLS")
+  public final void setSecureRmiRegistry(final boolean isSecureRmiRegistry) {
+    this.isSecureRmiRegistry = isSecureRmiRegistry;
   }
 }

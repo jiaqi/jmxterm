@@ -10,6 +10,7 @@ import org.cyclopsgroup.jmxterm.Session;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
 
 import javax.management.remote.JMXConnector;
+import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,8 @@ public class OpenCommand extends Command {
 
   private String user;
 
+  private boolean isSecureRmiRegistry;
+
   @Override
   public void execute() throws IOException {
     Session session = getSession();
@@ -42,16 +45,20 @@ public class OpenCommand extends Command {
       }
       return;
     }
-    Map<String, Object> env;
+    Map<String, Object> env = null;
+    if (user != null || isSecureRmiRegistry) {
+      env = new HashMap(2);
+    }
     if (user != null) {
       if (password == null) {
         password = session.getInput().readMaskedString("Credential password: ");
       }
-      env = new HashMap<String, Object>(1);
       String[] credentials = {user, password};
       env.put(JMXConnector.CREDENTIALS, credentials);
-    } else {
-      env = null;
+    }
+    if (isSecureRmiRegistry) {
+      // Required to prevent "java.rmi.ConnectIOException: non-JRMP server at remote endpoint" error
+      env.put("com.sun.jndi.rmi.factory.socket", new SslRMIClientSocketFactory());
     }
     try {
       session.connect(SyntaxUtils.getUrl(url, session.getProcessManager()), env);
@@ -88,5 +95,15 @@ public class OpenCommand extends Command {
   @Option(name = "u", longName = "user", description = "User name for user/password authentication")
   public final void setUser(String user) {
     this.user = user;
+  }
+
+  /**
+   * @param isSecureRmiRegistry Whether the server's RMI registry is protected with SSL/TLS
+   *                            (com.sun.management.jmxremote.registry.ssl=true)
+   */
+  @Option(name = "s", longName = "sslrmiregistry",
+          description = "Whether the server's RMI registry is protected with SSL/TLS")
+  public final void setSecureRmiRegistry(final boolean isSecureRmiRegistry) {
+    this.isSecureRmiRegistry = isSecureRmiRegistry;
   }
 }
