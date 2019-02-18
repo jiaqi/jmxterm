@@ -197,6 +197,8 @@
           <license>Apache Software License v2.0</license>
           <distribution>CyclopsGroup.org</distribution>
           <group>Development/Languages/Java</group>
+          <needarch>noarch</needarch>
+          <targetOS>linux</targetOS>
           <packager>Jiaqi Guo</packager>
           <defaultUsername>root</defaultUsername>
           <defaultGroupname>root</defaultGroupname>
