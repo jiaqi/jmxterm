@@ -1,5 +1,10 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.management.remote.JMXConnector;
+import javax.rmi.ssl.SslRMIClientSocketFactory;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -8,12 +13,6 @@ import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Connection;
 import org.cyclopsgroup.jmxterm.Session;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
-
-import javax.management.remote.JMXConnector;
-import javax.rmi.ssl.SslRMIClientSocketFactory;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Command to open JMX connection
@@ -45,10 +44,7 @@ public class OpenCommand extends Command {
       }
       return;
     }
-    Map<String, Object> env = null;
-    if (user != null || isSecureRmiRegistry) {
-      env = new HashMap(2);
-    }
+    Map<String, Object> env = new HashMap<>();
     if (user != null) {
       if (password == null) {
         password = session.getInput().readMaskedString("Credential password: ");
@@ -61,7 +57,8 @@ public class OpenCommand extends Command {
       env.put("com.sun.jndi.rmi.factory.socket", new SslRMIClientSocketFactory());
     }
     try {
-      session.connect(SyntaxUtils.getUrl(url, session.getProcessManager()), env);
+      session.connect(SyntaxUtils.getUrl(url, session.getProcessManager()),
+          env.isEmpty() ? null : env);
       session.output.printMessage("Connection to " + url + " is opened");
     } catch (IOException e) {
       if (NumberUtils.isDigits(url)) {
@@ -99,10 +96,10 @@ public class OpenCommand extends Command {
 
   /**
    * @param isSecureRmiRegistry Whether the server's RMI registry is protected with SSL/TLS
-   *                            (com.sun.management.jmxremote.registry.ssl=true)
+   *        (com.sun.management.jmxremote.registry.ssl=true)
    */
   @Option(name = "s", longName = "sslrmiregistry",
-          description = "Whether the server's RMI registry is protected with SSL/TLS")
+      description = "Whether the server's RMI registry is protected with SSL/TLS")
   public final void setSecureRmiRegistry(final boolean isSecureRmiRegistry) {
     this.isSecureRmiRegistry = isSecureRmiRegistry;
   }

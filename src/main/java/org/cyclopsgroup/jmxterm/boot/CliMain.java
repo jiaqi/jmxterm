@@ -1,25 +1,31 @@
 package org.cyclopsgroup.jmxterm.boot;
 
-import org.apache.commons.lang3.StringUtils;
-import org.cyclopsgroup.jcli.ArgumentProcessor;
-import org.cyclopsgroup.jcli.GnuParser;
-import org.cyclopsgroup.jmxterm.SyntaxUtils;
-import org.cyclopsgroup.jmxterm.cc.CommandCenter;
-import org.cyclopsgroup.jmxterm.cc.ConsoleCompletor;
-import org.cyclopsgroup.jmxterm.io.*;
-import org.jline.reader.History;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.reader.impl.LineReaderImpl;
-
-import javax.management.remote.JMXConnector;
-import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import javax.management.remote.JMXConnector;
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+import org.apache.commons.lang3.StringUtils;
+import org.cyclopsgroup.jcli.ArgumentProcessor;
+import org.cyclopsgroup.jcli.GnuParser;
+import org.cyclopsgroup.jmxterm.SyntaxUtils;
+import org.cyclopsgroup.jmxterm.cc.CommandCenter;
+import org.cyclopsgroup.jmxterm.cc.ConsoleCompletor;
+import org.cyclopsgroup.jmxterm.io.CommandInput;
+import org.cyclopsgroup.jmxterm.io.CommandOutput;
+import org.cyclopsgroup.jmxterm.io.FileCommandInput;
+import org.cyclopsgroup.jmxterm.io.FileCommandOutput;
+import org.cyclopsgroup.jmxterm.io.InputStreamCommandInput;
+import org.cyclopsgroup.jmxterm.io.JlineCommandInput;
+import org.cyclopsgroup.jmxterm.io.PrintStreamCommandOutput;
+import org.cyclopsgroup.jmxterm.io.VerboseLevel;
+import org.jline.reader.History;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.reader.impl.LineReaderImpl;
 
 /**
  * Main class invoked directly from command line
@@ -75,7 +81,7 @@ public class CliMain {
           LineReaderImpl consoleReader = (LineReaderImpl) LineReaderBuilder.builder().build();
           File historyFile = new File(System.getProperty("user.home"), ".jmxterm_history");
           consoleReader.setVariable(LineReader.HISTORY_FILE, historyFile);
-          final History history = consoleReader.getHistory();
+          History history = consoleReader.getHistory();
           history.load();
           Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
@@ -103,13 +109,8 @@ public class CliMain {
               .setCompleter(new ConsoleCompletor(commandCenter));
         }
         if (options.getUrl() != null) {
-          final boolean isPasswordAuth = (options.getUser() != null);
-          final boolean isSecureRmiRegistry = options.isSecureRmiRegistry();
-          Map<String, Object> env = null;
-          if (isPasswordAuth || isSecureRmiRegistry) {
-            env = new HashMap(2);
-          }
-          if (isPasswordAuth) {
+          Map<String, Object> env = new HashMap<>();
+          if (options.getUser() != null) {
             String password = options.getPassword();
             if (password == null) {
               password = input.readMaskedString("Authentication password: ");
@@ -117,12 +118,14 @@ public class CliMain {
             String[] credentials = {options.getUser(), password};
             env.put(JMXConnector.CREDENTIALS, credentials);
           }
-          if (isSecureRmiRegistry) {
-            // Required to prevent "java.rmi.ConnectIOException: non-JRMP server at remote endpoint" error
+          if (options.isSecureRmiRegistry()) {
+            // Required to prevent "java.rmi.ConnectIOException: non-JRMP server at remote endpoint"
+            // error
             env.put("com.sun.jndi.rmi.factory.socket", new SslRMIClientSocketFactory());
           }
           commandCenter.connect(
-              SyntaxUtils.getUrl(options.getUrl(), commandCenter.getProcessManager()), env);
+              SyntaxUtils.getUrl(options.getUrl(), commandCenter.getProcessManager()),
+              env.isEmpty() ? null : env);
         }
         if (verboseLevel != null) {
           commandCenter.setVerboseLevel(verboseLevel);
