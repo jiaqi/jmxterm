@@ -1,5 +1,6 @@
 package org.cyclopsgroup.jmxterm;
 
+import java.io.IOError;
 import java.io.IOException;
 import java.util.Map;
 
@@ -57,6 +58,11 @@ public abstract class Session implements VerboseCommandOutputConfig {
   public void close() {
     if (closed) {
       return;
+    }
+    try {
+      disconnect();
+    } catch (Exception e) {
+        throw new IOError(e);
     }
     closed = true;
   }
