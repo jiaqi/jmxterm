@@ -105,7 +105,7 @@ public class GetCommandTest {
    */
   @Test
   public void testExecuteNormally() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", true, "" );
+    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, "" );
   }
 
   /**
@@ -156,7 +156,7 @@ public class GetCommandTest {
    */
   @Test
   public void testExecuteWithDelimiters() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, "");
+    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, ",");
   }
 
   /**
@@ -167,12 +167,4 @@ public class GetCommandTest {
     getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", true, "");
   }
 
-  /**
-   * Verify that complete line output is working
-   */
-  @Test
-  public void testExecuteForCompleteLineOutput() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false,
-        "");
-  }
 }
