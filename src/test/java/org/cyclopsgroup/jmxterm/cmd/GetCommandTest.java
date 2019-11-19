@@ -39,12 +39,11 @@ public class GetCommandTest {
 
   private void getAttributeAndVerify(final String domain, String bean, final String attribute,
       final String expectedBean, final Object expectedValue, final boolean singleLine,
-      final String delimiter, final boolean simpleFormat, final boolean completeLine) {
+      final String delimiter) {
     command.setDomain(domain);
     command.setBean(bean);
     command.setAttributes(Arrays.asList(attribute));
-    command.setSimpleFormat(simpleFormat);
-    command.setZFormat(completeLine);
+    command.setSimpleFormat(true);
     command.setSingleLine(singleLine);
     command.setDelimiter(delimiter);
 
@@ -106,7 +105,7 @@ public class GetCommandTest {
    */
   @Test
   public void testExecuteNormally() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", true, "", true, false );
+    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", true, "" );
   }
 
   /**
@@ -114,12 +113,12 @@ public class GetCommandTest {
    */
   @Test
   public void testExecuteWithNonStringType() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", new Integer(10), false, "", true, false);
+    getAttributeAndVerify("a", "type=x", "a", "a:type=x", new Integer(10), false, "");
   }
 
   @Test
   public void testExecuteWithSlashInDomainName() {
-    getAttributeAndVerify("a/b", "type=c", "a", "a/b:type=c", "bingo", false, "", true, false);
+    getAttributeAndVerify("a/b", "type=c", "a", "a/b:type=c", "bingo", false, "");
   }
 
   /**
@@ -141,7 +140,7 @@ public class GetCommandTest {
       }
     });
     Object expectedValue = new CompositeDataSupport(compositeType, entries);
-    getAttributeAndVerify("a", "type=x", "a_b-c.d", "a:type=x", expectedValue, false, "", true, false);
+    getAttributeAndVerify("a", "type=x", "a_b-c.d", "a:type=x", expectedValue, false, "");
   }
 
   /**
@@ -149,7 +148,7 @@ public class GetCommandTest {
    */
   @Test
   public void testExecuteWithUnusualDomainAndBeanName() {
-    getAttributeAndVerify("a-a", "a.b-c_d=x-y.z", "a", "a-a:a.b-c_d=x-y.z", "bingo", false, "", true,   false);
+    getAttributeAndVerify("a-a", "a.b-c_d=x-y.z", "a", "a-a:a.b-c_d=x-y.z", "bingo", false, "");
   }
 
   /**
@@ -157,7 +156,7 @@ public class GetCommandTest {
    */
   @Test
   public void testExecuteWithDelimiters() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, ",", true, false);
+    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, "");
   }
 
   /**
@@ -165,7 +164,7 @@ public class GetCommandTest {
    */
   @Test
   public void testExecuteForSingleLineOutput() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", true, "", true,false);
+    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", true, "");
   }
 
   /**
@@ -174,6 +173,6 @@ public class GetCommandTest {
   @Test
   public void testExecuteForCompleteLineOutput() {
     getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false,
-        "", false,true);
+        "");
   }
 }
