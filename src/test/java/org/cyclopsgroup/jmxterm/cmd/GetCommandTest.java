@@ -105,7 +105,7 @@ public class GetCommandTest {
    */
   @Test
   public void testExecuteNormally() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, "" );
+    getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, "");
   }
 
   /**
@@ -166,5 +166,4 @@ public class GetCommandTest {
   public void testExecuteForSingleLineOutput() {
     getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", true, "");
   }
-
 }
