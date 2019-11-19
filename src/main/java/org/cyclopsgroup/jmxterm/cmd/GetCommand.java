@@ -44,6 +44,8 @@ public class GetCommand extends Command {
 
   private boolean simpleFormat;
 
+  private boolean completeLine;
+
   private void displayAttributes() throws IOException, JMException {
     Session session = getSession();
     String beanName = BeanCommand.getBeanName(bean, domain, session);
@@ -94,6 +96,9 @@ public class GetCommand extends Command {
 
         if (simpleFormat) {
           format.printValue(session.output, result);
+        } else if (completeLine) {
+          String updateResult = "mbean = " + beanName + " # " + attributeName + " = " + result;
+          format.printValue(session.output, updateResult);
         } else {
           format.printExpression(session.output, attributeName, result, i.getDescription());
         }
@@ -191,6 +196,16 @@ public class GetCommand extends Command {
       description = "Print simple expression of value without full expression")
   public final void setSimpleFormat(boolean simpleFormat) {
     this.simpleFormat = simpleFormat;
+  }
+
+  /**
+   * @param completeLine True if value is printed out in a complete </bean # value> single line
+   * expression
+   */
+  @Option(name = "f", longName = "completeLine", description = "Print expression with bean and "
+      + "value in single line with '#' delimiter")
+  public final void setZFormat(boolean completeLine) {
+    this.completeLine = completeLine;
   }
 
   @Option(name = "l", longName = "delimiter",
