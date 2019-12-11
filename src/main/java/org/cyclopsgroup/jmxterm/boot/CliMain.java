@@ -80,6 +80,7 @@ public class CliMain {
         } else {
           LineReaderImpl consoleReader = (LineReaderImpl) LineReaderBuilder.builder().build();
           File historyFile = new File(System.getProperty("user.home"), ".jmxterm_history");
+          output.printMessage("Delete " + historyFile.getAbsolutePath() + " if you encounter error right after launching me.");
           consoleReader.setVariable(LineReader.HISTORY_FILE, historyFile);
           History history = consoleReader.getHistory();
           history.load();
