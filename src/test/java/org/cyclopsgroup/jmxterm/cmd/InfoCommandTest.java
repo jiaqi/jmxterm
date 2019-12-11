@@ -109,8 +109,10 @@ public class InfoCommandTest {
         will(returnValue(new MBeanParameterInfo[] {paramInfo}));
         oneOf(paramInfo).getType();
         will(returnValue(String.class.getName()));
-        oneOf(paramInfo).getName();
+        atLeast(1).of(paramInfo).getName();
         will(returnValue("a"));
+        oneOf(paramInfo).getDescription();
+        will(returnValue("a-desc"));
         oneOf(opInfo).getReturnType();
         will(returnValue("int"));
         atLeast(1).of(opInfo).getName();
