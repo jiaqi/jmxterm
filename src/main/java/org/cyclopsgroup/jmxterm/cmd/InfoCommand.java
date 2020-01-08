@@ -119,17 +119,23 @@ public class InfoCommand extends Command {
     for (MBeanOperationInfo op : operations) {
       MBeanParameterInfo[] paramInfos = op.getSignature();
       List<String> paramTypes = new ArrayList<String>(paramInfos.length);
+      List<String> paramDescriptions = new ArrayList<String>(paramInfos.length);
       for (MBeanParameterInfo paramInfo : paramInfos) {
         paramTypes.add(paramInfo.getType() + " " + paramInfo.getName());
+        paramDescriptions.add("       " + paramInfo.getName() + ": " + paramInfo.getDescription());
       }
+      String parameters = StringUtils.join(paramTypes, ',');
+      String parametersDesc =
+          paramDescriptions.isEmpty() ? "" : '\n' + StringUtils.join(paramDescriptions, '\n');
       session.output.println(
           String.format(
-              "  %%%-3d - %s %s(%s)" + (showDescription ? ", %s" : ""),
+              "  %%%-3d - %s %s(%s)" + (showDescription ? ", %s%s" : ""),
               index++,
               op.getReturnType(),
               op.getName(),
-              StringUtils.join(paramTypes, ','),
-              op.getDescription()));
+              parameters,
+              op.getDescription(),
+              parametersDesc));
     }
   }
 
@@ -190,6 +196,9 @@ public class InfoCommand extends Command {
     MBeanInfo info = con.getMBeanInfo(name);
     session.output.printMessage("mbean = " + beanName);
     session.output.printMessage("class name = " + info.getClassName());
+    if (this.showDescription) {
+      session.output.printMessage("description: " + info.getDescription());
+    }
     if (operation == null) {
       for (char t : type.toCharArray()) {
         switch (t) {

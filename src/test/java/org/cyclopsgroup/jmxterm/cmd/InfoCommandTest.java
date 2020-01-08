@@ -88,10 +88,10 @@ public class InfoCommandTest {
   public void testExecuteWithShowingOperations() throws Exception {
     command.setBean("a:type=x");
     command.setType("o");
-    final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
-    final MBeanInfo beanInfo = context.mock(MBeanInfo.class);
-    final MBeanOperationInfo opInfo = context.mock(MBeanOperationInfo.class);
-    final MBeanParameterInfo paramInfo = context.mock(MBeanParameterInfo.class);
+    MBeanServerConnection con = context.mock(MBeanServerConnection.class);
+    MBeanInfo beanInfo = context.mock(MBeanInfo.class);
+    MBeanOperationInfo opInfo = context.mock(MBeanOperationInfo.class);
+    MBeanParameterInfo paramInfo = context.mock(MBeanParameterInfo.class);
     Session session = new MockSession(output, con);
     context.checking(
         new Expectations() {
@@ -108,8 +108,10 @@ public class InfoCommandTest {
             will(returnValue(new MBeanParameterInfo[] {paramInfo}));
             oneOf(paramInfo).getType();
             will(returnValue(String.class.getName()));
-            oneOf(paramInfo).getName();
+            atLeast(1).of(paramInfo).getName();
             will(returnValue("a"));
+            oneOf(paramInfo).getDescription();
+            will(returnValue("a-desc"));
             oneOf(opInfo).getReturnType();
             will(returnValue("int"));
             atLeast(1).of(opInfo).getName();
