@@ -1,15 +1,14 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import org.apache.commons.io.output.NullWriter;
-import org.apache.commons.lang3.Validate;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import org.apache.commons.io.output.NullWriter;
+import org.apache.commons.lang3.Validate;
 
 /**
  * A command output that writes result and message to given writers
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class WriterCommandOutput extends CommandOutput {
@@ -17,9 +16,7 @@ public class WriterCommandOutput extends CommandOutput {
 
   private final Writer resultOutput;
 
-  /**
-   * @param output Writer for both result and message
-   */
+  /** @param output Writer for both result and message */
   public WriterCommandOutput(Writer output) {
     this(output, output);
   }

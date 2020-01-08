@@ -1,11 +1,10 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import org.apache.commons.lang3.Validate;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Output with a file

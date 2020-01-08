@@ -4,10 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.util.Map;
-
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXServiceURL;
-
 import org.apache.commons.io.output.NullWriter;
 import org.cyclopsgroup.jmxterm.Connection;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
@@ -19,7 +17,7 @@ import org.junit.Test;
 
 /**
  * Test case of {@link ConnectionImpl}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class SessionImplTest {
@@ -29,26 +27,27 @@ public class SessionImplTest {
 
   private SessionImpl session;
 
-  /**
-   * Set up objects to test
-   */
+  /** Set up objects to test */
   @Before
   public void setUp() {
     context = new Mockery();
     con = context.mock(JMXConnector.class);
-    session = new SessionImpl(new WriterCommandOutput(new NullWriter()), null,
-        new UnsupportedJavaProcessManager("testing")) {
-      @Override
-      protected JMXConnector doConnect(JMXServiceURL url, Map<String, Object> env)
-          throws IOException {
-        return con;
-      }
-    };
+    session =
+        new SessionImpl(
+            new WriterCommandOutput(new NullWriter()),
+            null,
+            new UnsupportedJavaProcessManager("testing")) {
+          @Override
+          protected JMXConnector doConnect(JMXServiceURL url, Map<String, Object> env)
+              throws IOException {
+            return con;
+          }
+        };
   }
 
   /**
    * Verify connect() runs correctly
-   * 
+   *
    * @throws IOException
    */
   @Test

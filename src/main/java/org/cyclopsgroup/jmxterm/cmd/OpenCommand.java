@@ -19,9 +19,12 @@ import org.cyclopsgroup.jmxterm.SyntaxUtils;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli(name = "open", description = "Open JMX session or display current connection",
-    note = "Without argument this command display current connection. "
-        + "URL can be a <PID>, <hostname>:<port> or full qualified JMX service URL. For example\n open localhost:9991,\n open jmx:service:...")
+@Cli(
+    name = "open",
+    description = "Open JMX session or display current connection",
+    note =
+        "Without argument this command display current connection. "
+            + "URL can be a <PID>, <hostname>:<port> or full qualified JMX service URL. For example\n open localhost:9991,\n open jmx:service:...")
 public class OpenCommand extends Command {
   private String password;
 
@@ -57,38 +60,36 @@ public class OpenCommand extends Command {
       env.put("com.sun.jndi.rmi.factory.socket", new SslRMIClientSocketFactory());
     }
     try {
-      session.connect(SyntaxUtils.getUrl(url, session.getProcessManager()),
-          env.isEmpty() ? null : env);
+      session.connect(
+          SyntaxUtils.getUrl(url, session.getProcessManager()), env.isEmpty() ? null : env);
       session.output.printMessage("Connection to " + url + " is opened");
     } catch (IOException e) {
       if (NumberUtils.isDigits(url)) {
-        session.output.printMessage("Couldn't connect to PID " + url
-            + ", it's likely that your version of JDK doesn't allow to connect to a process directly");
+        session.output.printMessage(
+            "Couldn't connect to PID "
+                + url
+                + ", it's likely that your version of JDK doesn't allow to connect to a process directly");
       }
       throw e;
     }
   }
 
-  /**
-   * @param password Password for user authentication
-   */
-  @Option(name = "p", longName = "password",
+  /** @param password Password for user authentication */
+  @Option(
+      name = "p",
+      longName = "password",
       description = "Password for user/password authentication")
   public final void setPassword(String password) {
     this.password = password;
   }
 
-  /**
-   * @param url URL of MBean service to open
-   */
+  /** @param url URL of MBean service to open */
   @Argument(displayName = "url", description = "URL, <host>:<port>, or a PID to connect to")
   public final void setUrl(String url) {
     this.url = url;
   }
 
-  /**
-   * @param user User name for user authentication
-   */
+  /** @param user User name for user authentication */
   @Option(name = "u", longName = "user", description = "User name for user/password authentication")
   public final void setUser(String user) {
     this.user = user;
@@ -96,9 +97,11 @@ public class OpenCommand extends Command {
 
   /**
    * @param isSecureRmiRegistry Whether the server's RMI registry is protected with SSL/TLS
-   *        (com.sun.management.jmxremote.registry.ssl=true)
+   *     (com.sun.management.jmxremote.registry.ssl=true)
    */
-  @Option(name = "s", longName = "sslrmiregistry",
+  @Option(
+      name = "s",
+      longName = "sslrmiregistry",
       description = "Whether the server's RMI registry is protected with SSL/TLS")
   public final void setSecureRmiRegistry(final boolean isSecureRmiRegistry) {
     this.isSecureRmiRegistry = isSecureRmiRegistry;

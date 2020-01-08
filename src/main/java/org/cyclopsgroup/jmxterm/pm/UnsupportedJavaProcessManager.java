@@ -1,13 +1,12 @@
 package org.cyclopsgroup.jmxterm.pm;
 
 import java.util.List;
-
 import org.cyclopsgroup.jmxterm.JavaProcess;
 import org.cyclopsgroup.jmxterm.JavaProcessManager;
 
 /**
  * Implementation with nothing but {@link UnsupportedOperationException}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class UnsupportedJavaProcessManager extends JavaProcessManager {
@@ -15,9 +14,7 @@ public class UnsupportedJavaProcessManager extends JavaProcessManager {
 
   private final String message;
 
-  /**
-   * @param message Error message to display
-   */
+  /** @param message Error message to display */
   public UnsupportedJavaProcessManager(String message) {
     this.message = message;
     this.cause = null;
@@ -32,9 +29,7 @@ public class UnsupportedJavaProcessManager extends JavaProcessManager {
     this.cause = cause;
   }
 
-  /**
-   * @param cause Root cause of original error
-   */
+  /** @param cause Root cause of original error */
   public UnsupportedJavaProcessManager(Throwable cause) {
     this.cause = cause;
     this.message = cause.getMessage();

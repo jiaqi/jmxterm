@@ -1,5 +1,13 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.management.InstanceNotFoundException;
+import javax.management.JMException;
+import javax.management.MBeanServerConnection;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -9,23 +17,17 @@ import org.cyclopsgroup.jmxterm.Session;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
 import org.cyclopsgroup.jmxterm.io.RuntimeIOException;
 
-import javax.management.InstanceNotFoundException;
-import javax.management.JMException;
-import javax.management.MBeanServerConnection;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Command to display or set current bean
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli(name = "bean", description = "Display or set current selected MBean. ",
-    note = "Without any parameter, it displays current selected bean, "
-        + "otherwise it selects the bean defined by the first parameter. eg. bean java.lang:type=Memory")
+@Cli(
+    name = "bean",
+    description = "Display or set current selected MBean. ",
+    note =
+        "Without any parameter, it displays current selected bean, "
+            + "otherwise it selects the bean defined by the first parameter. eg. bean java.lang:type=Memory")
 public class BeanCommand extends Command {
   /**
    * Get full MBean name with given bean name, domain and session
@@ -72,9 +74,7 @@ public class BeanCommand extends Command {
     throw new IllegalArgumentException("Bean name " + bean + " isn't valid");
   }
 
-  /**
-   * Gets a list of candidate beans.
-   */
+  /** Gets a list of candidate beans. */
   static List<String> getCandidateBeanNames(Session session) throws MalformedObjectNameException {
     try {
       ArrayList<String> results = new ArrayList<String>(BeansCommand.getBeans(session, null));
@@ -89,7 +89,6 @@ public class BeanCommand extends Command {
     } catch (IOException e) {
       throw new RuntimeIOException("Couldn't find candidate bean names", e);
     }
-
   }
 
   private String bean;

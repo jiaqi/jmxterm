@@ -12,9 +12,7 @@ import org.apache.commons.text.StringEscapeUtils;
  * @version $Revision$ in $Change$ submitted at $DateTime$
  */
 public class ValueFormat {
-  /**
-   * Keyword that identifies NULL pointer <code>null</code>
-   */
+  /** Keyword that identifies NULL pointer <code>null</code> */
   public static final String NULL = "null";
 
   private ValueFormat() {}

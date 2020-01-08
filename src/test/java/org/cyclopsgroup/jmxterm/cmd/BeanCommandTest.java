@@ -5,11 +5,9 @@ import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 import java.io.StringWriter;
-
 import javax.management.JMException;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
-
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -34,11 +32,12 @@ public class BeanCommandTest {
     if (domainName != null) {
       s.setDomain(domainName);
     }
-    context.checking(new Expectations() {
-      {
-        atLeast(1).of(con).getMBeanInfo(new ObjectName(expectedBean));
-      }
-    });
+    context.checking(
+        new Expectations() {
+          {
+            atLeast(1).of(con).getMBeanInfo(new ObjectName(expectedBean));
+          }
+        });
     command.setSession(s);
     command.execute();
     assertEquals(expectedBean, s.getBean());
@@ -110,8 +109,8 @@ public class BeanCommandTest {
    */
   @Test
   public void testSettingSpecialCharactersWithoutDomain() throws IOException, JMException {
-    setBeanAndVerify("domain_name.with-dash:attr.name_1-1=a.b", null,
-        "domain_name.with-dash:attr.name_1-1=a.b");
+    setBeanAndVerify(
+        "domain_name.with-dash:attr.name_1-1=a.b", null, "domain_name.with-dash:attr.name_1-1=a.b");
   }
 
   /**
@@ -144,7 +143,7 @@ public class BeanCommandTest {
    */
   @Test
   public void testSettingWithSpecialCharacters() throws IOException, JMException {
-    setBeanAndVerify("attr.name_1-1=a.b", "domain_name.with-dash",
-        "domain_name.with-dash:attr.name_1-1=a.b");
+    setBeanAndVerify(
+        "attr.name_1-1=a.b", "domain_name.with-dash", "domain_name.with-dash:attr.name_1-1=a.b");
   }
 }

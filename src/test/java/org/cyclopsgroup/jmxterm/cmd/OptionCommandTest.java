@@ -1,7 +1,6 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
 import java.io.StringWriter;
-
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.cyclopsgroup.jmxterm.Session;
 import org.junit.Before;
@@ -17,18 +16,14 @@ public class OptionCommandTest {
 
   private StringWriter output;
 
-  /**
-   * Set up object to test
-   */
+  /** Set up object to test */
   @Before
   public void setUp() {
     command = new OptionCommand();
     output = new StringWriter();
   }
 
-  /**
-   * @throws Exception
-   */
+  /** @throws Exception */
   @Test(expected = IllegalArgumentException.class)
   public void testExecuteWithInvalidVerbose() throws Exception {
     Session session = new MockSession(output, null);

@@ -1,23 +1,24 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import javax.management.*;
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
 
-import javax.management.*;
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * Command to subscribe to an MBean notification
  *
- * All notifications will be printed to the output in the form of notification received:
+ * <p>All notifications will be printed to the output in the form of notification received:
  * timestamp=xxx,class=xxx,source=xxx,type=xxx,message=xxx To remove the subscription call the
  * unsubscribe in the terminal.
  */
-@Cli(name = "subscribe", description = "Subscribe to the notifications of a bean",
+@Cli(
+    name = "subscribe",
+    description = "Subscribe to the notifications of a bean",
     note = "Syntax is \n subscribe <bean>")
 public class SubscribeCommand extends Command {
   private static Map<ObjectName, NotificationListener> listeners =
@@ -70,17 +71,13 @@ public class SubscribeCommand extends Command {
     }
   }
 
-  /**
-   * @param bean Bean under which the operation is
-   */
+  /** @param bean Bean under which the operation is */
   @Option(name = "b", longName = "bean", description = "MBean to invoke")
   public final void setBean(String bean) {
     this.bean = bean;
   }
 
-  /**
-   * @param domain Domain under which is bean is
-   */
+  /** @param domain Domain under which is bean is */
   @Option(name = "d", longName = "domain", description = "Domain of MBean to invoke")
   public final void setDomain(String domain) {
     this.domain = domain;

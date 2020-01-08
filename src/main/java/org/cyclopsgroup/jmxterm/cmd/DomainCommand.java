@@ -1,5 +1,8 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -7,18 +10,17 @@ import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
 
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-
 /**
  * Get or set current selected domain
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli(name = "domain", description = "Display or set current selected domain. ",
-    note = "With a parameter, parameter defined domain is selected, otherwise it displays current selected domain."
-        + " eg. domain java.lang")
+@Cli(
+    name = "domain",
+    description = "Display or set current selected domain. ",
+    note =
+        "With a parameter, parameter defined domain is selected, otherwise it displays current selected domain."
+            + " eg. domain java.lang")
 public class DomainCommand extends Command {
   /**
    * Get domain name from given domain expression
@@ -75,9 +77,7 @@ public class DomainCommand extends Command {
     }
   }
 
-  /**
-   * @param domain Domain to select
-   */
+  /** @param domain Domain to select */
   @Argument(displayName = "domain", description = "Name of domain to set")
   public final void setDomain(String domain) {
     this.domain = domain;

@@ -1,20 +1,20 @@
 package org.cyclopsgroup.jmxterm.pm;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.apache.commons.lang3.JavaVersion;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-
 /**
  * Test loading jconsole classes
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class JConsoleClassLoaderFactoryTest {
   /**
    * Test loading a few classes
-   * 
+   *
    * @throws ClassNotFoundException Negative case
    */
   @Test

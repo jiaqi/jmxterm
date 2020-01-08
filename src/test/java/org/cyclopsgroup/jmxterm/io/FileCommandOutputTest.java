@@ -1,17 +1,16 @@
 package org.cyclopsgroup.jmxterm.io;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link FileCommandOutput}
@@ -21,13 +20,15 @@ import static org.junit.Assert.assertEquals;
 public class FileCommandOutputTest {
   private File testFile;
 
-  /**
-   * prepare for test output file
-   */
+  /** prepare for test output file */
   @Before
   public void setUpTestFile() {
-    testFile = new File(
-        SystemUtils.JAVA_IO_TMPDIR + "/test-" + RandomStringUtils.randomAlphabetic(20) + ".txt");
+    testFile =
+        new File(
+            SystemUtils.JAVA_IO_TMPDIR
+                + "/test-"
+                + RandomStringUtils.randomAlphabetic(20)
+                + ".txt");
   }
 
   /**
@@ -52,8 +53,8 @@ public class FileCommandOutputTest {
     output.printMessage("say hello");
     output.close();
 
-    assertEquals("helloworld",
-        FileUtils.readFileToString(testFile, Charset.forName("UTF-8")).trim());
+    assertEquals(
+        "helloworld", FileUtils.readFileToString(testFile, Charset.forName("UTF-8")).trim());
   }
 
   /**
@@ -73,7 +74,8 @@ public class FileCommandOutputTest {
     output2.printMessage("say hello2");
     output2.close();
 
-    assertEquals("helloworld" + System.lineSeparator() + "helloworld2",
+    assertEquals(
+        "helloworld" + System.lineSeparator() + "helloworld2",
         FileUtils.readFileToString(testFile, Charset.forName("UTF-8")).trim());
   }
 }

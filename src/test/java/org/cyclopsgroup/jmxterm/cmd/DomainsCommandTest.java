@@ -1,19 +1,18 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.StringWriter;
+import javax.management.MBeanServerConnection;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.management.MBeanServerConnection;
-import java.io.StringWriter;
-
-import static org.junit.Assert.assertEquals;
-
 /**
  * Test case of {@link DomainsCommand}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class DomainsCommandTest {
@@ -21,9 +20,7 @@ public class DomainsCommandTest {
 
   private Mockery context;
 
-  /**
-   * Set up objects to test
-   */
+  /** Set up objects to test */
   @Before
   public void setUp() {
     command = new DomainsCommand();
@@ -32,19 +29,20 @@ public class DomainsCommandTest {
 
   /**
    * Test normal execution
-   * 
+   *
    * @throws Exception
    */
   @Test
   public void testExecution() throws Exception {
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
     StringWriter output = new StringWriter();
-    context.checking(new Expectations() {
-      {
-        oneOf(con).getDomains();
-        will(returnValue(new String[] {"a", "b"}));
-      }
-    });
+    context.checking(
+        new Expectations() {
+          {
+            oneOf(con).getDomains();
+            will(returnValue(new String[] {"a", "b"}));
+          }
+        });
     command.setSession(new MockSession(output, con));
     command.execute();
     context.assertIsSatisfied();

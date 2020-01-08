@@ -1,5 +1,10 @@
 package org.cyclopsgroup.jmxterm.cc;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.ArgumentProcessor;
 import org.cyclopsgroup.jcli.annotation.Argument;
@@ -8,19 +13,16 @@ import org.cyclopsgroup.jcli.annotation.MultiValue;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.io.RuntimeIOException;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Command that display a help message
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli(name = "help", description = "Display available commands or usage of a command",
-    note = "Run \"help [command1] [command2] ...\" to display usage or certain command(s). Help without argument shows list of available commands")
+@Cli(
+    name = "help",
+    description = "Display available commands or usage of a command",
+    note =
+        "Run \"help [command1] [command2] ...\" to display usage or certain command(s). Help without argument shows list of available commands")
 public class HelpCommand extends Command {
   private List<String> argNames = Collections.emptyList();
 
@@ -55,9 +57,7 @@ public class HelpCommand extends Command {
     }
   }
 
-  /**
-   * @param argNames Array of arguments
-   */
+  /** @param argNames Array of arguments */
   @MultiValue(listType = ArrayList.class)
   @Argument
   public final void setArgNames(List<String> argNames) {
@@ -65,9 +65,7 @@ public class HelpCommand extends Command {
     this.argNames = argNames;
   }
 
-  /**
-   * @param commandCenter CommandCenter object that calls this help command
-   */
+  /** @param commandCenter CommandCenter object that calls this help command */
   final void setCommandCenter(CommandCenter commandCenter) {
     Validate.notNull(commandCenter, "commandCenter can't be NULL");
     this.commandCenter = commandCenter;

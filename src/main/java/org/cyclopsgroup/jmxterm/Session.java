@@ -3,9 +3,7 @@ package org.cyclopsgroup.jmxterm;
 import java.io.IOError;
 import java.io.IOException;
 import java.util.Map;
-
 import javax.management.remote.JMXServiceURL;
-
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jmxterm.io.CommandInput;
 import org.cyclopsgroup.jmxterm.io.CommandOutput;
@@ -17,7 +15,7 @@ import org.cyclopsgroup.jmxterm.io.VerboseLevel;
 /**
  * JMX communication context. This class exists for the whole lifecycle of a command execution. It
  * is NOT thread safe. The caller(CommandCenter) makes sure all calls are synchronized.
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public abstract class Session implements VerboseCommandOutputConfig {
@@ -52,9 +50,7 @@ public abstract class Session implements VerboseCommandOutputConfig {
     this.processManager = processManager;
   }
 
-  /**
-   * Close JMX terminal console. Supposedly, process terminates after this call
-   */
+  /** Close JMX terminal console. Supposedly, process terminates after this call */
   public void close() {
     if (closed) {
       return;
@@ -62,14 +58,14 @@ public abstract class Session implements VerboseCommandOutputConfig {
     try {
       disconnect();
     } catch (Exception e) {
-        throw new IOError(e);
+      throw new IOError(e);
     }
     closed = true;
   }
 
   /**
    * Connect to MBean server
-   * 
+   *
    * @param url URL to connect
    * @param env Environment variables
    * @throws IOException allows IO exceptions.
@@ -78,41 +74,33 @@ public abstract class Session implements VerboseCommandOutputConfig {
 
   /**
    * Close JMX connector
-   * 
+   *
    * @throws IOException Thrown when connection can't be closed
    */
   public abstract void disconnect() throws IOException;
 
-  /**
-   * @return Current selected bean
-   */
+  /** @return Current selected bean */
   public final String getBean() {
     return bean;
   }
 
-  /**
-   * @return Current open JMX server connection
-   */
+  /** @return Current open JMX server connection */
   public abstract Connection getConnection();
 
-  /**
-   * @return Current domain
-   */
+  /** @return Current domain */
   public final String getDomain() {
     return domain;
   }
 
   /**
    * @return General input of command lines, which could be interactive environment, a file or piped
-   *         input
+   *     input
    */
   public final CommandInput getInput() {
     return input;
   }
 
-  /**
-   * @return Java process manager to load processes
-   */
+  /** @return Java process manager to load processes */
   public JavaProcessManager getProcessManager() {
     return processManager;
   }
@@ -122,21 +110,17 @@ public abstract class Session implements VerboseCommandOutputConfig {
     return verboseLevel;
   }
 
-  /**
-   * @return True if {@link #close()} has been called
-   */
+  /** @return True if {@link #close()} has been called */
   public final boolean isClosed() {
     return closed;
   }
 
-  /**
-   * @return True if there's a open connection to JMX server
-   */
+  /** @return True if there's a open connection to JMX server */
   public abstract boolean isConnected();
 
   /**
    * Set current selected bean
-   * 
+   *
    * @param bean Bean to select
    */
   public final void setBean(String bean) {
@@ -145,7 +129,7 @@ public abstract class Session implements VerboseCommandOutputConfig {
 
   /**
    * Set current selected domain
-   * 
+   *
    * @param domain Domain to select
    */
   public final void setDomain(String domain) {
@@ -153,17 +137,13 @@ public abstract class Session implements VerboseCommandOutputConfig {
     this.domain = domain;
   }
 
-  /**
-   * @param verboseLevel Level of verbose
-   */
+  /** @param verboseLevel Level of verbose */
   public final void setVerboseLevel(VerboseLevel verboseLevel) {
     Validate.notNull(verboseLevel, "Verbose level can't be NULL");
     this.verboseLevel = verboseLevel;
   }
 
-  /**
-   * Set domain and bean to be NULL
-   */
+  /** Set domain and bean to be NULL */
   public void unsetDomain() {
     bean = null;
     domain = null;

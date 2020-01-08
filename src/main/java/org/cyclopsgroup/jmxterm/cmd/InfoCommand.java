@@ -1,13 +1,12 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.CompareToBuilder;
-import org.cyclopsgroup.jcli.annotation.Cli;
-import org.cyclopsgroup.jcli.annotation.Option;
-import org.cyclopsgroup.jmxterm.Command;
-import org.cyclopsgroup.jmxterm.Session;
-
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.regex.Pattern;
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanFeatureInfo;
@@ -17,27 +16,31 @@ import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.cyclopsgroup.jcli.annotation.Cli;
+import org.cyclopsgroup.jcli.annotation.Option;
+import org.cyclopsgroup.jmxterm.Command;
+import org.cyclopsgroup.jmxterm.Session;
 
 /**
  * Command that displays attributes and operations of an MBean
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli(name = "info", description = "Display detail information about an MBean",
+@Cli(
+    name = "info",
+    description = "Display detail information about an MBean",
     note = "If -b option is not specified, current selected MBean is applied")
 public class InfoCommand extends Command {
   private static final Comparator<MBeanFeatureInfo> INFO_COMPARATOR =
       new Comparator<MBeanFeatureInfo>() {
         public int compare(MBeanFeatureInfo o1, MBeanFeatureInfo o2) {
-          return new CompareToBuilder().append(o1.getName(), o2.getName())
-              .append(o1.hashCode(), o2.hashCode()).toComparison();
+          return new CompareToBuilder()
+              .append(o1.getName(), o2.getName())
+              .append(o1.hashCode(), o2.hashCode())
+              .toComparison();
         }
       };
 
@@ -70,9 +73,14 @@ public class InfoCommand extends Command {
     Collections.sort(infos, INFO_COMPARATOR);
     for (MBeanAttributeInfo attr : infos) {
       String rw = "" + (attr.isReadable() ? "r" : "") + (attr.isWritable() ? "w" : "");
-      session.output
-          .println(String.format("  %%%-3d - %s (%s, %s)" + (showDescription ? ", %s" : ""),
-              index++, attr.getName(), attr.getType(), rw, attr.getDescription()));
+      session.output.println(
+          String.format(
+              "  %%%-3d - %s (%s, %s)" + (showDescription ? ", %s" : ""),
+              index++,
+              attr.getName(),
+              attr.getType(),
+              rw,
+              attr.getDescription()));
     }
   }
 
@@ -86,11 +94,14 @@ public class InfoCommand extends Command {
     int index = 0;
     session.output.println(TEXT_NOTIFICATIONS);
     for (MBeanNotificationInfo notification : notificationInfos) {
-      session.output.println(String.format("  %%%-3d - %s(%s)" + (showDescription ? ", %s" : ""),
-          index++, notification.getName(), StringUtils.join(notification.getNotifTypes(), ","),
-          notification.getDescription()));
+      session.output.println(
+          String.format(
+              "  %%%-3d - %s(%s)" + (showDescription ? ", %s" : ""),
+              index++,
+              notification.getName(),
+              StringUtils.join(notification.getNotifTypes(), ","),
+              notification.getDescription()));
     }
-
   }
 
   private void displayOperations(MBeanInfo info) {
@@ -111,9 +122,14 @@ public class InfoCommand extends Command {
       for (MBeanParameterInfo paramInfo : paramInfos) {
         paramTypes.add(paramInfo.getType() + " " + paramInfo.getName());
       }
-      session.output.println(String.format("  %%%-3d - %s %s(%s)" + (showDescription ? ", %s" : ""),
-          index++, op.getReturnType(), op.getName(), StringUtils.join(paramTypes, ','),
-          op.getDescription()));
+      session.output.println(
+          String.format(
+              "  %%%-3d - %s %s(%s)" + (showDescription ? ", %s" : ""),
+              index++,
+              op.getReturnType(),
+              op.getName(),
+              StringUtils.join(paramTypes, ','),
+              op.getDescription()));
     }
   }
 
@@ -137,18 +153,27 @@ public class InfoCommand extends Command {
             new StringBuilder("             parameters:" + System.lineSeparator());
         for (MBeanParameterInfo paramInfo : paramInfos) {
           String parameter = paramInfo.getName();
-          paramsDesc.append(String.format("                 + %-20s : %s" + System.lineSeparator(),
-              parameter, paramInfo.getDescription()));
+          paramsDesc.append(
+              String.format(
+                  "                 + %-20s : %s" + System.lineSeparator(),
+                  parameter,
+                  paramInfo.getDescription()));
           paramTypes.add(paramInfo.getType() + " " + parameter);
         }
-        session.output.println(String.format("  %%%-3d - %s %s(%s), %s", index++,
-            op.getReturnType(), opName, StringUtils.join(paramTypes, ','), op.getDescription()));
+        session.output.println(
+            String.format(
+                "  %%%-3d - %s %s(%s), %s",
+                index++,
+                op.getReturnType(),
+                opName,
+                StringUtils.join(paramTypes, ','),
+                op.getDescription()));
         session.output.println(paramsDesc.toString());
       }
     }
     if (!found) {
-      session.output
-          .printMessage(String.format("The operation '%s' is not found in the bean.", operation));
+      session.output.printMessage(
+          String.format("The operation '%s' is not found in the bean.", operation));
     }
   }
 
@@ -188,9 +213,7 @@ public class InfoCommand extends Command {
     }
   }
 
-  /**
-   * @param bean Bean for which information is displayed
-   */
+  /** @param bean Bean for which information is displayed */
   @Option(name = "b", longName = "bean", description = "Name of MBean")
   public final void setBean(String bean) {
     this.bean = bean;
@@ -198,7 +221,7 @@ public class InfoCommand extends Command {
 
   /**
    * Given domain
-   * 
+   *
    * @param domain Domain name
    */
   @Option(name = "d", longName = "domain", description = "Domain for bean")
@@ -206,26 +229,27 @@ public class InfoCommand extends Command {
     this.domain = domain;
   }
 
-  /**
-   * @param showDescription True to show detail description
-   */
+  /** @param showDescription True to show detail description */
   @Option(name = "e", longName = "detail", description = "Show description")
   public final void setShowDescription(boolean showDescription) {
     this.showDescription = showDescription;
   }
 
-  /**
-   * @param type Type of detail to display
-   */
-  @Option(name = "t", longName = "type",
-      description = "Types(a|o|u) to display, for example aon for all attributes, operations and notifications")
+  /** @param type Type of detail to display */
+  @Option(
+      name = "t",
+      longName = "type",
+      description =
+          "Types(a|o|u) to display, for example aon for all attributes, operations and notifications")
   public void setType(String type) {
     Validate.isTrue(StringUtils.isNotEmpty(type), "Type can't be NULL");
     Validate.isTrue(Pattern.matches("^a?o?n?$", type), "Type must be a?|o?|n?");
     this.type = type;
   }
 
-  @Option(name = "o", longName = "op",
+  @Option(
+      name = "o",
+      longName = "op",
       description = "Show a single operation with more details (including parameters information)")
   public void setOperation(String operation) {
     Validate.isTrue(StringUtils.isNotEmpty(operation), "Operation can't be NULL");

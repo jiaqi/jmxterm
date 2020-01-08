@@ -1,14 +1,13 @@
 package org.cyclopsgroup.jmxterm;
 
+import java.io.IOException;
+import java.util.List;
+import javax.management.JMException;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.AutoCompletable;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.management.JMException;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Base class of all commands. Command is executed in single thread. Extending classes don't need to
@@ -56,31 +55,23 @@ public abstract class Command implements AutoCompletable {
    */
   public abstract void execute() throws IOException, JMException;
 
-  /**
-   * @return Session where command runs
-   */
+  /** @return Session where command runs */
   public final Session getSession() {
     return session;
   }
 
-  /**
-   * @return True if help option is on
-   */
+  /** @return True if help option is on */
   public final boolean isHelp() {
     return help;
   }
 
-  /**
-   * @param help True to display usage
-   */
+  /** @param help True to display usage */
   @Option(name = "h", longName = "help", description = "Display usage")
   public final void setHelp(boolean help) {
     this.help = help;
   }
 
-  /**
-   * @param session Session where command runs
-   */
+  /** @param session Session where command runs */
   public final void setSession(Session session) {
     Validate.notNull(session, "Session can't be NULL");
     this.session = session;

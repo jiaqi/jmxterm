@@ -3,14 +3,13 @@ package org.cyclopsgroup.jmxterm.cmd;
 import static org.junit.Assert.assertFalse;
 
 import java.io.StringWriter;
-
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Test of {@link CloseCommand}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class CloseCommandTest {
@@ -18,9 +17,7 @@ public class CloseCommandTest {
 
   private StringWriter output;
 
-  /**
-   * Set up classes to test
-   */
+  /** Set up classes to test */
   @Before
   public void setUp() {
     command = new CloseCommand();
@@ -29,7 +26,7 @@ public class CloseCommandTest {
 
   /**
    * Test execution
-   * 
+   *
    * @throws Exception
    */
   @Test

@@ -3,18 +3,17 @@ package org.cyclopsgroup.jmxterm.cc;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-
 import org.junit.Test;
 
 /**
  * Test case of {@link PredefinedCommandFactory}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class PredefinedCommandFactoryTest {
   /**
    * Test that object is constructed
-   * 
+   *
    * @throws IOException
    */
   @Test

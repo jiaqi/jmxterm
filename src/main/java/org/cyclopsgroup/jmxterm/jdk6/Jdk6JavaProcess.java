@@ -5,15 +5,13 @@ import org.cyclopsgroup.jmxterm.JavaProcess;
 
 /**
  * JDK6 specific implementation of {@link JavaProcess}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 class Jdk6JavaProcess implements JavaProcess {
   private final LocalVirtualMachine vm;
 
-  /**
-   * @param vm Local VM
-   */
+  /** @param vm Local VM */
   Jdk6JavaProcess(LocalVirtualMachine vm) {
     Validate.notNull(vm, "VM can't be NULL");
     this.vm = vm;

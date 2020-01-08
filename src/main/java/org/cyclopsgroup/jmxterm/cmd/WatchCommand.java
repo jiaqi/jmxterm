@@ -1,5 +1,18 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
+import java.io.IOException;
+import java.text.FieldPosition;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import javax.management.JMException;
+import javax.management.MBeanAttributeInfo;
+import javax.management.MBeanServerConnection;
+import javax.management.ObjectName;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -11,26 +24,14 @@ import org.cyclopsgroup.jmxterm.io.CommandOutput;
 import org.cyclopsgroup.jmxterm.io.JlineCommandInput;
 import org.jline.reader.impl.LineReaderImpl;
 
-import javax.management.JMException;
-import javax.management.MBeanAttributeInfo;
-import javax.management.MBeanServerConnection;
-import javax.management.ObjectName;
-import java.io.IOException;
-import java.text.FieldPosition;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Command to watch an MBean attribute TODO Consider the use case for CSV file backend generation
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli(name = "watch", description = "Watch the value of one MBean attribute constantly",
+@Cli(
+    name = "watch",
+    description = "Watch the value of one MBean attribute constantly",
     note = "DO NOT call this command in a script and expect decent output")
 public class WatchCommand extends Command {
   private static class ConsoleOutput extends Output {
@@ -50,7 +51,7 @@ public class WatchCommand extends Command {
     }
   }
 
-  private static abstract class Output {
+  private abstract static class Output {
     abstract void printLine(String line) throws IOException;
   }
 
@@ -65,7 +66,6 @@ public class WatchCommand extends Command {
     void printLine(String line) {
       out.println(line);
     }
-
   }
 
   private static final String BUILDING_ATTRIBUTE_NOW = "%now";
@@ -125,21 +125,28 @@ public class WatchCommand extends Command {
     }
 
     final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-    executor.scheduleWithFixedDelay(new Runnable() {
-      public void run() {
-        try {
-          printValues(name, con, output);
-        } catch (IOException e) {
-          getSession().output.printError(e);
-        }
-      }
-    }, 0, refreshInterval, TimeUnit.SECONDS);
+    executor.scheduleWithFixedDelay(
+        new Runnable() {
+          public void run() {
+            try {
+              printValues(name, con, output);
+            } catch (IOException e) {
+              getSession().output.printError(e);
+            }
+          }
+        },
+        0,
+        refreshInterval,
+        TimeUnit.SECONDS);
     if (stopAfter > 0) {
-      executor.schedule(new Runnable() {
-        public void run() {
-          executor.shutdownNow();
-        }
-      }, stopAfter, TimeUnit.SECONDS);
+      executor.schedule(
+          new Runnable() {
+            public void run() {
+              executor.shutdownNow();
+            }
+          },
+          stopAfter,
+          TimeUnit.SECONDS);
     }
     if (!report) {
       System.in.read();
@@ -150,8 +157,9 @@ public class WatchCommand extends Command {
     session.output.println("");
   }
 
-  private Object getAttributeValue(ObjectName beanName, String attributeName,
-      MBeanServerConnection connection) throws IOException {
+  private Object getAttributeValue(
+      ObjectName beanName, String attributeName, MBeanServerConnection connection)
+      throws IOException {
     // $now is a reserved keyword for current java.util.Date
     if (attributeName.equals(BUILDING_ATTRIBUTE_NOW)) {
       return new Date();
@@ -188,28 +196,28 @@ public class WatchCommand extends Command {
     output.printLine(result.toString());
   }
 
-  /**
-   * @param attributes Name of attributes to watch
-   */
+  /** @param attributes Name of attributes to watch */
   @MultiValue(listType = ArrayList.class, minValues = 1)
   @Argument(displayName = "attr", description = "Name of attributes to watch")
   public final void setAttributes(List<String> attributes) {
     this.attributes = attributes;
   }
 
-  /**
-   * @param outputFormat Pattern used in {@link MessageFormat}
-   */
-  @Option(name = "f", longName = "format", displayName = "expr",
+  /** @param outputFormat Pattern used in {@link MessageFormat} */
+  @Option(
+      name = "f",
+      longName = "format",
+      displayName = "expr",
       description = "Java pattern(java.text.MessageFormat) to print attribute values")
   public final void setOutputFormat(String outputFormat) {
     this.outputFormat = outputFormat;
   }
 
-  /**
-   * @param refreshInterval Refreshing interval in seconds
-   */
-  @Option(name = "i", longName = "interval", displayName = "sec",
+  /** @param refreshInterval Refreshing interval in seconds */
+  @Option(
+      name = "i",
+      longName = "interval",
+      displayName = "sec",
       description = "Optional number of seconds between consecutive poll, default is 1 second",
       defaultValue = "1")
   public final void setRefreshInterval(int refreshInterval) {
@@ -217,18 +225,17 @@ public class WatchCommand extends Command {
     this.refreshInterval = refreshInterval;
   }
 
-  /**
-   * @param report True to output result line by line as report
-   */
+  /** @param report True to output result line by line as report */
   @Option(name = "r", longName = "report", description = "Output result line by line as report")
   public final void setReport(boolean report) {
     this.report = report;
   }
 
-  /**
-   * @param stopAfter After this number of seconds, stop watching
-   */
-  @Option(name = "s", longName = "stopafter", displayName = "sec",
+  /** @param stopAfter After this number of seconds, stop watching */
+  @Option(
+      name = "s",
+      longName = "stopafter",
+      displayName = "sec",
       description = "Stop after watching a number of seconds")
   public final void setStopAfter(int stopAfter) {
     Validate.isTrue(stopAfter >= 0, "Invalid stop after argument " + stopAfter);

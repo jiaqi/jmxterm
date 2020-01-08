@@ -1,25 +1,24 @@
 package org.cyclopsgroup.jmxterm.jdk6;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.apache.commons.lang3.SystemUtils;
 import org.cyclopsgroup.jmxterm.pm.JConsoleClassLoaderFactory;
 import org.cyclopsgroup.jmxterm.utils.WeakCastUtils;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.assertTrue;
-
 /**
  * Test of LocalVirtualMachine
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class LocalVirtualMachineTest {
   /**
    * Test run
-   * 
+   *
    * @throws SecurityException
    * @throws NoSuchMethodException
    * @throws ClassNotFoundException

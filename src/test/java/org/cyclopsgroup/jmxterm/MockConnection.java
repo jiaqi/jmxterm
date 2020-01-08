@@ -1,13 +1,12 @@
 package org.cyclopsgroup.jmxterm;
 
 import java.io.IOException;
-
 import javax.management.MBeanServerConnection;
 import javax.management.remote.JMXServiceURL;
 
 /**
  * Mock Connection implementation for testing purpose
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class MockConnection implements Connection {

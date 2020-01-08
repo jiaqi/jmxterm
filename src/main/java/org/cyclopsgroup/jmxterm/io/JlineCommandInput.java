@@ -1,10 +1,9 @@
 package org.cyclopsgroup.jmxterm.io;
 
+import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.jline.reader.impl.LineReaderImpl;
-
-import java.io.IOException;
 
 /**
  * Implementation of input that reads command from jloin console input
@@ -26,9 +25,7 @@ public class JlineCommandInput extends CommandInput {
     this.prompt = StringUtils.trimToEmpty(prompt);
   }
 
-  /**
-   * @return Jline console
-   */
+  /** @return Jline console */
   public final LineReaderImpl getConsole() {
     return console;
   }

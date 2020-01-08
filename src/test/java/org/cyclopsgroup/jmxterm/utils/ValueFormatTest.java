@@ -11,9 +11,7 @@ import org.junit.Test;
  * @version $Revision$ in $Change$ submitted at $DateTime$
  */
 public class ValueFormatTest {
-  /**
-   * Test parse method
-   */
+  /** Test parse method */
   @Test
   public void testParse() {
     assertEquals(null, ValueFormat.parseValue("null"));

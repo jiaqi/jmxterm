@@ -83,16 +83,19 @@ public class CliMain {
           consoleReader.setVariable(LineReader.HISTORY_FILE, historyFile);
           History history = consoleReader.getHistory();
           history.load();
-          Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            @Override
-            public void run() {
-              try {
-                history.save();
-              } catch (IOException e) {
-                System.err.println("Failed to flush command history! " + e);
-              }
-            }
-          }));
+          Runtime.getRuntime()
+              .addShutdownHook(
+                  new Thread(
+                      new Runnable() {
+                        @Override
+                        public void run() {
+                          try {
+                            history.save();
+                          } catch (IOException e) {
+                            System.err.println("Failed to flush command history! " + e);
+                          }
+                        }
+                      }));
           input = new JlineCommandInput(consoleReader, COMMAND_PROMPT);
         }
       } else {
@@ -105,7 +108,8 @@ public class CliMain {
       try {
         CommandCenter commandCenter = new CommandCenter(output, input);
         if (input instanceof JlineCommandInput) {
-          ((JlineCommandInput) input).getConsole()
+          ((JlineCommandInput) input)
+              .getConsole()
               .setCompleter(new ConsoleCompletor(commandCenter));
         }
         if (options.getUrl() != null) {

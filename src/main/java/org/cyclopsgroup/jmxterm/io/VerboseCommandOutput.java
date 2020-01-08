@@ -5,7 +5,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * Command output implementation where detail message can be turned on and off dynamically
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class VerboseCommandOutput extends CommandOutput {

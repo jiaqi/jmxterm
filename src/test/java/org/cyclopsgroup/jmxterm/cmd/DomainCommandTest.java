@@ -4,10 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.StringWriter;
-
 import javax.management.JMException;
 import javax.management.MBeanServerConnection;
-
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -30,21 +28,20 @@ public class DomainCommandTest {
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
     command.setDomain(domainName);
     MockSession session = new MockSession(output, con);
-    context.checking(new Expectations() {
-      {
-        oneOf(con).getDomains();
-        will(returnValue(knownDomains));
-      }
-    });
+    context.checking(
+        new Expectations() {
+          {
+            oneOf(con).getDomains();
+            will(returnValue(knownDomains));
+          }
+        });
     command.setSession(session);
     command.execute();
     assertEquals(domainName, session.getDomain());
     context.assertIsSatisfied();
   }
 
-  /**
-   * Set up command to test
-   */
+  /** Set up command to test */
   @Before
   public void setUp() {
     command = new DomainCommand();

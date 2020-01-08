@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import org.junit.Test;
 
 /**
@@ -13,9 +12,7 @@ import org.junit.Test;
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class PrintStreamCommandOutputTest {
-  /**
-   * Write something to output and verify what's written
-   */
+  /** Write something to output and verify what's written */
   @Test
   public void testPrint() {
     ByteArrayOutputStream w1 = new ByteArrayOutputStream();

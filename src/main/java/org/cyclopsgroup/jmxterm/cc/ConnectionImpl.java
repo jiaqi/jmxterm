@@ -1,12 +1,11 @@
 package org.cyclopsgroup.jmxterm.cc;
 
-import org.apache.commons.lang3.Validate;
-import org.cyclopsgroup.jmxterm.Connection;
-
+import java.io.IOException;
 import javax.management.MBeanServerConnection;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXServiceURL;
-import java.io.IOException;
+import org.apache.commons.lang3.Validate;
+import org.cyclopsgroup.jmxterm.Connection;
 
 /**
  * Identifies a JMX connection
@@ -38,9 +37,7 @@ class ConnectionImpl implements Connection {
     connector.close();
   }
 
-  /**
-   * @return JMX connector
-   */
+  /** @return JMX connector */
   public final JMXConnector getConnector() {
     return connector;
   }

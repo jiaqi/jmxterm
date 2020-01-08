@@ -1,14 +1,13 @@
 package org.cyclopsgroup.jmxterm.pm;
 
-import org.apache.commons.lang3.JavaVersion;
-import org.apache.commons.lang3.SystemUtils;
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import org.apache.commons.lang3.JavaVersion;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Utility to get class loader that understands tools.jar and jconsole.jar
@@ -18,9 +17,7 @@ import java.security.PrivilegedAction;
 public class JConsoleClassLoaderFactory {
   private JConsoleClassLoaderFactory() {}
 
-  /**
-   * @return ClassLoader that understands tools.jar and jconsole.jar
-   */
+  /** @return ClassLoader that understands tools.jar and jconsole.jar */
   public static ClassLoader getClassLoader() {
     if (isJava9Plus()) {
       // java9 removed rt and tools jars
@@ -43,21 +40,30 @@ public class JConsoleClassLoaderFactory {
       throw new RuntimeException(jconsoleJar + " file is not found");
     }
     // Parent class loader has to be bootstrap class loader instead of current one
-    return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
-      public ClassLoader run() {
-        try {
-          return new URLClassLoader(
-              new URL[] {toolsJar.toURI().toURL(), jconsoleJar.toURI().toURL()},
-              String.class.getClassLoader());
-        } catch (MalformedURLException e) {
-          throw new RuntimeException("Couddn't convert files to URLs " + toolsJar + ", "
-              + jconsoleJar + ": " + e.getMessage(), e);
-        }
-      }
-    });
+    return AccessController.doPrivileged(
+        new PrivilegedAction<ClassLoader>() {
+          public ClassLoader run() {
+            try {
+              return new URLClassLoader(
+                  new URL[] {toolsJar.toURI().toURL(), jconsoleJar.toURI().toURL()},
+                  String.class.getClassLoader());
+            } catch (MalformedURLException e) {
+              throw new RuntimeException(
+                  "Couddn't convert files to URLs "
+                      + toolsJar
+                      + ", "
+                      + jconsoleJar
+                      + ": "
+                      + e.getMessage(),
+                  e);
+            }
+          }
+        });
   }
 
-  private static boolean isJava9Plus() { return SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9); }
+  private static boolean isJava9Plus() {
+    return SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9);
+  }
 
   private static boolean isBeforeJava7() {
     return SystemUtils.IS_JAVA_1_5 || SystemUtils.IS_JAVA_1_6;
@@ -66,5 +72,4 @@ public class JConsoleClassLoaderFactory {
   private static boolean isMacOs() {
     return SystemUtils.IS_OS_MAC || SystemUtils.IS_OS_MAC_OSX;
   }
-
 }

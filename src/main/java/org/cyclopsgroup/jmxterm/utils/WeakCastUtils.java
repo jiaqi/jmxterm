@@ -1,8 +1,5 @@
 package org.cyclopsgroup.jmxterm.utils;
 
-import org.apache.commons.lang3.Validate;
-
-import javax.naming.OperationNotSupportedException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,16 +7,18 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
+import javax.naming.OperationNotSupportedException;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Utility that cast object into given interface(s) even though class doesn't implement interface(s)
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public final class WeakCastUtils {
   /**
    * Cast object into multiple interfaces
-   * 
+   *
    * @param from Object to cast
    * @param interfaces Interfaces to cast to
    * @param classLoader ClassLoader to load methods for invocation
@@ -41,28 +40,31 @@ public final class WeakCastUtils {
         methodMap.put(fromMethod, toMethod);
       }
     }
-    return Proxy.newProxyInstance(classLoader, interfaces, new InvocationHandler() {
-      public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        Method toMethod = methodMap.get(method);
-        if (toMethod == null) {
-          throw new OperationNotSupportedException(
-              "Method " + method + " isn't implemented in " + from.getClass());
-        }
-        try {
-          if ((toMethod.getModifiers() & Modifier.STATIC) == 0) {
-            return toMethod.invoke(from, args);
+    return Proxy.newProxyInstance(
+        classLoader,
+        interfaces,
+        new InvocationHandler() {
+          public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            Method toMethod = methodMap.get(method);
+            if (toMethod == null) {
+              throw new OperationNotSupportedException(
+                  "Method " + method + " isn't implemented in " + from.getClass());
+            }
+            try {
+              if ((toMethod.getModifiers() & Modifier.STATIC) == 0) {
+                return toMethod.invoke(from, args);
+              }
+              return toMethod.invoke(null, args);
+            } catch (InvocationTargetException e) {
+              throw e.getCause();
+            }
           }
-          return toMethod.invoke(null, args);
-        } catch (InvocationTargetException e) {
-          throw e.getCause();
-        }
-      }
-    });
+        });
   }
 
   /**
    * Cast object to one given interface using ClassLoader of interface
-   * 
+   *
    * @param <T> Type of interface
    * @param from Object to cast
    * @param interfase Interface to cast to
@@ -77,7 +79,7 @@ public final class WeakCastUtils {
 
   /**
    * Cast object to one given interface
-   * 
+   *
    * @param <T> Type of interface
    * @param from Object to cast
    * @param interfase Interface to cast to
@@ -95,7 +97,7 @@ public final class WeakCastUtils {
 
   /**
    * Cast static methods of a class to given interfaces
-   * 
+   *
    * @param from From class
    * @param interfaces To interfaces
    * @param classLoader Class loader
@@ -103,8 +105,9 @@ public final class WeakCastUtils {
    * @throws SecurityException
    * @throws NoSuchMethodException
    */
-  public static Object staticCast(final Class<?> from, final Class<?>[] interfaces,
-      ClassLoader classLoader) throws SecurityException, NoSuchMethodException {
+  public static Object staticCast(
+      final Class<?> from, final Class<?>[] interfaces, ClassLoader classLoader)
+      throws SecurityException, NoSuchMethodException {
     Validate.notNull(from, "Invocation target type can't be NULL");
     Validate.notNull(interfaces, "Interfaces can't be NULL");
     Validate.notNull(classLoader, "ClassLoader can't be NULL");
@@ -119,25 +122,28 @@ public final class WeakCastUtils {
         methodMap.put(fromMethod, toMethod);
       }
     }
-    return Proxy.newProxyInstance(classLoader, interfaces, new InvocationHandler() {
-      public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        Method toMethod = methodMap.get(method);
-        if (toMethod == null) {
-          throw new OperationNotSupportedException(
-              "Method " + method + " isn't implemented in " + from.getClass());
-        }
-        try {
-          return toMethod.invoke(null, args);
-        } catch (InvocationTargetException e) {
-          throw e.getCause();
-        }
-      }
-    });
+    return Proxy.newProxyInstance(
+        classLoader,
+        interfaces,
+        new InvocationHandler() {
+          public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            Method toMethod = methodMap.get(method);
+            if (toMethod == null) {
+              throw new OperationNotSupportedException(
+                  "Method " + method + " isn't implemented in " + from.getClass());
+            }
+            try {
+              return toMethod.invoke(null, args);
+            } catch (InvocationTargetException e) {
+              throw e.getCause();
+            }
+          }
+        });
   }
 
   /**
    * Cast static class to one given interface
-   * 
+   *
    * @param <T> Type of interface to casts to
    * @param from Type of static class to casts from
    * @param interfase Interface to cast to
@@ -152,7 +158,7 @@ public final class WeakCastUtils {
 
   /**
    * Cast static class to one given interface
-   * 
+   *
    * @param <T> Type of interface to casts to
    * @param from Type of static class to casts from
    * @param interfase Interface to cast to

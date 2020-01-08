@@ -1,5 +1,11 @@
 package org.cyclopsgroup.jmxterm.jdk5;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jmxterm.JavaProcess;
 import org.cyclopsgroup.jmxterm.JavaProcessManager;
@@ -7,16 +13,9 @@ import org.cyclopsgroup.jmxterm.utils.WeakCastUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 /**
  * JDK5 specific implementation of {@link JavaProcessManager}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class Jdk5JavaProcessManager extends JavaProcessManager {
@@ -47,7 +46,8 @@ public class Jdk5JavaProcessManager extends JavaProcessManager {
   public Jdk5JavaProcessManager(ClassLoader classLoader) throws Exception {
     Validate.notNull(classLoader, "ClassLoader can't be NULL");
     connectorAddressLink =
-        WeakCastUtils.staticCast(classLoader.loadClass(ConnectorAddressLink.ORIGINAL_CLASS_NAME),
+        WeakCastUtils.staticCast(
+            classLoader.loadClass(ConnectorAddressLink.ORIGINAL_CLASS_NAME),
             ConnectorAddressLink.class);
 
     Class<?> hic = classLoader.loadClass(CLASS_HOST_IDENTIFIER);

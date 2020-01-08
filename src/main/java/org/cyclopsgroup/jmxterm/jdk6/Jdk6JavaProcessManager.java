@@ -3,7 +3,6 @@ package org.cyclopsgroup.jmxterm.jdk6;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jmxterm.JavaProcess;
 import org.cyclopsgroup.jmxterm.JavaProcessManager;
@@ -11,7 +10,7 @@ import org.cyclopsgroup.jmxterm.utils.WeakCastUtils;
 
 /**
  * JDK6 specific java process manager
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class Jdk6JavaProcessManager extends JavaProcessManager {
@@ -57,5 +56,4 @@ public class Jdk6JavaProcessManager extends JavaProcessManager {
     }
     return result;
   }
-
 }

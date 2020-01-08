@@ -1,11 +1,10 @@
 package org.cyclopsgroup.jmxterm;
 
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.MultiValue;
-
-import java.util.List;
 
 /**
  * A command for testing that records parameters passed in
@@ -18,9 +17,7 @@ public class SelfRecordingCommand extends Command {
 
   private final List<Command> records;
 
-  /**
-   * @param records List of commands that gets passed in
-   */
+  /** @param records List of commands that gets passed in */
   public SelfRecordingCommand(List<Command> records) {
     this.records = records;
   }
@@ -30,23 +27,17 @@ public class SelfRecordingCommand extends Command {
     records.add(this);
   }
 
-  /**
-   * @return Arguments
-   */
+  /** @return Arguments */
   public String getArgs() {
     return StringUtils.join(arguments, ' ');
   }
 
-  /**
-   * @return Array of arguments
-   */
+  /** @return Array of arguments */
   public List<String> getArguments() {
     return arguments;
   }
 
-  /**
-   * @param arguments Arguments
-   */
+  /** @param arguments Arguments */
   @MultiValue
   @Argument
   public void setArguments(List<String> arguments) {

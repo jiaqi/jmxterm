@@ -1,17 +1,16 @@
 package org.cyclopsgroup.jmxterm.utils;
 
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.PropertiesConfiguration;
-import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
-import org.apache.commons.configuration2.ex.ConfigurationException;
-import org.apache.commons.lang3.Validate;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.Enumeration;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Utilities for loading overlapping properties files from classpath
@@ -25,8 +24,8 @@ public class ConfigurationUtils {
    * @return Configuration result
    * @throws IOException allows IO exceptions.
    */
-  public static Configuration loadFromOverlappingResources(String resourcePath,
-      ClassLoader classLoader) throws IOException {
+  public static Configuration loadFromOverlappingResources(
+      String resourcePath, ClassLoader classLoader) throws IOException {
     Validate.notNull(resourcePath, "Resource path can't be NULL");
     Validate.notNull(classLoader, "ClassLoader can't be NULL");
     PropertiesConfiguration props = new PropertiesConfiguration();

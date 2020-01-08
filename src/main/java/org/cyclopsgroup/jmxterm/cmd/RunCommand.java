@@ -1,5 +1,17 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import javax.management.JMException;
+import javax.management.MBeanInfo;
+import javax.management.MBeanOperationInfo;
+import javax.management.MBeanParameterInfo;
+import javax.management.MBeanServerConnection;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -11,25 +23,14 @@ import org.cyclopsgroup.jmxterm.SyntaxUtils;
 import org.cyclopsgroup.jmxterm.io.ValueOutputFormat;
 import org.cyclopsgroup.jmxterm.utils.ValueFormat;
 
-import javax.management.JMException;
-import javax.management.MBeanInfo;
-import javax.management.MBeanOperationInfo;
-import javax.management.MBeanParameterInfo;
-import javax.management.MBeanServerConnection;
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * Command to run an MBean operation
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli(name = "run", description = "Invoke an MBean operation",
+@Cli(
+    name = "run",
+    description = "Invoke an MBean operation",
     note = "Syntax is \n run <operationName> [parameter1] [parameter2]")
 public class RunCommand extends Command {
   private String bean;
@@ -48,8 +49,11 @@ public class RunCommand extends Command {
   public List<String> doSuggestArgument() throws IOException, JMException {
     Session session = getSession();
     if (getSession().getBean() != null) {
-      MBeanInfo info = session.getConnection().getServerConnection()
-          .getMBeanInfo(new ObjectName(session.getBean()));
+      MBeanInfo info =
+          session
+              .getConnection()
+              .getServerConnection()
+              .getMBeanInfo(new ObjectName(session.getBean()));
       MBeanOperationInfo[] operationInfos = info.getOperations();
       List<String> ops = new ArrayList<String>(operationInfos.length);
       for (MBeanOperationInfo op : operationInfos) {
@@ -73,8 +77,8 @@ public class RunCommand extends Command {
     String[] paramTypes = null;
     if (types != null) {
       paramTypes = types.split(",");
-      Validate.isTrue(paramTypes.length == parameters.size() - 1,
-          "Signature does not match parameter count");
+      Validate.isTrue(
+          paramTypes.length == parameters.size() - 1, "Signature does not match parameter count");
     }
     String operationName = parameters.get(0);
     ObjectName name = new ObjectName(beanName);
@@ -114,15 +118,22 @@ public class RunCommand extends Command {
     }
     // If no matching operation is found, throw an exception
     if (operationInfo == null) {
-      throw new IllegalArgumentException("Operation " + operationName + " with "
-          + (parameters.size() - 1) + " parameters doesn't exist in bean " + beanName);
+      throw new IllegalArgumentException(
+          "Operation "
+              + operationName
+              + " with "
+              + (parameters.size() - 1)
+              + " parameters doesn't exist in bean "
+              + beanName);
     }
 
     // Now set parameters to invoke with
     Object[] params = new Object[parameters.size() - 1];
     MBeanParameterInfo[] paramInfos = operationInfo.getSignature();
-    Validate.isTrue(params.length == paramInfos.length, String.format(
-        "%d parameters are expected but %d are provided", paramInfos.length, params.length));
+    Validate.isTrue(
+        params.length == paramInfos.length,
+        String.format(
+            "%d parameters are expected but %d are provided", paramInfos.length, params.length));
     String[] signatures = new String[paramInfos.length];
     for (int i = 0; i < paramInfos.length; i++) {
       MBeanParameterInfo paramInfo = paramInfos[i];
@@ -134,9 +145,10 @@ public class RunCommand extends Command {
       params[i] = paramValue;
       signatures[i] = paramInfo.getType();
     }
-    session.output.printMessage(String.format("calling operation %s of mbean %s with params %s",
-        operationName, beanName, Arrays.toString(params)));
-
+    session.output.printMessage(
+        String.format(
+            "calling operation %s of mbean %s with params %s",
+            operationName, beanName, Arrays.toString(params)));
 
     // Invoke operation, record execution time if measure flag is on
     Object result;
@@ -157,40 +169,36 @@ public class RunCommand extends Command {
     session.output.println("");
   }
 
-  /**
-   * @param bean Bean under which the operation is
-   */
+  /** @param bean Bean under which the operation is */
   @Option(name = "b", longName = "bean", description = "MBean to invoke")
   public final void setBean(String bean) {
     this.bean = bean;
   }
 
-  /**
-   * @param domain Domain under which is bean is
-   */
+  /** @param domain Domain under which is bean is */
   @Option(name = "d", longName = "domain", description = "Domain of MBean to invoke")
   public final void setDomain(String domain) {
     this.domain = domain;
   }
 
-  /**
-   * @param measure True if you want to display latency
-   */
-  @Option(name = "m", longName = "measure",
+  /** @param measure True if you want to display latency */
+  @Option(
+      name = "m",
+      longName = "measure",
       description = "Measure the time spent on the invocation of operation")
   public final void setMeasure(boolean measure) {
     this.measure = measure;
   }
 
-  @Option(name = "t", longName = "types",
+  @Option(
+      name = "t",
+      longName = "types",
       description = "Require parameters to have specific types (comma separated)")
   public final void setTypes(String types) {
     this.types = types;
   }
 
-  /**
-   * @param parameters List of parameters. The first parameter is operation name
-   */
+  /** @param parameters List of parameters. The first parameter is operation name */
   @MultiValue(listType = ArrayList.class, minValues = 1)
   @Argument(
       description = "The first parameter is operation name, which is followed by list of arguments")
@@ -199,9 +207,7 @@ public class RunCommand extends Command {
     this.parameters = parameters;
   }
 
-  /**
-   * @param showQuotationMarks True if output is surrounded by quotation marks
-   */
+  /** @param showQuotationMarks True if output is surrounded by quotation marks */
   @Option(name = "q", longName = "quots", description = "Flag for quotation marks")
   public final void setShowQuotationMarks(boolean showQuotationMarks) {
     this.showQuotationMarks = showQuotationMarks;

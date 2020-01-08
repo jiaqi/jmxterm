@@ -1,5 +1,6 @@
 package org.cyclopsgroup.jmxterm.cc;
 
+import static org.cyclopsgroup.jmxterm.cc.CommandCenter.ESCAPE_CHAR_REGEX;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
@@ -9,19 +10,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.SelfRecordingCommand;
 import org.cyclopsgroup.jmxterm.io.WriterCommandOutput;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.cyclopsgroup.jmxterm.cc.CommandCenter.ESCAPE_CHAR_REGEX;
-
-
 /**
  * Test case of {@link CommandCenter}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class CommandCenterTest {
@@ -46,7 +43,7 @@ public class CommandCenterTest {
 
   /**
    * Set up objects to test
-   * 
+   *
    * @throws IOException
    */
   @Before
@@ -57,18 +54,19 @@ public class CommandCenterTest {
     Map<String, Class<? extends Command>> commandTypes =
         new HashMap<String, Class<? extends Command>>();
     commandTypes.put("test", SelfRecordingCommand.class);
-    cc = new CommandCenter(new WriterCommandOutput(output), null,
-        new TypeMapCommandFactory(commandTypes) {
-          @Override
-          public Command createCommand(String commandName) {
-            return new SelfRecordingCommand(executedCommands);
-          }
-        });
+    cc =
+        new CommandCenter(
+            new WriterCommandOutput(output),
+            null,
+            new TypeMapCommandFactory(commandTypes) {
+              @Override
+              public Command createCommand(String commandName) {
+                return new SelfRecordingCommand(executedCommands);
+              }
+            });
   }
 
-  /**
-   * Verify the execution
-   */
+  /** Verify the execution */
   @Test
   public void testExecute() {
     cc.execute("test 1");

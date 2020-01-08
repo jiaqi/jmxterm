@@ -1,5 +1,9 @@
 package org.cyclopsgroup.jmxterm;
 
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.regex.Pattern;
+import javax.management.remote.JMXServiceURL;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.commons.lang3.ClassUtils;
@@ -7,25 +11,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.cyclopsgroup.jmxterm.utils.ValueFormat;
 
-import javax.management.remote.JMXServiceURL;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.regex.Pattern;
-
 /**
  * Utility class for syntax checking
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public final class SyntaxUtils {
-  /**
-   * NULL string identifier
-   */
+  /** NULL string identifier */
   public static final String NULL = ValueFormat.NULL;
 
-  /**
-   * Null print stream to redirect std streams
-   */
+  /** Null print stream to redirect std streams */
   public static final PrintStream NULL_PRINT_STREAM = new PrintStream(new NullOutputStream(), true);
 
   private static final Pattern PATTERN_HOST_PORT = Pattern.compile("^(\\w|\\.|\\-)+\\:\\d+$");
@@ -50,8 +45,12 @@ public final class SyntaxUtils {
       if (!p.isManageable()) {
         p.startManagementAgent();
         if (!p.isManageable()) {
-          throw new IllegalStateException("Managed agent for PID " + pid + " couldn't start. PID "
-              + pid + " is not manageable");
+          throw new IllegalStateException(
+              "Managed agent for PID "
+                  + pid
+                  + " couldn't start. PID "
+                  + pid
+                  + " is not manageable");
         }
       }
       return new JMXServiceURL(p.toUrl());

@@ -1,5 +1,12 @@
 package org.cyclopsgroup.jmxterm.cc;
 
+import static org.junit.Assert.assertEquals;
+
+import java.beans.IntrospectionException;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.HashSet;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.cyclopsgroup.jmxterm.SelfRecordingCommand;
 import org.jmock.Expectations;
@@ -7,14 +14,6 @@ import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.beans.IntrospectionException;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.HashSet;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Test case for {@link HelpCommand}
@@ -28,9 +27,7 @@ public class HelpCommandTest {
 
   private StringWriter output;
 
-  /**
-   * Set up objects to test
-   */
+  /** Set up objects to test */
   @Before
   public void setUp() {
     command = new HelpCommand();
@@ -51,14 +48,15 @@ public class HelpCommandTest {
     final CommandCenter cc = context.mock(CommandCenter.class);
     command.setCommandCenter(cc);
 
-    context.checking(new Expectations() {
-      {
-        oneOf(cc).getCommandType("a");
-        will(returnValue(SelfRecordingCommand.class));
-        oneOf(cc).getCommandType("b");
-        will(returnValue(SelfRecordingCommand.class));
-      }
-    });
+    context.checking(
+        new Expectations() {
+          {
+            oneOf(cc).getCommandType("a");
+            will(returnValue(SelfRecordingCommand.class));
+            oneOf(cc).getCommandType("b");
+            will(returnValue(SelfRecordingCommand.class));
+          }
+        });
     command.setSession(new MockSession(output, null));
     command.execute();
     context.assertIsSatisfied();
@@ -73,19 +71,20 @@ public class HelpCommandTest {
   public void testExecuteWithoutOption() throws IOException {
     final CommandCenter cc = context.mock(CommandCenter.class);
     command.setCommandCenter(cc);
-    context.checking(new Expectations() {
-      {
-        oneOf(cc).getCommandNames();
-        will(returnValue(new HashSet<String>(Arrays.asList("a", "b"))));
-        oneOf(cc).getCommandType("a");
-        will(returnValue(SelfRecordingCommand.class));
-        oneOf(cc).getCommandType("b");
-        will(returnValue(SelfRecordingCommand.class));
-      }
-    });
+    context.checking(
+        new Expectations() {
+          {
+            oneOf(cc).getCommandNames();
+            will(returnValue(new HashSet<String>(Arrays.asList("a", "b"))));
+            oneOf(cc).getCommandType("a");
+            will(returnValue(SelfRecordingCommand.class));
+            oneOf(cc).getCommandType("b");
+            will(returnValue(SelfRecordingCommand.class));
+          }
+        });
     command.setSession(new MockSession(output, null));
     command.execute();
-    assertEquals("a        - desc" + System.lineSeparator() + "b        - desc",
-        output.toString().trim());
+    assertEquals(
+        "a        - desc" + System.lineSeparator() + "b        - desc", output.toString().trim());
   }
 }

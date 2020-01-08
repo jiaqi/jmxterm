@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.StringWriter;
-
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.cyclopsgroup.jmxterm.Session;
 import org.junit.Before;
@@ -12,7 +11,7 @@ import org.junit.Test;
 
 /**
  * Test case for {@link QuitCommand}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class QuitCommandTest {
@@ -20,18 +19,14 @@ public class QuitCommandTest {
 
   private StringWriter output;
 
-  /**
-   * Setup objects to test
-   */
+  /** Setup objects to test */
   @Before
   public void setUp() {
     command = new QuitCommand();
     output = new StringWriter();
   }
 
-  /**
-   * @throws Exception
-   */
+  /** @throws Exception */
   @Test
   public void testExecute() throws Exception {
     Session session = new MockSession(output, null);

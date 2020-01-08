@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
-
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
@@ -19,8 +17,11 @@ import org.cyclopsgroup.jmxterm.Session;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-@Cli(name = "beans", description = "List available beans under a domain or all domains",
-    note = "Without -d option, current select domain is applied. If there's no domain specified, all beans are listed. Example:\n beans\n beans -d java.lang")
+@Cli(
+    name = "beans",
+    description = "List available beans under a domain or all domains",
+    note =
+        "Without -d option, current select domain is applied. If there's no domain specified, all beans are listed. Example:\n beans\n beans -d java.lang")
 public class BeansCommand extends Command {
   /**
    * Get list of bean names under current domain
@@ -75,10 +76,11 @@ public class BeansCommand extends Command {
     }
   }
 
-  /**
-   * @param domain Domain under which beans are listed
-   */
-  @Option(name = "d", longName = "domain", displayName = "domain",
+  /** @param domain Domain under which beans are listed */
+  @Option(
+      name = "d",
+      longName = "domain",
+      displayName = "domain",
       description = "Name of domain under which beans are listed")
   public final void setDomain(String domain) {
     this.domain = domain;

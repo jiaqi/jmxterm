@@ -1,12 +1,11 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import org.apache.commons.lang3.Validate;
-
 import java.io.PrintStream;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Implementation of CommandOutput where output is written in given PrintStream objects
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class PrintStreamCommandOutput extends CommandOutput {
@@ -14,16 +13,14 @@ public class PrintStreamCommandOutput extends CommandOutput {
 
   private final PrintStream resultOutput;
 
-  /**
-   * Default constructor that uses system standard output and err output
-   */
+  /** Default constructor that uses system standard output and err output */
   public PrintStreamCommandOutput() {
     this(System.out);
   }
 
   /**
    * Constructor with given result output and system error as message output
-   * 
+   *
    * @param output Output for result
    */
   public PrintStreamCommandOutput(PrintStream output) {

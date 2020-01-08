@@ -7,14 +7,12 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
-
 import javax.management.Attribute;
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
-
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -26,7 +24,7 @@ import org.junit.Test;
 
 /**
  * Test case of {@link SetCommand}
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class SetCommandTest {
@@ -36,9 +34,7 @@ public class SetCommandTest {
 
   private StringWriter output;
 
-  /**
-   * Set up objects to test
-   */
+  /** Set up objects to test */
   @Before
   public void setUp() {
     command = new SetCommand();
@@ -56,29 +52,34 @@ public class SetCommandTest {
     final MBeanAttributeInfo attributeInfo = context.mock(MBeanAttributeInfo.class);
     final AtomicReference<Attribute> setAttribute = new AtomicReference<Attribute>();
     try {
-      context.checking(new Expectations() {
-        {
-          atLeast(1).of(con).getMBeanInfo(new ObjectName("a:type=x"));
-          will(returnValue(beanInfo));
-          atLeast(1).of(beanInfo).getAttributes();
-          will(returnValue(new MBeanAttributeInfo[] {attributeInfo}));
-          atLeast(1).of(attributeInfo).getName();
-          will(returnValue("var"));
-          atLeast(1).of(attributeInfo).getType();
-          will(returnValue(type));
-          atLeast(1).of(attributeInfo).isWritable();
-          will(returnValue(true));
-          oneOf(con).setAttribute(with(equal(new ObjectName("a:type=x"))),
-              (Attribute) with(aNonNull(Attribute.class)));
-          will(doAll(new CustomAction("SetAttribute") {
+      context.checking(
+          new Expectations() {
+            {
+              atLeast(1).of(con).getMBeanInfo(new ObjectName("a:type=x"));
+              will(returnValue(beanInfo));
+              atLeast(1).of(beanInfo).getAttributes();
+              will(returnValue(new MBeanAttributeInfo[] {attributeInfo}));
+              atLeast(1).of(attributeInfo).getName();
+              will(returnValue("var"));
+              atLeast(1).of(attributeInfo).getType();
+              will(returnValue(type));
+              atLeast(1).of(attributeInfo).isWritable();
+              will(returnValue(true));
+              oneOf(con)
+                  .setAttribute(
+                      with(equal(new ObjectName("a:type=x"))),
+                      (Attribute) with(aNonNull(Attribute.class)));
+              will(
+                  doAll(
+                      new CustomAction("SetAttribute") {
 
-            public Object invoke(Invocation invocation) throws Throwable {
-              setAttribute.set((Attribute) invocation.getParameter(1));
-              return null;
+                        public Object invoke(Invocation invocation) throws Throwable {
+                          setAttribute.set((Attribute) invocation.getParameter(1));
+                          return null;
+                        }
+                      }));
             }
-          }));
-        }
-      });
+          });
 
       command.setSession(new MockSession(output, con));
       command.execute();
@@ -94,49 +95,37 @@ public class SetCommandTest {
     assertEquals(expected, setAttribute.get().getValue());
   }
 
-  /**
-   * Test setting an integer
-   */
+  /** Test setting an integer */
   @Test
   public void testExecuteNormally() {
     setValueAndVerify("33", "int", 33);
   }
 
-  /**
-   * Test setting an empty string
-   */
+  /** Test setting an empty string */
   @Test
   public void testExecuteWithAnEmptyString() {
     setValueAndVerify("\"\"", String.class.getName(), "");
   }
 
-  /**
-   * Test setting string with control character
-   */
+  /** Test setting string with control character */
   @Test
   public void testExecuteWithControlCharacter() {
     setValueAndVerify("hello\\n", String.class.getName(), "hello\n");
   }
 
-  /**
-   * Test with negative number
-   */
+  /** Test with negative number */
   @Test
   public void testExecuteWithNegativeNumber() {
     setValueAndVerify("-2", "int", -2);
   }
 
-  /**
-   * Test setting NULL string
-   */
+  /** Test setting NULL string */
   @Test
   public void testExecuteWithNullString() {
     setValueAndVerify("null", String.class.getName(), null);
   }
 
-  /**
-   * Test with quoted negative number
-   */
+  /** Test with quoted negative number */
   @Test
   public void testExecuteWithQuotedNegativeNumber() {
     setValueAndVerify("\"-2\"", "int", -2);

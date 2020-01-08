@@ -3,7 +3,6 @@ package org.cyclopsgroup.jmxterm.cc;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.jline.CliCompletor;
@@ -60,7 +59,8 @@ public class ConsoleCompletor implements Completer {
       cmd.setSession(commandCenter.session);
       CliCompletor commandCompletor = new CliCompletor(cmd, commandCenter.argTokenizer);
       int position = line.cursor();
-      commandCompletor.complete(reader,
+      commandCompletor.complete(
+          reader,
           new ArgumentCompleter.ArgumentLine(commandArguments, position - separatorPos),
           candidates);
     } catch (RuntimeException e) {

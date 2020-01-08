@@ -1,5 +1,9 @@
 package org.cyclopsgroup.jmxterm.cc;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
@@ -7,14 +11,9 @@ import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.CommandFactory;
 import org.cyclopsgroup.jmxterm.utils.ConfigurationUtils;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Factory class of commands which knows how to create Command class with given command name
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 class PredefinedCommandFactory implements CommandFactory {
@@ -22,7 +21,7 @@ class PredefinedCommandFactory implements CommandFactory {
 
   /**
    * Default constructor
-   * 
+   *
    * @throws IOException Thrown when Jar is corrupted
    */
   PredefinedCommandFactory() throws IOException {
@@ -31,7 +30,7 @@ class PredefinedCommandFactory implements CommandFactory {
 
   /**
    * Constructor which builds up command types
-   * 
+   *
    * @param configPath Path of configuration file in classpath
    * @throws IOException Thrown when Jar is corrupted
    */

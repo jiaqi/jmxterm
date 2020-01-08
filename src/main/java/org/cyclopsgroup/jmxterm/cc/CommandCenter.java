@@ -8,10 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
 import javax.management.JMException;
 import javax.management.remote.JMXServiceURL;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -38,23 +36,17 @@ public class CommandCenter {
   private static final String COMMAND_DELIMITER = "&&";
   static final String ESCAPE_CHAR_REGEX = "(?<!\\\\)#";
 
-  /**
-   * Argument tokenizer that parses arguments
-   */
+  /** Argument tokenizer that parses arguments */
   final ValueTokenizer argTokenizer = new EscapingValueTokenizer();
 
-  /**
-   * Command factory that creates commands
-   */
+  /** Command factory that creates commands */
   final CommandFactory commandFactory;
 
   private final Lock lock = new ReentrantLock();
 
   private final JavaProcessManager processManager;
 
-  /**
-   * A handler to session
-   */
+  /** A handler to session */
   final Session session;
 
   /**
@@ -83,12 +75,9 @@ public class CommandCenter {
     processManager = new JPMFactory().getProcessManager();
     this.session = new SessionImpl(output, input, processManager);
     this.commandFactory = commandFactory;
-
   }
 
-  /**
-   * Close session
-   */
+  /** Close session */
   public void close() {
     session.close();
   }
@@ -116,8 +105,9 @@ public class CommandCenter {
     // Truncate command if there's # character
     // Note: this allows people to set properties to values with # (e.g.: set AttributeA
     // /a/\\#something)
-    command = command.split(ESCAPE_CHAR_REGEX)[0] // take out all commented out sections
-        .replace("\\#", "#"); // fix escaped to non-escaped comment charaters
+    command =
+        command.split(ESCAPE_CHAR_REGEX)[0] // take out all commented out sections
+            .replace("\\#", "#"); // fix escaped to non-escaped comment charaters
     // If command includes multiple segments, call them one by one using recursive call
     if (command.indexOf(COMMAND_DELIMITER) != -1) {
       String[] commands = StringUtils.split(command, COMMAND_DELIMITER);
@@ -129,11 +119,13 @@ public class CommandCenter {
 
     // Take the first argument out since it's command name
     final List<String> args = new ArrayList<String>();
-    argTokenizer.parse(command, new TokenEventHandler() {
-      public void handleEvent(TokenEvent event) {
-        args.add(event.getToken());
-      }
-    });
+    argTokenizer.parse(
+        command,
+        new TokenEventHandler() {
+          public void handleEvent(TokenEvent event) {
+            args.add(event.getToken());
+          }
+        });
     String commandName = args.remove(0);
     // Leave the rest of arguments for command
     String[] commandArgs = args.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
@@ -192,9 +184,7 @@ public class CommandCenter {
     }
   }
 
-  /**
-   * @return Set of command names
-   */
+  /** @return Set of command names */
   public Set<String> getCommandNames() {
     return commandFactory.getCommandTypes().keySet();
   }
@@ -207,23 +197,17 @@ public class CommandCenter {
     return commandFactory.getCommandTypes().get(name);
   }
 
-  /**
-   * @return Java process manager implementation
-   */
+  /** @return Java process manager implementation */
   public final JavaProcessManager getProcessManager() {
     return processManager;
   }
 
-  /**
-   * @return True if command center is closed
-   */
+  /** @return True if command center is closed */
   public boolean isClosed() {
     return session.isClosed();
   }
 
-  /**
-   * @param verboseLevel New verbose level value
-   */
+  /** @param verboseLevel New verbose level value */
   public void setVerboseLevel(VerboseLevel verboseLevel) {
     session.setVerboseLevel(verboseLevel);
   }

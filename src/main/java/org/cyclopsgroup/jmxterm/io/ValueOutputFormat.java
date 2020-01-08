@@ -1,16 +1,15 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-
-import javax.management.openmbean.CompositeData;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
+import javax.management.openmbean.CompositeData;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 
 /**
  * A utility to print out object values in particular format.
- * 
+ *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class ValueOutputFormat {
@@ -41,7 +40,7 @@ public class ValueOutputFormat {
 
   /**
    * Print out equal expression of an variable with description
-   * 
+   *
    * @param output Output to print to
    * @param name Name of variable
    * @param value Value of variable
@@ -53,15 +52,15 @@ public class ValueOutputFormat {
 
   /**
    * Print out equal expression of an variable with description
-   * 
+   *
    * @param output Output to print to
    * @param name Name of variable
    * @param value Value of variable
    * @param description Description of variable
    * @param indent Starting indent position
    */
-  private void printExpression(CommandOutput output, Object name, Object value, String description,
-      int indent) {
+  private void printExpression(
+      CommandOutput output, Object name, Object value, String description, int indent) {
     output.print(StringUtils.repeat(" ", indent));
     printValue(output, name, indent);
     output.print(" = ");
@@ -83,7 +82,7 @@ public class ValueOutputFormat {
 
   /**
    * Print out expression of given value considering various possible types of value
-   * 
+   *
    * @param output Output writer where value is printed
    * @param value Object value which can be anything
    * @param indent Starting indentation length
@@ -123,7 +122,11 @@ public class ValueOutputFormat {
       CompositeData data = (CompositeData) value;
       for (Object key : data.getCompositeType().keySet()) {
         Object v = data.get((String) key);
-        printExpression(output, key, v, data.getCompositeType().getDescription((String) key),
+        printExpression(
+            output,
+            key,
+            v,
+            data.getCompositeType().getDescription((String) key),
             indent + indentSize);
       }
       output.print(StringUtils.repeat(" ", indent) + " }");
