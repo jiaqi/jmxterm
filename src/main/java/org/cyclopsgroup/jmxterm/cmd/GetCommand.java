@@ -194,8 +194,8 @@ public class GetCommand extends Command {
   }
 
   /**
-   * @param completeLine True if value is printed out in a complete </bean # value> single line
-   *     expression
+   * @param completeLine True if value is printed out in a complete &lt;/bean # value&gt; single
+   *     line expression
    */
   @Option(
       name = "f",
