@@ -2,14 +2,14 @@ FROM openjdk:8
 
 COPY . /tmp/jmxterm
 
-RUN curl -o /tmp/apache-maven-3.6.2-bin.tar.gz https://www-us.apache.org/dist/maven/maven-3/3.6.2/binaries/apache-maven-3.6.2-bin.tar.gz && \
-    tar zxvf /tmp/apache-maven-3.6.2-bin.tar.gz -C /tmp && \
+RUN curl -o /tmp/apache-maven-3.6.3-bin.tar.gz https://www-us.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz && \
+    tar zxvf /tmp/apache-maven-3.6.3-bin.tar.gz -C /tmp && \
     cd /tmp/jmxterm && \
-    /tmp/apache-maven-3.6.2/bin/mvn install && \
+    /tmp/apache-maven-3.6.3/bin/mvn install && \
     mkdir /opt/jmxterm && \
     cp target/jmxterm-`cat target/maven-archiver/pom.properties | grep version | cut -f 2 -d =`-uber.jar /opt/jmxterm/jmxterm.jar && \
     cd /opt/jmxterm && \
-    rm -rf /tmp/apache-maven-3.6.2* /tmp/jmxterm 
+    rm -rf /tmp/apache-maven-3.6.3* /tmp/jmxterm 
 
 WORKDIR /opt/jmxterm
 
