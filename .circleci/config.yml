@@ -20,6 +20,8 @@ workflows:
     jobs:
       - full-build
       - build-and-deploy:
+          requires:
+            - full-build
           filters:
             branches:
               only:
