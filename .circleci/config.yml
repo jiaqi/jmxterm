@@ -1,29 +1,28 @@
 version: 2
 jobs:
-  build:
+  full-build:
     docker:
       - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo
     steps:
       - checkout
       - run: mvn package source:jar javadoc:jar
-  deploy:
+  build-and-deploy:
     docker:
       - image: circleci/openjdk:8-jdk
-    working_directory: ~/repo
     steps:
+      - checkout
+      - run: mvn package
       - run: mvn deploy
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
+      - full-build
+      - build-and-deploy:
           filters:
             branches:
               only:
                 - master
+                - snapshot
           context: snapshot-deploy
