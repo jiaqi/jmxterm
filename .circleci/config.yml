@@ -10,9 +10,9 @@ jobs:
   deploy:
     docker:
       - image: circleci/openjdk:8-jdk
-      - working_directory: ~/repo
-      steps:
-        - run: mvn deploy
+    working_directory: ~/repo
+    steps:
+      - run: mvn deploy
 
 workflows:
   version: 2
