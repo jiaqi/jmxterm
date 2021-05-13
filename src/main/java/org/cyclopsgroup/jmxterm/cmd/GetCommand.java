@@ -9,6 +9,7 @@ import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
+import javax.management.RuntimeMBeanException;
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
@@ -86,7 +87,14 @@ public class GetCommand extends Command {
           attributeNameToRequest = attributeNameElements[0];
         }
 
-        Object result = con.getAttribute(name, attributeNameToRequest);
+        Object result = null;
+
+        try {
+          result = con.getAttribute(name, attributeNameToRequest);
+        } catch (RuntimeMBeanException e) {
+          session.output.printMessage(
+              "Could not get attribute " + attributeNameToRequest + ": " + e.getMessage());
+        }
 
         if (result instanceof javax.management.openmbean.CompositeDataSupport) {
           if (attributeNameElements.length > 1) {
