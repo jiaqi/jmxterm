@@ -8,3 +8,7 @@ notifications:
   email:
     recipients:
       - ci-notification@cyclopsgroup.org
+
+cache:
+  directories:
+  - $HOME/.m2
