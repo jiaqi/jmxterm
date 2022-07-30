@@ -17,7 +17,12 @@ import org.cyclopsgroup.jmxterm.io.RuntimeIOException;
  */
 @Cli(name = "domains", description = "List all available domain names")
 public class DomainsCommand extends Command {
-  /** Gets list of domains for current JMX connection. */
+  /**
+   * Gets list of domains for current JMX connection.
+   *
+   * @param session The current session.
+   * @return List of available domain names.
+   **/
   static List<String> getCandidateDomains(Session session) {
     String[] domains;
     try {
