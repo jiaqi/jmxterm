@@ -22,7 +22,7 @@ public class DomainsCommand extends Command {
    *
    * @param session The current session.
    * @return List of available domain names.
-   **/
+   */
   static List<String> getCandidateDomains(Session session) {
     String[] domains;
     try {
