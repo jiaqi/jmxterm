@@ -23,8 +23,8 @@ public final class WeakCastUtils {
    * @param interfaces Interfaces to cast to
    * @param classLoader ClassLoader to load methods for invocation
    * @return Result that implements given interfaces
-   * @throws SecurityException
-   * @throws NoSuchMethodException
+   * @throws SecurityException Allows exception related to security.
+   * @throws NoSuchMethodException Allows exception due to wrong method.
    */
   public static Object cast(final Object from, final Class<?>[] interfaces, ClassLoader classLoader)
       throws SecurityException, NoSuchMethodException {
@@ -69,8 +69,8 @@ public final class WeakCastUtils {
    * @param from Object to cast
    * @param interfase Interface to cast to
    * @return Result that implements interface
-   * @throws SecurityException
-   * @throws NoSuchMethodException
+   * @throws SecurityException Allows exception related to security.
+   * @throws NoSuchMethodException Allows exception due to wrong method.
    */
   public static <T> T cast(Object from, Class<T> interfase)
       throws SecurityException, NoSuchMethodException {
@@ -85,8 +85,8 @@ public final class WeakCastUtils {
    * @param interfase Interface to cast to
    * @param classLoader Class loader to load invocation methods
    * @return Result that implements interface
-   * @throws SecurityException
-   * @throws NoSuchMethodException
+   * @throws SecurityException Allows exception related to security.
+   * @throws NoSuchMethodException Allows exception due to wrong method.
    */
   @SuppressWarnings("unchecked")
   public static <T> T cast(Object from, Class<T> interfase, ClassLoader classLoader)
@@ -102,8 +102,8 @@ public final class WeakCastUtils {
    * @param interfaces To interfaces
    * @param classLoader Class loader
    * @return Casted result
-   * @throws SecurityException
-   * @throws NoSuchMethodException
+   * @throws SecurityException Allows exception related to security.
+   * @throws NoSuchMethodException Allows exception due to wrong method.
    */
   public static Object staticCast(
       final Class<?> from, final Class<?>[] interfaces, ClassLoader classLoader)
@@ -148,8 +148,8 @@ public final class WeakCastUtils {
    * @param from Type of static class to casts from
    * @param interfase Interface to cast to
    * @return Result that implements interface
-   * @throws SecurityException
-   * @throws NoSuchMethodException
+   * @throws SecurityException Allows exception related to security.
+   * @throws NoSuchMethodException Allows exception due to wrong method.
    */
   public static <T> T staticCast(Class<?> from, Class<T> interfase)
       throws SecurityException, NoSuchMethodException {
@@ -164,8 +164,8 @@ public final class WeakCastUtils {
    * @param interfase Interface to cast to
    * @param classLoader Class loader to load result
    * @return Result that implements interface
-   * @throws SecurityException
-   * @throws NoSuchMethodException
+   * @throws SecurityException Allows exception related to security.
+   * @throws NoSuchMethodException Allows exception due to wrong method.
    */
   @SuppressWarnings("unchecked")
   public static <T> T staticCast(Class<?> from, Class<T> interfase, ClassLoader classLoader)
