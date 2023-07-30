@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="JMXTERM: Command line based interative JMX client">
+<project name="JMXTERM: Command line based interactive JMX client">
     <bannerLeft>
         <name>jmxterm - Command line JMX</name>
         <src>images/logo.png</src>
@@ -7,26 +7,23 @@
     </bannerLeft>
     <bannerRight>
         <src>
-            http://cyclops-group.sourceforge.net/wiki/images/cyclopsgroup-logo.png
+            https://cyclops-group.sourceforge.net/wiki/images/cyclopsgroup-logo.png
         </src>
     </bannerRight>
     <body>
         <head>
-            <script type="text/javascript"
-                src="http://www.google-analytics.com/urchin.js">
-            </script>
-            <script type="text/javascript">
-                <![CDATA[
+            <![CDATA[
+                <script type="text/javascript" src="https://www.google-analytics.com/urchin.js"></script>
+                <script type="text/javascript">
                     _uacct = "UA-76203-1";
                     urchinTracker();
-                ]]>
-            </script>
+                </script>
+            ]]>
         </head>
         <links>
             <item name="wiki site" href="https://github.com/jiaqi/jmxterm/wiki" />
-            <item name="cyclopsgroup.org" href="http://www.cyclopsgroup.org/" />
-            <item name="github"
-                href="https://github.com/jiaqi/jmxterm" />
+            <item name="cyclopsgroup.org" href="https://www.cyclopsgroup.org/" />
+            <item name="github" href="https://github.com/jiaqi/jmxterm" />
         </links>
         <menu ref="reports" />
     </body>
