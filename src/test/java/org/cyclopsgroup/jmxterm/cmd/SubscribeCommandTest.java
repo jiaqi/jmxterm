@@ -13,7 +13,7 @@ import javax.management.ObjectName;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
+import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class SubscribeCommandTest {
   @Before
   public void setUp() {
     context = new Mockery();
-    context.setImposteriser(ClassImposteriser.INSTANCE);
+    context.setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
     command = new SubscribeCommand();
     output = new StringWriter();
   }
