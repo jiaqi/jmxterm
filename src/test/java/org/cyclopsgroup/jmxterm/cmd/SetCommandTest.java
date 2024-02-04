@@ -17,8 +17,8 @@ import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.api.Invocation;
+import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.lib.action.CustomAction;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,7 +40,7 @@ public class SetCommandTest {
     command = new SetCommand();
     output = new StringWriter();
     context = new Mockery();
-    context.setImposteriser(ClassImposteriser.INSTANCE);
+    context.setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
   }
 
   private void setValueAndVerify(String expr, final String type, final Object expected) {
