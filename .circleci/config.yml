@@ -25,6 +25,6 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
                 - snapshot
           context: snapshot-deploy
