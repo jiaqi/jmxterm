@@ -1,13 +1,14 @@
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 name: Create Release
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
+
     steps:
       - name: 📦 Checkout Code
         uses: actions/checkout@v4
@@ -22,16 +23,21 @@ jobs:
       - name: 🛠 Build with Maven
         run: mvn -B package --file pom.xml
 
+      #      - name: Update CHANGELOG
+      #        id: changelog
+      #        uses: requarks/changelog-action@v1
+      #        with:
+      #          token: ${{ github.token }}
+      #          tag: ${{ github.ref_name }}
+
       - name: 🚀 Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 📤 Upload Artifacts
-        uses: actions/upload-artifact@v4
         with:
-          name: release-artifacts
-          path: |
+          files: |
             target/*.jar
             target/*.deb
+          release_name: Release ${{ github.ref }}
+#          body: ${{ steps.changelog.outputs.changes }}
