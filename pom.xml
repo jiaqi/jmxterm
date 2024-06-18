@@ -24,7 +24,7 @@
     <url>https://travis-ci.org/jiaqi/jmxterm</url>
   </ciManagement>
   <properties>
-    <jmock.version>2.8.3</jmock.version>
+    <jmock.version>2.13.1</jmock.version>
     <slf4j.version>1.7.25</slf4j.version>
   </properties>
   <dependencies>
