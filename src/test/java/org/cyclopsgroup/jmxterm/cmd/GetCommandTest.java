@@ -20,7 +20,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
+import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -99,7 +99,7 @@ public class GetCommandTest {
   public void setUp() {
     command = new GetCommand();
     context = new Mockery();
-    context.setImposteriser(ClassImposteriser.INSTANCE);
+    context.setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
     output = new StringWriter();
   }
 
