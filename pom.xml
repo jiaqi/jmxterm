@@ -25,7 +25,7 @@
   </ciManagement>
   <properties>
     <byte-buddy.version>1.14.11</byte-buddy.version>
-    <jmock.version>2.12.0</jmock.version>
+    <jmock.version>2.13.1</jmock.version>
     <slf4j.version>1.7.25</slf4j.version>
   </properties>
   <dependencies>
