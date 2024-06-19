@@ -23,12 +23,12 @@ jobs:
       - name: 🛠 Build with Maven
         run: mvn -B package --file pom.xml
 
-      #      - name: Update CHANGELOG
-      #        id: changelog
-      #        uses: requarks/changelog-action@v1
-      #        with:
-      #          token: ${{ github.token }}
-      #          tag: ${{ github.ref_name }}
+      - name: Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
 
       - name: 🚀 Create Release
         id: create_release
@@ -40,4 +40,4 @@ jobs:
             target/*.jar
             target/*.deb
           release_name: Release ${{ github.ref }}
-#          body: ${{ steps.changelog.outputs.changes }}
+          body: ${{ steps.changelog.outputs.changes }}
