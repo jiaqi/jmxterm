@@ -39,5 +39,5 @@ jobs:
           files: |
             target/*.jar
             target/*.deb
-          release_name: Release ${{ github.ref }}
+          name: Release ${{ github.ref }}
           body: ${{ steps.changelog.outputs.changes }}
