@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21.0.3_9-jre-alpine
+FROM eclipse-temurin:22.0.1_8-jre-alpine
 
 COPY target/jmxterm*-uber.jar /opt/jmxterm/jmxterm.jar
 
