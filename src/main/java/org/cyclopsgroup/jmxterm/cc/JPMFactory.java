@@ -5,6 +5,7 @@ import org.apache.commons.lang3.SystemUtils;
 import org.cyclopsgroup.jmxterm.JavaProcessManager;
 import org.cyclopsgroup.jmxterm.jdk5.Jdk5JavaProcessManager;
 import org.cyclopsgroup.jmxterm.jdk6.Jdk6JavaProcessManager;
+import org.cyclopsgroup.jmxterm.jdk9.Jdk9JavaProcessManager;
 import org.cyclopsgroup.jmxterm.pm.JConsoleClassLoaderFactory;
 import org.cyclopsgroup.jmxterm.pm.UnsupportedJavaProcessManager;
 
@@ -27,16 +28,18 @@ public class JPMFactory {
     JavaProcessManager j;
     try {
       ClassLoader cl = JConsoleClassLoaderFactory.getClassLoader();
-      if (SystemUtils.IS_JAVA_1_5) {
-        j = new Jdk5JavaProcessManager(cl);
-      } else {
+      if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9)) {
+        j = new Jdk9JavaProcessManager(cl);
+      } else if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_6)) {
         j = new Jdk6JavaProcessManager(cl);
+      } else {
+        j = new Jdk5JavaProcessManager(cl);
       }
     } catch (ClassNotFoundException e) {
       j =
           new UnsupportedJavaProcessManager(
               e.getMessage()
-                  + ", operation on this JDK("
+                  + ", operation on this JDK ("
                   + SystemUtils.JAVA_RUNTIME_VERSION
                   + ") isn't fully supported",
               e);
