@@ -41,7 +41,7 @@ public class JPMFactory {
               e.getMessage()
                   + ", operation on this JDK ("
                   + SystemUtils.JAVA_RUNTIME_VERSION
-                  + ") isn't fully supported",
+                  + ") isn't fully supported (or you're running on JRE)",
               e);
     } catch (Exception e) {
       j = new UnsupportedJavaProcessManager(e);
