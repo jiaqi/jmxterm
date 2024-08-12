@@ -24,7 +24,7 @@
   </ciManagement>
   <properties>
     <jmock.version>2.13.1</jmock.version>
-    <slf4j.version>2.0.15</slf4j.version>
+    <slf4j.version>2.0.16</slf4j.version>
   </properties>
   <dependencies>
     <dependency>
