@@ -1,0 +1,97 @@
+name: Nightly Pre-Release
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  prerelease:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Get latest nightly pre-release commit SHA
+        id: get_latest_nightly_commit
+        run: |
+          latest_nightly_commit=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases | jq -r '[.[] | select(.prerelease == true)] | first | .target_commitish')
+          echo "latest_nightly_commit=${latest_nightly_commit}" >> $GITHUB_ENV
+
+      - name: Fallback to latest release if latest nightly commit is not found
+        if: env.latest_nightly_commit == null
+        run: |
+          latest_release=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)
+          echo "latest_nightly_commit=${latest_release}" >> $GITHUB_ENV
+
+      - name: Check for changes with previous nightly pre-release
+        id: check_changes
+        run: |
+          git fetch --tags
+          if git diff --quiet ${{ env.latest_nightly_commit }}..HEAD; then
+            echo "No changes detected"
+            echo "changes=false" >> $GITHUB_ENV
+          else
+            echo "Changes detected"
+            echo "changes=true" >> $GITHUB_ENV
+          fi
+
+      - name: 🚀 Set up JDK 17
+        if: env.changes == 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Get current version from pom.xml
+        if: env.changes == 'true'
+        id: get_version
+        run: |
+          current_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "current_version=${current_version}" >> $GITHUB_ENV
+
+      - name: Set nightly version variable
+        if: env.changes == 'true'
+        run: |
+          nightly_version=${{ env.current_version }}+nightly.$(date +'%Y%m%d').$(git rev-parse --short HEAD)
+          echo "nightly_version=${nightly_version}" >> $GITHUB_ENV
+
+      - name: Set nightly version
+        if: env.changes == 'true'
+        run: |
+          mvn versions:set -DnewVersion=${{ env.nightly_version }} -DgenerateBackupPoms=false
+
+      - name: 🛠 Build with Maven
+        if: env.changes == 'true'
+        run: mvn -B package --file pom.xml
+
+      - name: Get latest release tag
+        if: env.changes == 'true'
+        id: get_latest_release
+        run: |
+          latest_release=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)
+          echo "latest_release=${latest_release}" >> $GITHUB_ENV
+
+      - name: Generate changelog since last release
+        if: env.changes == 'true'
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          fromTag: ${{ github.ref_name }}
+          toTag: ${{ env.latest_release }}
+          includeInvalidCommits: true
+
+      - name: 🚀 Create pre-release
+        if: env.changes == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            target/*.jar
+            target/*.deb
+          tag_name: v${{ env.nightly_version }}
+          name: Nightly v${{ env.nightly_version }}
+          prerelease: true
+          body: ${{ steps.changelog.outputs.changes }}
