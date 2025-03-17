@@ -16,7 +16,7 @@ jobs:
       - name: Get latest nightly pre-release commit SHA
         id: get_latest_nightly_commit
         run: |
-          latest_nightly_commit=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases | jq -r '[.[] | select(.prerelease == true)] | first | .target_commitish')
+          latest_nightly_commit=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases | jq -r '[.[] | select(.prerelease == true)] | first | .tag_name')
           echo "latest_nightly_commit=${latest_nightly_commit}" >> $GITHUB_ENV
 
       - name: Fallback to latest release if latest nightly commit is not found
