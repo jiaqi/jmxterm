@@ -23,12 +23,19 @@ jobs:
       - name: 🛠 Build with Maven
         run: mvn -B package --file pom.xml
 
+      - name: Get latest release commit SHA
+        if: env.latest_nightly_commit == null
+        run: |
+          latest_release=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '[.[] | select(.prerelease == false)] | first | .tag_name')
+          echo "latest_release=${latest_release}" >> $GITHUB_ENV
+
       - name: Update CHANGELOG
         id: changelog
         uses: requarks/changelog-action@v1
         with:
           token: ${{ github.token }}
-          tag: ${{ github.ref_name }}
+          fromTag: ${{ github.ref_name }}
+          toTag: ${{ env.latest_release }}
           includeInvalidCommits: true
 
       - name: 🚀 Create Release

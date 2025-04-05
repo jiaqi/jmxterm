@@ -22,8 +22,8 @@ jobs:
       - name: Fallback to latest release if latest nightly commit is not found
         if: env.latest_nightly_commit == null
         run: |
-          latest_release=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)
-          echo "latest_nightly_commit=${latest_release}" >> $GITHUB_ENV
+          latest_nightly_commit=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)
+          echo "latest_nightly_commit=${latest_nightly_commit}" >> $GITHUB_ENV
 
       - name: Check for changes with previous nightly pre-release
         id: check_changes
