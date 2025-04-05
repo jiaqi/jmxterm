@@ -10,7 +10,7 @@
   <artifactId>jmxterm</artifactId>
   <name>JMXTerm</name>
   <packaging>jar</packaging>
-  <version>1.0.8-lemyst</version>
+  <version>1.0.9-lemyst</version>
   <description>Command line based interactive JMX client</description>
   <url>http://www.cyclopsgroup.org/projects/jmxterm</url>
   <inceptionYear>2008</inceptionYear>
