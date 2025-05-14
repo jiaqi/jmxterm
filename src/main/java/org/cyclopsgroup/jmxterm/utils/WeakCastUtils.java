@@ -19,6 +19,7 @@ public final class WeakCastUtils {
   /**
    * Cast object into multiple interfaces
    *
+   * @param original The interface of the from instance
    * @param from Object to cast
    * @param interfaces Interfaces to cast to
    * @param classLoader ClassLoader to load methods for invocation
@@ -26,7 +27,11 @@ public final class WeakCastUtils {
    * @throws SecurityException Allows exception related to security.
    * @throws NoSuchMethodException Allows exception due to wrong method.
    */
-  public static Object cast(final Object from, final Class<?>[] interfaces, ClassLoader classLoader)
+  public static Object cast(
+      final Class<?> original,
+      final Object from,
+      final Class<?>[] interfaces,
+      ClassLoader classLoader)
       throws SecurityException, NoSuchMethodException {
     Validate.notNull(from, "Invocation target can't be NULL");
     Validate.notNull(interfaces, "Interfaces can't be NULL");
@@ -35,8 +40,7 @@ public final class WeakCastUtils {
     for (Class<?> interfase : interfaces) {
       Validate.isTrue(interfase.isInterface(), interfase + " is not an interface");
       for (Method fromMethod : interfase.getMethods()) {
-        Method toMethod =
-            from.getClass().getMethod(fromMethod.getName(), fromMethod.getParameterTypes());
+        Method toMethod = original.getMethod(fromMethod.getName(), fromMethod.getParameterTypes());
         methodMap.put(fromMethod, toMethod);
       }
     }
@@ -74,7 +78,23 @@ public final class WeakCastUtils {
    */
   public static <T> T cast(Object from, Class<T> interfase)
       throws SecurityException, NoSuchMethodException {
-    return cast(from, interfase, interfase.getClassLoader());
+    return cast(from.getClass(), from, interfase, interfase.getClassLoader());
+  }
+
+  /**
+   * Cast object to one given interface using ClassLoader of interface
+   *
+   * @param original The interface of the from instance
+   * @param <T> Type of interface
+   * @param from Object to cast
+   * @param interfase Interface to cast to
+   * @return Result that implements interface
+   * @throws SecurityException Allows exception related to security.
+   * @throws NoSuchMethodException Allows exception due to wrong method.
+   */
+  public static <T> T cast(Class<?> original, Object from, Class<T> interfase)
+      throws SecurityException, NoSuchMethodException {
+    return cast(original, from, interfase, interfase.getClassLoader());
   }
 
   /**
@@ -89,10 +109,11 @@ public final class WeakCastUtils {
    * @throws NoSuchMethodException Allows exception due to wrong method.
    */
   @SuppressWarnings("unchecked")
-  public static <T> T cast(Object from, Class<T> interfase, ClassLoader classLoader)
+  public static <T> T cast(
+      Class<?> original, Object from, Class<T> interfase, ClassLoader classLoader)
       throws SecurityException, NoSuchMethodException {
     Validate.notNull(interfase, "Interface can't be NULL");
-    return (T) cast(from, new Class<?>[] {interfase}, classLoader);
+    return (T) cast(original, from, new Class<?>[] {interfase}, classLoader);
   }
 
   /**
