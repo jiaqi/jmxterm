@@ -50,7 +50,7 @@ jobs:
       # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
       - name: Submit Dependency Snapshot
         if: github.actor != 'dependabot[bot]'
-        uses: advanced-security/maven-dependency-submission-action@v4
+        uses: advanced-security/maven-dependency-submission-action@v5
 
       - name: 📤 Upload Artifacts
         uses: actions/upload-artifact@v4
