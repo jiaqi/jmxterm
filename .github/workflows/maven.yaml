@@ -3,6 +3,9 @@
 
 name: Java CI with Maven
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -14,6 +17,9 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: write
+      security-events: write
     runs-on: ubuntu-latest
 
     steps:
@@ -61,6 +67,10 @@ jobs:
             target/*.deb
 
   docker:
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
     needs: build
     runs-on: ubuntu-latest
 
