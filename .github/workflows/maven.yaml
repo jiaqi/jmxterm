@@ -106,7 +106,7 @@ jobs:
 
       - name: Build and push locally
         id: local-push
-        uses: docker/build-push-action@v6.17.0
+        uses: docker/build-push-action@v6.18.0
         with:
           context: .
           load: true
@@ -131,7 +131,7 @@ jobs:
 
       - name: Build and push registry
         if: github.event_name != 'pull_request'
-        uses: docker/build-push-action@v6.17.0
+        uses: docker/build-push-action@v6.18.0
         with:
           context: .
           platforms: linux/amd64,linux/arm64
