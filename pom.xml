@@ -23,7 +23,7 @@
     <url>https://travis-ci.org/jiaqi/jmxterm</url>
   </ciManagement>
   <properties>
-    <byte-buddy.version>1.17.5</byte-buddy.version>
+    <byte-buddy.version>1.17.6</byte-buddy.version>
     <jmock.version>2.13.1</jmock.version>
     <slf4j.version>2.0.17</slf4j.version>
   </properties>
