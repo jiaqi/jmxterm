@@ -86,7 +86,7 @@ jobs:
 
       - name: 🐳 Build Docker image
         id: meta
-        uses: docker/metadata-action@v5.7.0
+        uses: docker/metadata-action@v5.8.0
         with:
           images: ghcr.io/lemyst/jmxterm
 
