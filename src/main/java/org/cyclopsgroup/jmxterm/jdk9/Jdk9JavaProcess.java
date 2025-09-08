@@ -49,7 +49,7 @@ public class Jdk9JavaProcess implements JavaProcess {
     Object vm = staticVirtualMachine.attach(vmd.id());
     try {
       Class<?> originalVirtualMachine = Class.forName(VirtualMachine.ORIGINAL_CLASS_NAME);
-      VirtualMachine vmProxy = WeakCastUtils.cast(originalVirtualMachine, VirtualMachine.class);
+      VirtualMachine vmProxy = WeakCastUtils.cast(originalVirtualMachine, vm, VirtualMachine.class);
       vmProxy.startLocalManagementAgent();
     } catch (ClassNotFoundException | SecurityException | NoSuchMethodException e) {
       throw new RuntimeException("Can't cast " + vm + " to VirtualMachineDescriptor", e);
