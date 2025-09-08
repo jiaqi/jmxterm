@@ -6,6 +6,7 @@ on:
 name: Create Release
 permissions:
   contents: write
+  packages: write
 
 jobs:
   release:
@@ -21,9 +22,18 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
 
       - name: 🛠 Build with Maven
         run: mvn -B package --file pom.xml
+        
+      - name: 📦 Deploy to GitHub Packages
+        run: mvn -B deploy --file pom.xml -DskipTests
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get latest release commit SHA
         if: env.latest_nightly_commit == null

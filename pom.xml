@@ -358,6 +358,14 @@
     </pluginManagement>
   </build>
   <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/LeMyst/jmxterm</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
     <site>
       <id>cyclopsgroup.server</id>
       <url>s3://${dist.bucketName}/projects/jmxterm</url>
