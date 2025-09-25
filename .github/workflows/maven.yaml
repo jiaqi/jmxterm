@@ -12,7 +12,9 @@
 name: Java CI with Maven
 
 permissions:
-  contents: read
+  contents: write
+  packages: write
+  security-events: write
 
 on:
   push:
@@ -47,9 +49,6 @@ jobs:
   build:
     name: Package & Scan (JDK 17)
     needs: test
-    permissions:
-      contents: write
-      security-events: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -97,10 +96,6 @@ jobs:
 
   docker:
     name: Docker Image
-    permissions:
-      contents: read
-      packages: write
-      security-events: write
     needs: build
     runs-on: ubuntu-latest
     steps:
