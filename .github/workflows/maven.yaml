@@ -11,11 +11,6 @@
 
 name: Java CI with Maven
 
-permissions:
-  contents: write
-  packages: write
-  security-events: write
-
 on:
   push:
     branches:
@@ -28,6 +23,8 @@ on:
 jobs:
   test:
     name: Test (JDK ${{ matrix.java }})
+    permissions:
+      contents: read  # for checkout
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -48,6 +45,9 @@ jobs:
 
   build:
     name: Package & Scan (JDK 17)
+    permissions:
+      contents: write  # for artifact upload
+      security-events: write  # for trivy upload
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -77,13 +77,12 @@ jobs:
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
+        if: always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         with:
           sarif_file: 'trivy-results.sarif'
 
-      # Optional: Upload full dependency graph to improve Dependabot alerting
       - name: Submit Dependency Snapshot
-        if: github.actor != 'dependabot[bot]'
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         uses: advanced-security/maven-dependency-submission-action@v5
 
       - name: Upload Artifacts
@@ -96,6 +95,10 @@ jobs:
 
   docker:
     name: Docker Image
+    permissions:
+      packages: write  # for GHCR
+      security-events: write  # for trivy upload
+      contents: read  # for checkout
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -150,7 +153,7 @@ jobs:
 
       - name: Upload Trivy (image) scan results
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
+        if: always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
         with:
           sarif_file: 'trivy-results.sarif'
 
