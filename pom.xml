@@ -1,37 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.cyclopsgroup</groupId>
-    <artifactId>cyclopsgroup-java-parent</artifactId>
-    <version>0.7.2</version>
-  </parent>
+
+  <groupId>org.cyclopsgroup</groupId>
   <artifactId>jmxterm</artifactId>
-  <name>JMXTerm</name>
-  <packaging>jar</packaging>
   <version>1.0.10-lemyst</version>
+  <packaging>jar</packaging>
+  <name>JMXTerm</name>
   <description>Command line based interactive JMX client</description>
   <url>http://www.cyclopsgroup.org/projects/jmxterm</url>
   <inceptionYear>2008</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:https://github.com/LeMyst/jmxterm.git</connection>
+    <developerConnection>scm:git:git@github.com:LeMyst/jmxterm.git</developerConnection>
+    <url>https://github.com/LeMyst/jmxterm</url>
+  </scm>
+
   <issueManagement>
     <system>github</system>
-    <url>https://github.com/jiaqi/jmxterm/issues</url>
+    <url>https://github.com/LeMyst/jmxterm/issues</url>
   </issueManagement>
+
   <ciManagement>
     <system>travis</system>
     <url>https://travis-ci.org/jiaqi/jmxterm</url>
   </ciManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/LeMyst/jmxterm</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </distributionManagement>
+
   <properties>
-    <byte-buddy.version>1.17.7</byte-buddy.version>
-    <jmock.version>2.13.1</jmock.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- Third-party dependencies -->
     <slf4j.version>2.0.17</slf4j.version>
+    <commons-beanutils.version>1.11.0</commons-beanutils.version>
+    <commons-io.version>2.20.0</commons-io.version>
+    <commons-collections4.version>4.5.0</commons-collections4.version>
+    <commons-configuration2.version>2.12.0</commons-configuration2.version>
+    <commons-lang3.version>3.18.0</commons-lang3.version>
+    <commons-text.version>1.14.0</commons-text.version>
+    <jcli.version>1.0.1</jcli.version>
+    <jline.version>3.30.6</jline.version>
+    <guava.version>33.5.0-jre</guava.version>
+
+    <!-- Test dependencies -->
+    <jmock.version>2.13.1</jmock.version>
+    <byte-buddy.version>1.17.7</byte-buddy.version>
+    <junit.version>4.13.2</junit.version>
+
+    <!-- Plugins -->
+    <jdeb.version>1.14</jdeb.version>
+    <rpm-maven-plugin.version>2.3.0</rpm-maven-plugin.version>
+    <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
+    <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
+    <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
+    <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+    <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+    <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+    <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+    <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
   </properties>
+
   <dependencies>
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
-      <version>1.11.0</version>
+      <version>${commons-beanutils.version}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
@@ -47,17 +100,17 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.20.0</version>
+      <version>${commons-io.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-collections4</artifactId>
-      <version>4.5.0</version>
+      <version>${commons-collections4.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-configuration2</artifactId>
-      <version>2.12.0</version>
+      <version>${commons-configuration2.version}</version>
       <exclusions>
         <exclusion>
           <groupId>commons-logging</groupId>
@@ -68,24 +121,24 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.18.0</version>
+      <version>${commons-lang3.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-text</artifactId>
-      <version>1.14.0</version>
+      <version>${commons-text.version}</version>
     </dependency>
     <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <version>33.5.0-jre</version>
+        <version>33.4.8-jre</version>
     </dependency>
     <dependency>
       <groupId>org.cyclopsgroup</groupId>
       <artifactId>jcli</artifactId>
-      <version>1.0.1</version>
-      <!-- Exclude guava because of vulnerabilities -->
+      <version>${jcli.version}</version>
       <exclusions>
+        <!-- Exclude guava because of vulnerabilities -->
         <exclusion>
           <groupId>com.google.guava</groupId>
           <artifactId>guava</artifactId>
@@ -95,7 +148,7 @@
     <dependency>
       <groupId>org.jline</groupId>
       <artifactId>jline</artifactId>
-      <version>3.30.6</version>
+      <version>${jline.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -113,6 +166,8 @@
       <version>${slf4j.version}</version>
       <scope>runtime</scope>
     </dependency>
+
+    <!-- Test dependencies -->
     <dependency>
       <groupId>net.bytebuddy</groupId>
       <artifactId>byte-buddy</artifactId>
@@ -134,27 +189,62 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13.2</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- Force some dependencies to use newer version -->
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>33.5.0-jre</version>
-    </dependency>
   </dependencies>
-  <scm>
-    <connection>scm:git:git@github.com:jiaqi/jmxterm.git</connection>
-    <developerConnection>scm:git:git@github.com:jiaqi/jmxterm.git</developerConnection>
-    <url>git@github.com:jiaqi/jmxterm.git</url>
-  </scm>
+
+  <repositories>
+    <repository>
+      <id>maven_central</id>
+      <name>Maven Central</name>
+      <url>https://repo.maven.apache.org/maven2/</url>
+    </repository>
+  </repositories>
+
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>${lifecycle-mapping.version}</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <versionRange>[1.0.0,)</versionRange>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore/>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <release>17</release>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.4.2</version>
+        <version>${maven-jar-plugin.version}</version>
         <executions>
           <execution>
             <id>default-jar</id>
@@ -165,7 +255,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.12.0</version>
+        <version>${maven-javadoc-plugin.version}</version>
         <configuration>
           <show>protected</show>
           <failOnError>true</failOnError>
@@ -175,13 +265,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.7.1</version>
+        <version>${maven-assembly-plugin.version}</version>
         <executions>
           <execution>
-            <phase>prepare-package</phase>
             <goals>
               <goal>single</goal>
             </goals>
+            <phase>prepare-package</phase>
             <configuration>
               <finalName>jmxterm-${project.version}-uber</finalName>
               <appendAssemblyId>false</appendAssemblyId>
@@ -200,7 +290,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.4</version>
+        <version>${maven-surefire-plugin.version}</version>
         <configuration>
           <excludes>
             <exclude>org.cyclopsgroup.jmxterm.jdk*</exclude>
@@ -210,9 +300,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>${maven-antrun-plugin.version}</version>
         <executions>
           <execution>
+            <goals>
+              <goal>run</goal>
+            </goals>
             <phase>site</phase>
             <configuration>
               <target>
@@ -222,16 +315,13 @@
                 </copy>
               </target>
             </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
           </execution>
         </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rpm-maven-plugin</artifactId>
-        <version>2.3.0</version>
+        <version>${rpm-maven-plugin.version}</version>
         <configuration>
           <license>Apache Software License v2.0</license>
           <distribution>CyclopsGroup.org</distribution>
@@ -280,14 +370,14 @@
       <plugin>
         <groupId>org.vafer</groupId>
         <artifactId>jdeb</artifactId>
-        <version>1.14</version>
+        <version>${jdeb.version}</version>
         <executions>
           <execution>
             <id>create-deb</id>
-            <phase>package</phase>
             <goals>
               <goal>jdeb</goal>
             </goals>
+            <phase>package</phase>
             <configuration>
               <controlDir>src/main/deb</controlDir>
               <dataSet>
@@ -317,7 +407,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>${maven-source-plugin.version}</version>
         <executions>
           <execution>
             <id>attach-sources</id>
@@ -328,61 +418,6 @@
         </executions>
       </plugin>
     </plugins>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <versionRange>[1.0.0,)</versionRange>
-                    <goals>
-                      <goal>enforce</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore/>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
   </build>
-  <distributionManagement>
-    <repository>
-      <id>github</id>
-      <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/LeMyst/jmxterm</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <site>
-      <id>cyclopsgroup.server</id>
-      <url>s3://${dist.bucketName}/projects/jmxterm</url>
-    </site>
-  </distributionManagement>
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <repositories>
-    <repository>
-      <id>maven_central</id>
-      <name>Maven Central</name>
-      <url>https://repo.maven.apache.org/maven2/</url>
-    </repository>
-  </repositories>
+
 </project>
