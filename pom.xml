@@ -3,9 +3,9 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.cyclopsgroup</groupId>
+  <groupId>io.github.lemyst</groupId>
   <artifactId>jmxterm</artifactId>
-  <version>1.0.10-lemyst</version>
+  <version>1.0.11</version>
   <packaging>jar</packaging>
   <name>JMXTerm</name>
   <description>Command line based interactive JMX client</description>
@@ -30,11 +30,6 @@
     <system>github</system>
     <url>https://github.com/LeMyst/jmxterm/issues</url>
   </issueManagement>
-
-  <ciManagement>
-    <system>travis</system>
-    <url>https://travis-ci.org/jiaqi/jmxterm</url>
-  </ciManagement>
 
   <distributionManagement>
     <repository>

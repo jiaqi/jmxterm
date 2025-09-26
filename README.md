@@ -12,8 +12,8 @@ Add the following repository to your pom.xml:
     </repository>
 </repositories>
 <dependency>
-    <groupId>org.cyclopsgroup</groupId>
+    <groupId>io.github.lemyst</groupId>
     <artifactId>jmxterm</artifactId>
-    <version>1.0.10-lemyst</version>
+    <version>1.0.11</version>
 </dependency>
 ```
