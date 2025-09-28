@@ -3,7 +3,9 @@ package org.cyclopsgroup.jmxterm;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.regex.Pattern;
+
 import javax.management.remote.JMXServiceURL;
+
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.commons.lang3.ClassUtils;
@@ -35,22 +37,15 @@ public final class SyntaxUtils {
     if (StringUtils.isEmpty(url)) {
       throw new IllegalArgumentException("Empty URL is not allowed");
     } else if (NumberUtils.isDigits(url) && jpm != null) {
-      Integer pid = Integer.parseInt(url);
-      JavaProcess p;
-
-      p = jpm.get(pid);
+      int pid = Integer.parseInt(url);
+      JavaProcess p = jpm.get(pid);
       if (p == null) {
         throw new NullPointerException("No such PID " + pid);
       }
       if (!p.isManageable()) {
         p.startManagementAgent();
         if (!p.isManageable()) {
-          throw new IllegalStateException(
-              "Managed agent for PID "
-                  + pid
-                  + " couldn't start. PID "
-                  + pid
-                  + " is not manageable");
+          throw new IllegalStateException("Managed agent for PID " + pid + " couldn't start. PID " + pid + " is not manageable");
         }
       }
       return new JMXServiceURL(p.toUrl());

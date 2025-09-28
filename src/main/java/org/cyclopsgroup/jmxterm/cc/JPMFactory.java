@@ -1,56 +1,22 @@
 package org.cyclopsgroup.jmxterm.cc;
 
-import org.apache.commons.lang3.JavaVersion;
-import org.apache.commons.lang3.SystemUtils;
 import org.cyclopsgroup.jmxterm.JavaProcessManager;
-import org.cyclopsgroup.jmxterm.jdk5.Jdk5JavaProcessManager;
-import org.cyclopsgroup.jmxterm.jdk6.Jdk6JavaProcessManager;
 import org.cyclopsgroup.jmxterm.jdk9.Jdk9JavaProcessManager;
-import org.cyclopsgroup.jmxterm.pm.JConsoleClassLoaderFactory;
-import org.cyclopsgroup.jmxterm.pm.UnsupportedJavaProcessManager;
 
 /**
  * Internal factory class to create JPM instance
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class JPMFactory {
-  private final JavaProcessManager jpm;
+public final class JPMFactory {
 
   /** Default constructor that figures out an implementation of JPM */
-  public JPMFactory() {
-    if (!SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5)) {
-      jpm =
-          new UnsupportedJavaProcessManager(
-              "JDK version " + SystemUtils.JAVA_RUNTIME_VERSION + " doesn't support this command");
-      return;
-    }
-    JavaProcessManager j;
-    try {
-      ClassLoader cl = JConsoleClassLoaderFactory.getClassLoader();
-      if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_9)) {
-        j = new Jdk9JavaProcessManager(cl);
-      } else if (SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_6)) {
-        j = new Jdk6JavaProcessManager(cl);
-      } else {
-        j = new Jdk5JavaProcessManager(cl);
-      }
-    } catch (ClassNotFoundException e) {
-      j =
-          new UnsupportedJavaProcessManager(
-              e.getMessage()
-                  + ", operation on this JDK ("
-                  + SystemUtils.JAVA_RUNTIME_VERSION
-                  + ") isn't fully supported (or you're running on JRE)",
-              e);
-    } catch (Exception e) {
-      j = new UnsupportedJavaProcessManager(e);
-    }
-    jpm = j;
+  private JPMFactory() {
+    throw new UnsupportedOperationException("Not instantiable");
   }
 
   /** @return Java process manager instance */
-  final JavaProcessManager getProcessManager() {
-    return jpm;
+  static JavaProcessManager createProcessManager() {
+    return new Jdk9JavaProcessManager();
   }
 }

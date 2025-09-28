@@ -13,6 +13,6 @@ public class JPMFactoryTest {
   /** Verify JPMFactory can create process manager */
   @Test
   public void testLoad() {
-    assertNotNull(new JPMFactory().getProcessManager());
+    assertNotNull(JPMFactory.createProcessManager());
   }
 }

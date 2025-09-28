@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
 import javax.management.JMException;
 import javax.management.remote.JMXServiceURL;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -66,13 +68,11 @@ public class CommandCenter {
    * @param output Output result
    * @param input Command input
    * @param commandFactory Given command factory
-   * @throws IOException IO problem
    */
-  public CommandCenter(CommandOutput output, CommandInput input, CommandFactory commandFactory)
-      throws IOException {
+  public CommandCenter(CommandOutput output, CommandInput input, CommandFactory commandFactory) {
     Validate.notNull(output, "Output can't be NULL");
     Validate.notNull(commandFactory, "Command factory can't be NULL");
-    processManager = new JPMFactory().getProcessManager();
+    processManager = JPMFactory.createProcessManager();
     this.session = new SessionImpl(output, input, processManager);
     this.commandFactory = commandFactory;
   }

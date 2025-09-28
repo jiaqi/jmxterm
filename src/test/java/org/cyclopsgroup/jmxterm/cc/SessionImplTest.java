@@ -4,13 +4,15 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.util.Map;
+
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXServiceURL;
+
 import org.apache.commons.io.output.NullWriter;
 import org.cyclopsgroup.jmxterm.Connection;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
 import org.cyclopsgroup.jmxterm.io.WriterCommandOutput;
-import org.cyclopsgroup.jmxterm.pm.UnsupportedJavaProcessManager;
+import org.cyclopsgroup.jmxterm.jdk9.Jdk9JavaProcessManager;
 import org.jmock.Mockery;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +38,7 @@ public class SessionImplTest {
         new SessionImpl(
             new WriterCommandOutput(new NullWriter()),
             null,
-            new UnsupportedJavaProcessManager("testing")) {
+            new Jdk9JavaProcessManager()) {
           @Override
           protected JMXConnector doConnect(JMXServiceURL url, Map<String, Object> env)
               throws IOException {
