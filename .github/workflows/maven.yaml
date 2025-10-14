@@ -1,9 +1,9 @@
-# This workflow builds and tests the project across multiple JDKs (17, 21),
+# This workflow builds and tests the project across multiple JDKs (17, 21, 25),
 # while producing release artifacts (and Docker image) only once (on JDK 17)
 # to avoid duplicate artifacts and repeated security scanning.
 #
 # Matrix test job:
-#   - Runs 'mvn -B verify' on JDK 17, 21
+#   - Runs 'mvn -B verify' on JDK 17, 21, 25
 # Build job:
 #   - Runs full package & security scanning on JDK 17 only
 # Docker job:
@@ -29,7 +29,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [17, 21]
+        java: [17, 21, 25]
     steps:
       - uses: actions/checkout@v5
 
