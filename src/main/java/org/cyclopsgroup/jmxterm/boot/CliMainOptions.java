@@ -33,7 +33,7 @@ public class CliMainOptions {
 
   private boolean nonInteractive;
 
-  private boolean appendToOutput = false;
+  private boolean appendToOutput;
 
   private String output = STDOUT;
 

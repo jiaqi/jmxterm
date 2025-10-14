@@ -11,7 +11,7 @@ import org.apache.commons.text.StringEscapeUtils;
  * @author $Author$
  * @version $Revision$ in $Change$ submitted at $DateTime$
  */
-public class ValueFormat {
+public final class ValueFormat {
   /** Keyword that identifies NULL pointer <code>null</code> */
   public static final String NULL = "null";
 
@@ -27,7 +27,7 @@ public class ValueFormat {
     if (StringUtils.isEmpty(value)) {
       return null;
     }
-    if (value.equals(NULL)) {
+    if (NULL.equals(value)) {
       return null;
     }
     String s;

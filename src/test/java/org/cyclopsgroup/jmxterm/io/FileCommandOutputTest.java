@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.SystemUtils;
@@ -27,7 +28,7 @@ public class FileCommandOutputTest {
         new File(
             SystemUtils.JAVA_IO_TMPDIR
                 + "/test-"
-                + RandomStringUtils.randomAlphabetic(20)
+                + RandomStringUtils.secure().nextAlphabetic(20)
                 + ".txt");
   }
 

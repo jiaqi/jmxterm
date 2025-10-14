@@ -2,11 +2,11 @@ package org.cyclopsgroup.jmxterm.cmd;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
+
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
@@ -34,25 +34,20 @@ public class BeansCommand extends Command {
    */
   public static List<String> getBeans(Session session, String domainName)
       throws MalformedObjectNameException, IOException {
-    ObjectName queryName = null;
-    if (domainName != null) {
-      queryName = new ObjectName(domainName + ":*");
-    }
-    Set<ObjectName> names =
-        session.getConnection().getServerConnection().queryNames(queryName, null);
-    List<String> results = new ArrayList<String>(names.size());
-    for (ObjectName name : names) {
-      results.add(name.getCanonicalName());
-    }
-    Collections.sort(results);
-    return results;
+    ObjectName queryName = domainName == null ?  null : new ObjectName(domainName + ":*");
+    return session.getConnection()
+        .getServerConnection()
+        .queryNames(queryName, null).stream()
+        .map(ObjectName::getCanonicalName)
+        .sorted()
+        .toList();
   }
 
   private String domain;
 
   @Override
   public List<String> doSuggestOption(String optionName) throws IOException {
-    if (optionName.equals("d")) {
+    if ("d".equals(optionName)) {
       return DomainsCommand.getCandidateDomains(getSession());
     }
     return null;
@@ -62,7 +57,7 @@ public class BeansCommand extends Command {
   public void execute() throws MalformedObjectNameException, IOException {
     Session session = getSession();
     String domainName = DomainCommand.getDomainName(domain, session);
-    List<String> domains = new ArrayList<String>();
+    List<String> domains = new ArrayList<>();
     if (domainName == null) {
       domains.addAll(DomainsCommand.getCandidateDomains(session));
     } else {

@@ -7,12 +7,14 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
+
 import javax.management.Attribute;
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
+
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -50,7 +52,7 @@ public class SetCommandTest {
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
     final MBeanInfo beanInfo = context.mock(MBeanInfo.class);
     final MBeanAttributeInfo attributeInfo = context.mock(MBeanAttributeInfo.class);
-    final AtomicReference<Attribute> setAttribute = new AtomicReference<Attribute>();
+    final AtomicReference<Attribute> setAttribute = new AtomicReference<>();
     try {
       context.checking(
           new Expectations() {
@@ -68,7 +70,7 @@ public class SetCommandTest {
               oneOf(con)
                   .setAttribute(
                       with(equal(new ObjectName("a:type=x"))),
-                      (Attribute) with(aNonNull(Attribute.class)));
+                      with(aNonNull(Attribute.class)));
               will(
                   doAll(
                       new CustomAction("SetAttribute") {
@@ -83,9 +85,7 @@ public class SetCommandTest {
 
       command.setSession(new MockSession(output, con));
       command.execute();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    } catch (JMException e) {
+    } catch (IOException | JMException e) {
       throw new RuntimeException(e);
     }
     context.assertIsSatisfied();

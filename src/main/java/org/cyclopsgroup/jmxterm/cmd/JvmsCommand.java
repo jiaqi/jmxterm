@@ -28,8 +28,7 @@ public class JvmsCommand extends Command {
       } else {
 
         session.output.println(
-            String.format(
-                "%-8d (%s) - %s",
+            "%-8d (%s) - %s".formatted(
                 p.getProcessId(), p.isManageable() ? "m" : " ", p.getDisplayName()));
       }
     }

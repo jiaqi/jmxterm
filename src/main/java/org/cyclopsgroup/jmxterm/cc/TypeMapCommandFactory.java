@@ -1,7 +1,9 @@
 package org.cyclopsgroup.jmxterm.cc;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Map;
+
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.CommandFactory;
@@ -29,11 +31,9 @@ public class TypeMapCommandFactory implements CommandFactory {
           "Command " + commandName + " isn't valid, run help to see available commands");
     }
     try {
-      return commandType.newInstance();
-    } catch (InstantiationException e) {
-      throw new RuntimeException("Can't instantiate instance", e);
-    } catch (IllegalAccessException e) {
-      throw new RuntimeException("Illegal access", e);
+      return commandType.getDeclaredConstructor().newInstance();
+    } catch (InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+      throw new IllegalStateException("Can't instantiate instance", e);
     }
   }
 

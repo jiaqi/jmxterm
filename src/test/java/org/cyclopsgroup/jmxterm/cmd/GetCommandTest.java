@@ -7,6 +7,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanInfo;
@@ -16,6 +17,7 @@ import javax.management.openmbean.CompositeDataSupport;
 import javax.management.openmbean.CompositeType;
 import javax.management.openmbean.OpenDataException;
 import javax.management.openmbean.SimpleType;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
@@ -61,7 +63,7 @@ public class GetCommandTest {
           new Expectations() {
             {
               oneOf(con).getDomains();
-              will(returnValue(new String[] {domain, RandomStringUtils.randomAlphabetic(5)}));
+              will(returnValue(new String[] {domain, RandomStringUtils.secure().nextAlphabetic(5)}));
               allowing(con).getMBeanInfo(new ObjectName(expectedBean));
               will(returnValue(beanInfo));
               oneOf(beanInfo).getAttributes();
@@ -80,8 +82,8 @@ public class GetCommandTest {
 
       Object nestedExpectedValue = expectedValue;
 
-      if (expectedValue instanceof CompositeDataSupport) {
-        nestedExpectedValue = ((CompositeDataSupport) expectedValue).get(attributePath[1]);
+      if (expectedValue instanceof CompositeDataSupport support) {
+        nestedExpectedValue = support.get(attributePath[1]);
       }
 
       assertEquals(
@@ -112,7 +114,7 @@ public class GetCommandTest {
   /** Verify non string type is formatted into string */
   @Test
   public void testExecuteWithNonStringType() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", new Integer(10), false, "");
+    getAttributeAndVerify("a", "type=x", "a", "a:type=x", Integer.valueOf(10), false, "");
   }
 
   @Test
@@ -127,7 +129,7 @@ public class GetCommandTest {
    */
   @Test
   public void testExecuteWithStrangeAttributeName() throws OpenDataException {
-    final Map<String, Object> entries = new HashMap<String, Object>();
+    final Map<String, Object> entries = new HashMap<>();
     entries.put("d", "bingo");
     final CompositeType compositeType = context.mock(CompositeType.class);
     context.checking(

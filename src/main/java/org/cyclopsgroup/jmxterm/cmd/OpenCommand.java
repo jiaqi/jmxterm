@@ -23,8 +23,11 @@ import org.cyclopsgroup.jmxterm.SyntaxUtils;
     name = "open",
     description = "Open JMX session or display current connection",
     note =
-        "Without argument this command display current connection. "
-            + "URL can be a <PID>, <hostname>:<port> or full qualified JMX service URL. For example\n open localhost:9991,\n open jmx:service:...")
+        """
+        Without argument this command display current connection. \
+        URL can be a <PID>, <hostname>:<port> or full qualified JMX service URL. For example
+         open localhost:9991,
+         open jmx:service:...""")
 public class OpenCommand extends Command {
   private String password;
 
@@ -43,7 +46,7 @@ public class OpenCommand extends Command {
         session.output.printMessage("not connected");
         session.output.println(SyntaxUtils.NULL);
       } else {
-        session.output.println(String.format("%s,%s", con.getConnectorId(), con.getUrl()));
+        session.output.println("%s,%s".formatted(con.getConnectorId(), con.getUrl()));
       }
       return;
     }

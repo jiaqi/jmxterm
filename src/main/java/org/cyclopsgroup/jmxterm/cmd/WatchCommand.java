@@ -34,7 +34,7 @@ import org.jline.reader.impl.LineReaderImpl;
     description = "Watch the value of one MBean attribute constantly",
     note = "DO NOT call this command in a script and expect decent output")
 public class WatchCommand extends Command {
-  private static class ConsoleOutput extends Output {
+  private static final class ConsoleOutput extends Output {
     private final LineReaderImpl console;
 
     private ConsoleOutput(Session session) {
@@ -55,7 +55,7 @@ public class WatchCommand extends Command {
     abstract void printLine(String line) throws IOException;
   }
 
-  private static class ReportOutput extends Output {
+  private static final class ReportOutput extends Output {
     private final CommandOutput out;
 
     private ReportOutput(Session session) {
@@ -72,7 +72,7 @@ public class WatchCommand extends Command {
 
   private static final int DEFAULT_REFRESH_INTERVAL = 1;
 
-  private List<String> attributes = new ArrayList<String>();
+  private List<String> attributes = new ArrayList<>();
 
   private String outputFormat;
 
@@ -88,7 +88,7 @@ public class WatchCommand extends Command {
       MBeanServerConnection con = getSession().getConnection().getServerConnection();
       MBeanAttributeInfo[] ais =
           con.getMBeanInfo(new ObjectName(getSession().getBean())).getAttributes();
-      List<String> results = new ArrayList<String>(ais.length);
+      List<String> results = new ArrayList<>(ais.length);
       for (MBeanAttributeInfo ai : ais) {
         results.add(ai.getName());
       }
@@ -126,13 +126,11 @@ public class WatchCommand extends Command {
 
     final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleWithFixedDelay(
-        new Runnable() {
-          public void run() {
-            try {
-              printValues(name, con, output);
-            } catch (IOException e) {
-              getSession().output.printError(e);
-            }
+        () -> {
+          try {
+            printValues(name, con, output);
+          } catch (IOException e) {
+            getSession().output.printError(e);
           }
         },
         0,
@@ -140,11 +138,7 @@ public class WatchCommand extends Command {
         TimeUnit.SECONDS);
     if (stopAfter > 0) {
       executor.schedule(
-          new Runnable() {
-            public void run() {
-              executor.shutdownNow();
-            }
-          },
+          (Runnable) executor::shutdownNow,
           stopAfter,
           TimeUnit.SECONDS);
     }
@@ -161,7 +155,7 @@ public class WatchCommand extends Command {
       ObjectName beanName, String attributeName, MBeanServerConnection connection)
       throws IOException {
     // $now is a reserved keyword for current java.util.Date
-    if (attributeName.equals(BUILDING_ATTRIBUTE_NOW)) {
+    if (BUILDING_ATTRIBUTE_NOW.equals(attributeName)) {
       return new Date();
     }
     try {

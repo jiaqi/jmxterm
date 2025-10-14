@@ -3,7 +3,9 @@ package org.cyclopsgroup.jmxterm.io;
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
+
 import javax.management.openmbean.CompositeData;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
@@ -120,13 +122,13 @@ public class ValueOutputFormat {
     } else if (CompositeData.class.isAssignableFrom(value.getClass())) {
       output.println("{ ");
       CompositeData data = (CompositeData) value;
-      for (Object key : data.getCompositeType().keySet()) {
-        Object v = data.get((String) key);
+      for (String key : data.getCompositeType().keySet()) {
+        Object v = data.get(key);
         printExpression(
             output,
             key,
             v,
-            data.getCompositeType().getDescription((String) key),
+            data.getCompositeType().getDescription(key),
             indent + indentSize);
       }
       output.print(StringUtils.repeat(" ", indent) + " }");

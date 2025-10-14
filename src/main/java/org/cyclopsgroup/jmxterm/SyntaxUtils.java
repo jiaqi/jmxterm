@@ -10,6 +10,7 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.cyclopsgroup.jmxterm.utils.ValueFormat;
 
@@ -64,7 +65,7 @@ public final class SyntaxUtils {
    * @return True if value is <code>null</code>
    */
   public static boolean isNull(String s) {
-    return StringUtils.equalsIgnoreCase(NULL, s) || StringUtils.equals("*", s);
+    return Strings.CI.equals(NULL, s) || Strings.CS.equals("*", s);
   }
 
   /**
@@ -75,7 +76,7 @@ public final class SyntaxUtils {
    * @return Object of value
    */
   public static Object parse(String expression, String type) {
-    if (expression == null || StringUtils.equalsIgnoreCase(NULL, expression)) {
+    if (expression == null || Strings.CI.equals(NULL, expression)) {
       return null;
     }
     Class<?> c;

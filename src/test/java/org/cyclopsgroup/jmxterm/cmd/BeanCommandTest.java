@@ -19,9 +19,9 @@ import org.junit.Test;
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class BeanCommandTest {
-  private BeanCommand command = new BeanCommand();
+  private final BeanCommand command = new BeanCommand();
 
-  private StringWriter output = new StringWriter();
+  private final StringWriter output = new StringWriter();
 
   private void setBeanAndVerify(String beanName, String domainName, final String expectedBean)
       throws IOException, JMException {

@@ -18,7 +18,7 @@ import org.cyclopsgroup.jmxterm.jdk9.Jdk9JavaProcessManager;
 public class MockSession extends Session {
   private boolean connected = true;
 
-  private MockConnection connection;
+  private final MockConnection connection;
 
   /**
    * @param output Output writer

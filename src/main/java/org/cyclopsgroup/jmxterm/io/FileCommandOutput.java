@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -24,11 +25,10 @@ public class FileCommandOutput extends CommandOutput {
   public FileCommandOutput(File file, boolean appendToOutput) throws IOException {
     Validate.notNull(file, "File can't be NULL");
     File af = file.getAbsoluteFile();
-    if (!af.getParentFile().isDirectory()) {
-      if (!af.getParentFile().mkdirs()) {
+    if (!af.getParentFile().isDirectory() && !af.getParentFile().mkdirs()) {
         throw new IOException("Couldn't make directory " + af.getParentFile());
       }
-    }
+
     fileWriter = new PrintWriter(new FileWriter(af, appendToOutput));
     output = new WriterCommandOutput(fileWriter, new PrintWriter(System.err, true));
   }

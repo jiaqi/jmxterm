@@ -2,7 +2,9 @@ package org.cyclopsgroup.jmxterm;
 
 import java.io.IOException;
 import java.util.List;
+
 import javax.management.JMException;
+
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.AutoCompletable;
 import org.cyclopsgroup.jcli.annotation.Option;
@@ -83,14 +85,9 @@ public abstract class Command implements AutoCompletable {
     }
     try {
       return doSuggestArgument();
-    } catch (IOException e) {
+    } catch (IOException | JMException e) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("Couldn't suggest option", e);
-      }
-      return null;
-    } catch (JMException e) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Couldn't suggest option", e);
+        LOG.debug("Couldn't suggest argument", e);
       }
       return null;
     }
@@ -102,12 +99,7 @@ public abstract class Command implements AutoCompletable {
     }
     try {
       return doSuggestOption(name);
-    } catch (IOException e) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Couldn't suggest option", e);
-      }
-      return null;
-    } catch (JMException e) {
+    } catch (IOException | JMException e) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Couldn't suggest option", e);
       }

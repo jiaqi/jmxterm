@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.Enumeration;
+
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
@@ -17,7 +18,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class ConfigurationUtils {
+public final class ConfigurationUtils {
   /**
    * @param resourcePath Path of overlapping properties files
    * @param classLoader Class loader where the resources are loaded
@@ -33,13 +34,10 @@ public class ConfigurationUtils {
     Enumeration<URL> resources = classLoader.getResources(resourcePath);
     while (resources.hasMoreElements()) {
       InputStream resource = resources.nextElement().openStream();
-      Reader reader = new InputStreamReader(resource);
-      try {
+      try (Reader reader = new InputStreamReader(resource)){
         props.read(reader);
       } catch (ConfigurationException e) {
         throw new IOException(e);
-      } finally {
-        reader.close();
       }
     }
     return props;

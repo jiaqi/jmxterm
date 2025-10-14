@@ -40,7 +40,7 @@ public class SetCommand extends Command {
       MBeanServerConnection conn = getSession().getConnection().getServerConnection();
       MBeanInfo info = conn.getMBeanInfo(new ObjectName(session.getBean()));
       MBeanAttributeInfo[] attrs = info.getAttributes();
-      List<String> attributeNames = new ArrayList<String>(attrs.length);
+      List<String> attributeNames = new ArrayList<>(attrs.length);
       for (MBeanAttributeInfo attr : attrs) {
         attributeNames.add(attr.getName());
       }
@@ -51,9 +51,9 @@ public class SetCommand extends Command {
 
   @Override
   protected List<String> doSuggestOption(String optionName) throws JMException {
-    if (optionName.equals("d")) {
+    if ("d".equals(optionName)) {
       return DomainsCommand.getCandidateDomains(getSession());
-    } else if (optionName.equals("b")) {
+    } else if ("b".equals(optionName)) {
       return BeanCommand.getCandidateBeanNames(getSession());
     } else {
       return null;

@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.ArgumentProcessor;
 import org.cyclopsgroup.jcli.annotation.Argument;
@@ -26,20 +27,18 @@ import org.cyclopsgroup.jmxterm.io.RuntimeIOException;
 public class HelpCommand extends Command {
   private List<String> argNames = Collections.emptyList();
 
-  private CommandCenter commandCenter = null;
+  private CommandCenter commandCenter;
 
   @Override
   public void execute() {
     Validate.notNull(commandCenter, "Command center hasn't been set yet");
     if (argNames.isEmpty()) {
-      List<String> commandNames = new ArrayList<String>(commandCenter.getCommandNames());
-      Collections.sort(commandNames);
+      List<String> commandNames = commandCenter.getCommandNames().stream().sorted().toList();
       getSession().output.printMessage("following commands are available to use:");
       for (String commandName : commandNames) {
         Class<? extends Command> commandType = commandCenter.getCommandType(commandName);
-        org.cyclopsgroup.jcli.spi.Cli cli =
-            ArgumentProcessor.forType(commandType).createParsingContext().cli();
-        getSession().output.println(String.format("%-8s - %s", commandName, cli.getDescription()));
+        org.cyclopsgroup.jcli.spi.Cli cli = ArgumentProcessor.forType(commandType).createParsingContext().cli();
+        getSession().output.println("%-8s - %s".formatted(commandName, cli.getDescription()));
       }
     } else {
       for (String argName : argNames) {

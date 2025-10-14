@@ -1,10 +1,9 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
+
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.Session;
@@ -30,9 +29,7 @@ public class DomainsCommand extends Command {
     } catch (IOException e) {
       throw new RuntimeIOException("Couldn't get candate domains", e);
     }
-    List<String> result = new ArrayList<String>(Arrays.asList(domains));
-    Collections.sort(result);
-    return result;
+    return Stream.of(domains).sorted().toList();
   }
 
   @Override

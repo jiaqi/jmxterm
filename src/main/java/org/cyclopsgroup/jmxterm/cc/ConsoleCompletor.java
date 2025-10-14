@@ -1,8 +1,8 @@
 package org.cyclopsgroup.jmxterm.cc;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.jline.CliCompletor;
@@ -30,12 +30,10 @@ public class ConsoleCompletor implements Completer {
   public ConsoleCompletor(CommandCenter commandCenter) {
     Validate.notNull(commandCenter, "Command center can't be NULL");
     this.commandCenter = commandCenter;
-    List<String> commandNames = new ArrayList<String>(commandCenter.getCommandNames());
-    Collections.sort(commandNames);
-    this.commandNames = new ArrayList<Candidate>(commandNames.size());
-    for (String commandName : commandNames) {
-      this.commandNames.add(new Candidate(commandName));
-    }
+    this.commandNames = commandCenter.getCommandNames().stream()
+        .sorted()
+        .map(Candidate::new)
+        .toList();
   }
 
   @Override
@@ -48,12 +46,12 @@ public class ConsoleCompletor implements Completer {
       int separatorPos = buffer.indexOf(' ');
       String commandName = buffer.substring(0, separatorPos);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("Command name is [" + commandName + "]");
+        LOG.debug("Command name is [{}]", commandName);
       }
       String commandArguments = buffer.substring(separatorPos + 1);
       commandArguments.replaceFirst("^\\s*", "");
       if (LOG.isDebugEnabled()) {
-        LOG.debug("Analyzing commmand arguments [" + commandArguments + "]");
+        LOG.debug("Analyzing command arguments [{}]", commandArguments);
       }
       Command cmd = commandCenter.commandFactory.createCommand(commandName);
       cmd.setSession(commandCenter.session);
@@ -76,7 +74,7 @@ public class ConsoleCompletor implements Completer {
       candidates.addAll(commandNames);
     } else if (buf.indexOf(' ') == -1) {
       // Partial one word
-      List<Candidate> matchedNames = new ArrayList<Candidate>();
+      List<Candidate> matchedNames = new ArrayList<>();
       for (Candidate commandName : commandNames) {
         if (commandName.value().startsWith(buf)) {
           matchedNames.add(commandName);

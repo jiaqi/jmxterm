@@ -2,11 +2,11 @@ package org.cyclopsgroup.jmxterm.cmd;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanFeatureInfo;
@@ -16,7 +16,9 @@ import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
+
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -34,15 +36,10 @@ import org.cyclopsgroup.jmxterm.Session;
     description = "Display detail information about an MBean",
     note = "If -b option is not specified, current selected MBean is applied")
 public class InfoCommand extends Command {
-  private static final Comparator<MBeanFeatureInfo> INFO_COMPARATOR =
-      new Comparator<MBeanFeatureInfo>() {
-        public int compare(MBeanFeatureInfo o1, MBeanFeatureInfo o2) {
-          return new CompareToBuilder()
-              .append(o1.getName(), o2.getName())
-              .append(o1.hashCode(), o2.hashCode())
-              .toComparison();
-        }
-      };
+  private static final Comparator<MBeanFeatureInfo> INFO_COMPARATOR = (o1, o2) -> new CompareToBuilder()
+      .append(o1.getName(), o2.getName())
+      .append(o1.hashCode(), o2.hashCode())
+      .toComparison();
 
   private static final String TEXT_ATTRIBUTES = "# attributes";
 
@@ -69,10 +66,9 @@ public class InfoCommand extends Command {
     }
     int index = 0;
     session.output.println(TEXT_ATTRIBUTES);
-    List<MBeanAttributeInfo> infos = new ArrayList<MBeanAttributeInfo>(Arrays.asList(attrInfos));
-    Collections.sort(infos, INFO_COMPARATOR);
+    List<MBeanAttributeInfo> infos = Stream.of(attrInfos).sorted(INFO_COMPARATOR).toList();
     for (MBeanAttributeInfo attr : infos) {
-      String rw = "" + (attr.isReadable() ? "r" : "") + (attr.isWritable() ? "w" : "");
+      String rw = (attr.isReadable() ? "r" : "") + (attr.isWritable() ? "w" : "");
       session.output.println(
           String.format(
               "  %%%-3d - %s (%s, %s)" + (showDescription ? ", %s" : ""),
@@ -111,15 +107,13 @@ public class InfoCommand extends Command {
       session.output.printMessage("there's no operations");
       return;
     }
-    List<MBeanOperationInfo> operations =
-        new ArrayList<MBeanOperationInfo>(Arrays.asList(operationInfos));
-    Collections.sort(operations, INFO_COMPARATOR);
+    List<MBeanOperationInfo> operations = Stream.of(operationInfos).sorted(INFO_COMPARATOR).toList();
     session.output.println(TEXT_OPERATIONS);
     int index = 0;
     for (MBeanOperationInfo op : operations) {
       MBeanParameterInfo[] paramInfos = op.getSignature();
-      List<String> paramTypes = new ArrayList<String>(paramInfos.length);
-      List<String> paramDescriptions = new ArrayList<String>(paramInfos.length);
+      List<String> paramTypes = new ArrayList<>(paramInfos.length);
+      List<String> paramDescriptions = new ArrayList<>(paramInfos.length);
       for (MBeanParameterInfo paramInfo : paramInfos) {
         paramTypes.add(paramInfo.getType() + " " + paramInfo.getName());
         paramDescriptions.add("       " + paramInfo.getName() + ": " + paramInfo.getDescription());
@@ -151,24 +145,22 @@ public class InfoCommand extends Command {
     boolean found = false;
     for (MBeanOperationInfo op : operationInfos) {
       String opName = op.getName();
-      if (StringUtils.equals(opName, operation)) {
+      if (Strings.CS.equals(opName, operation)) {
         found = true;
         MBeanParameterInfo[] paramInfos = op.getSignature();
-        List<String> paramTypes = new ArrayList<String>(paramInfos.length);
+        List<String> paramTypes = new ArrayList<>(paramInfos.length);
         StringBuilder paramsDesc =
             new StringBuilder("             parameters:" + System.lineSeparator());
         for (MBeanParameterInfo paramInfo : paramInfos) {
           String parameter = paramInfo.getName();
-          paramsDesc.append(
-              String.format(
+          paramsDesc.append(String.format(
                   "                 + %-20s : %s" + System.lineSeparator(),
                   parameter,
                   paramInfo.getDescription()));
           paramTypes.add(paramInfo.getType() + " " + parameter);
         }
         session.output.println(
-            String.format(
-                "  %%%-3d - %s %s(%s), %s",
+            "  %%%-3d - %s %s(%s), %s".formatted(
                 index++,
                 op.getReturnType(),
                 opName,
@@ -179,7 +171,7 @@ public class InfoCommand extends Command {
     }
     if (!found) {
       session.output.printMessage(
-          String.format("The operation '%s' is not found in the bean.", operation));
+          "The operation '%s' is not found in the bean.".formatted(operation));
     }
   }
 

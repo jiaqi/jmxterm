@@ -4,8 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.StringWriter;
+
 import javax.management.JMException;
 import javax.management.MBeanServerConnection;
+
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -23,7 +25,7 @@ public class DomainCommandTest {
   private StringWriter output;
 
   private void setDomainAndVerify(String domainName, final String[] knownDomains)
-      throws IOException, JMException {
+      throws IOException {
     Mockery context = new Mockery();
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
     command.setDomain(domainName);

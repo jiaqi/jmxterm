@@ -48,7 +48,7 @@ class PredefinedCommandFactory implements CommandFactory {
       throw new IOException("Expected configuration doesn't appear in " + configPath);
     }
     HashMap<String, Class<? extends Command>> commands =
-        new HashMap<String, Class<? extends Command>>();
+        new HashMap<>();
     for (String name : props.getStringArray("name")) {
       String type = props.getString(name + ".type");
       Class<? extends Command> commandType;

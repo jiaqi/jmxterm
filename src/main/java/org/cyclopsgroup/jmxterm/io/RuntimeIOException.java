@@ -1,6 +1,7 @@
 package org.cyclopsgroup.jmxterm.io;
 
 import java.io.IOException;
+import java.io.Serial;
 
 /**
  * Unchecked version of IOException
@@ -8,6 +9,7 @@ import java.io.IOException;
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public class RuntimeIOException extends RuntimeException {
+  @Serial
   private static final long serialVersionUID = -2304094504586109315L;
 
   /**

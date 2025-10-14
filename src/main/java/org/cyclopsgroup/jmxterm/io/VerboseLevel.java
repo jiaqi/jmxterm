@@ -11,5 +11,5 @@ public enum VerboseLevel {
   /** Print out returned value of messages */
   BRIEF,
   /** Print out returned value of detail of messages */
-  VERBOSE;
+  VERBOSE
 }

@@ -16,8 +16,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.caff.token.EscapingValueTokenizer;
-import org.cyclopsgroup.caff.token.TokenEvent;
-import org.cyclopsgroup.caff.token.TokenEventHandler;
 import org.cyclopsgroup.caff.token.ValueTokenizer;
 import org.cyclopsgroup.jcli.ArgumentProcessor;
 import org.cyclopsgroup.jmxterm.Command;
@@ -118,36 +116,29 @@ public class CommandCenter {
     }
 
     // Take the first argument out since it's command name
-    final List<String> args = new ArrayList<String>();
+    final List<String> args = new ArrayList<>();
     argTokenizer.parse(
         command,
-        new TokenEventHandler() {
-          public void handleEvent(TokenEvent event) {
-            args.add(event.getToken());
-          }
-        });
+        event ->
+            args.add(event.getToken()));
     String commandName = args.remove(0);
     // Leave the rest of arguments for command
     String[] commandArgs = args.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     // Call command with parsed command name and arguments
     try {
-      doExecute(commandName, commandArgs, command);
+      doExecute(commandName, commandArgs);
     } catch (IOException e) {
       throw new RuntimeIOException("Runtime IO exception: " + e.getMessage(), e);
     }
   }
 
-  // TODO: The casting can be removed with the next release of jcli.
-  @SuppressWarnings("unchecked")
-  private void doExecute(String commandName, String[] commandArgs, String originalCommand)
+  private void doExecute(String commandName, String[] commandArgs)
       throws JMException, IOException {
     Command cmd = commandFactory.createCommand(commandName);
-    if (cmd instanceof HelpCommand) {
-      ((HelpCommand) cmd).setCommandCenter(this);
+    if (cmd instanceof HelpCommand command) {
+      command.setCommandCenter(this);
     }
-    ArgumentProcessor<Command> ap =
-        (ArgumentProcessor<Command>) ArgumentProcessor.forType(cmd.getClass());
-
+    ArgumentProcessor<Command> ap = ArgumentProcessor.forType(cmd.getClass());
     ap.process(commandArgs, cmd);
     // Print out usage if help option is specified
     if (cmd.isHelp()) {
@@ -175,10 +166,7 @@ public class CommandCenter {
     try {
       doExecute(command);
       return true;
-    } catch (JMException e) {
-      session.output.printError(e);
-      return false;
-    } catch (RuntimeException e) {
+    } catch (JMException | RuntimeException e) {
       session.output.printError(e);
       return false;
     }

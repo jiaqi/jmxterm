@@ -19,7 +19,7 @@ public class OptionCommand extends Command {
   private static final List<String> VERBOSE_LEVEL_VALUES;
 
   static {
-    List<String> verboseLevelValues = new ArrayList<String>();
+    List<String> verboseLevelValues = new ArrayList<>();
     for (VerboseLevel level : VerboseLevel.values()) {
       verboseLevelValues.add(level.name().toLowerCase());
     }

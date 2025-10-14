@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 
 import java.io.File;
 import java.io.IOException;
+
 import org.junit.Test;
 
 /**
@@ -21,13 +22,10 @@ public class FileCommandInputTest {
   @Test
   public void testRead() throws IOException {
     File testFile = new File("src/test/testscript.jmx");
-    FileCommandInput input = new FileCommandInput(testFile);
-    try {
+    try(FileCommandInput input = new FileCommandInput(testFile)) {
       assertEquals("beans", input.readLine());
       assertEquals("exit", input.readLine());
       assertNull(input.readLine());
-    } finally {
-      input.close();
     }
   }
 }

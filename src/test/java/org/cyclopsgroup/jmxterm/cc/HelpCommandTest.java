@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashSet;
+
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.cyclopsgroup.jmxterm.SelfRecordingCommand;
 import org.jmock.Expectations;
@@ -43,7 +44,7 @@ public class HelpCommandTest {
    * @throws IntrospectionException
    */
   @Test
-  public void testExecuteWithOption() throws IOException, IntrospectionException {
+  public void testExecuteWithOption() throws IOException {
     command.setArgNames(Arrays.asList("a", "b"));
     final CommandCenter cc = context.mock(CommandCenter.class);
     command.setCommandCenter(cc);

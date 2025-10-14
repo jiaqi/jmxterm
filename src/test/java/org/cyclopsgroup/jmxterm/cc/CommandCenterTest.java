@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.SelfRecordingCommand;
 import org.cyclopsgroup.jmxterm.io.WriterCommandOutput;
@@ -47,12 +48,11 @@ public class CommandCenterTest {
    * @throws IOException
    */
   @Before
-  public void setUp() throws IOException {
-    executedCommands = new ArrayList<Command>();
+  public void setUp() {
+    executedCommands = new ArrayList<>();
     output = new StringWriter();
 
-    Map<String, Class<? extends Command>> commandTypes =
-        new HashMap<String, Class<? extends Command>>();
+    Map<String, Class<? extends Command>> commandTypes = new HashMap<>();
     commandTypes.put("test", SelfRecordingCommand.class);
     cc =
         new CommandCenter(

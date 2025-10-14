@@ -54,8 +54,7 @@ public class BeanCommand extends Command {
         ObjectName name = new ObjectName(bean);
         con.getMBeanInfo(name);
         return bean;
-      } catch (MalformedObjectNameException e) {
-      } catch (InstanceNotFoundException e) {
+      } catch (MalformedObjectNameException | InstanceNotFoundException e) {
       }
     }
 
@@ -68,8 +67,7 @@ public class BeanCommand extends Command {
       ObjectName name = new ObjectName(domainName + ":" + bean);
       con.getMBeanInfo(name);
       return domainName + ":" + bean;
-    } catch (MalformedObjectNameException e) {
-    } catch (InstanceNotFoundException e) {
+    } catch (MalformedObjectNameException | InstanceNotFoundException e) {
     }
     throw new IllegalArgumentException("Bean name " + bean + " isn't valid");
   }
@@ -77,7 +75,7 @@ public class BeanCommand extends Command {
   /** Gets a list of candidate beans. */
   static List<String> getCandidateBeanNames(Session session) throws MalformedObjectNameException {
     try {
-      ArrayList<String> results = new ArrayList<String>(BeansCommand.getBeans(session, null));
+      ArrayList<String> results = new ArrayList<>(BeansCommand.getBeans(session, null));
       String domain = session.getDomain();
       if (domain != null) {
         List<String> beans = BeansCommand.getBeans(session, domain);
@@ -102,7 +100,7 @@ public class BeanCommand extends Command {
 
   @Override
   public List<String> doSuggestOption(String optionName) throws IOException {
-    if (optionName.equals("d")) {
+    if ("d".equals(optionName)) {
       return DomainsCommand.getCandidateDomains(getSession());
     }
     return null;

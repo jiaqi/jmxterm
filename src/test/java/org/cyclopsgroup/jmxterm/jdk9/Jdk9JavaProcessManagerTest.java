@@ -15,7 +15,7 @@ import org.junit.Test;
 public class Jdk9JavaProcessManagerTest {
 
   @Test
-  public void testConstruction() throws Exception {
+  public void testConstruction() {
     Jdk9JavaProcessManager jpm = new Jdk9JavaProcessManager();
     List<JavaProcess> ps = jpm.list();
     assertFalse(ps.isEmpty());

@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 import javax.management.RuntimeMBeanException;
+import javax.management.openmbean.CompositeDataSupport;
+
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
@@ -30,13 +33,13 @@ import org.cyclopsgroup.jmxterm.io.ValueOutputFormat;
     description = "Get value of MBean attribute(s)",
     note = "* stands for all attributes. eg. get Attribute1 Attribute2 or get *")
 public class GetCommand extends Command {
-  private List<String> attributes = new ArrayList<String>();
+  private List<String> attributes = new ArrayList<>();
 
   private String bean;
 
   private String domain;
 
-  private boolean singleLine = false;
+  private boolean singleLine;
 
   private String delimiter = "";
 
@@ -96,12 +99,8 @@ public class GetCommand extends Command {
               "Could not get attribute " + attributeNameToRequest + ": " + e.getMessage());
         }
 
-        if (result instanceof javax.management.openmbean.CompositeDataSupport) {
-          if (attributeNameElements.length > 1) {
-            result =
-                ((javax.management.openmbean.CompositeDataSupport) result)
-                    .get(attributeNameElements[1]);
-          }
+        if (result instanceof CompositeDataSupport support && attributeNameElements.length > 1) {
+            result = support.get(attributeNameElements[1]);
         }
 
         if (simpleFormat) {
@@ -109,7 +108,7 @@ public class GetCommand extends Command {
         } else if (completeLine) {
           format.printValue(
               session.output,
-              String.format("mbean = %s # %s = %s", beanName, attributeName, result));
+              "mbean = %s # %s = %s".formatted(beanName, attributeName, result));
         } else {
           format.printExpression(session.output, attributeName, result, i.getDescription());
         }
@@ -129,7 +128,7 @@ public class GetCommand extends Command {
       MBeanServerConnection con = getSession().getConnection().getServerConnection();
       MBeanAttributeInfo[] ais =
           con.getMBeanInfo(new ObjectName(getSession().getBean())).getAttributes();
-      List<String> results = new ArrayList<String>(ais.length);
+      List<String> results = new ArrayList<>(ais.length);
       for (MBeanAttributeInfo ai : ais) {
         results.add(ai.getName());
       }
@@ -140,9 +139,9 @@ public class GetCommand extends Command {
 
   @Override
   protected List<String> doSuggestOption(String optionName) throws JMException {
-    if (optionName.equals("d")) {
+    if ("d".equals(optionName)) {
       return DomainsCommand.getCandidateDomains(getSession());
-    } else if (optionName.equals("b")) {
+    } else if ("b".equals(optionName)) {
       return BeanCommand.getCandidateBeanNames(getSession());
     } else {
       return null;

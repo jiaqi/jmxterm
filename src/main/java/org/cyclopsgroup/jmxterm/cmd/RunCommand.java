@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import javax.management.JMException;
 import javax.management.MBeanInfo;
 import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
 import javax.management.MBeanServerConnection;
-import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
+
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -55,7 +56,7 @@ public class RunCommand extends Command {
               .getServerConnection()
               .getMBeanInfo(new ObjectName(session.getBean()));
       MBeanOperationInfo[] operationInfos = info.getOperations();
-      List<String> ops = new ArrayList<String>(operationInfos.length);
+      List<String> ops = new ArrayList<>(operationInfos.length);
       for (MBeanOperationInfo op : operationInfos) {
         ops.add(op.getName());
       }
@@ -65,7 +66,7 @@ public class RunCommand extends Command {
   }
 
   @Override
-  public void execute() throws MalformedObjectNameException, IOException, JMException {
+  public void execute() throws IOException, JMException {
     Session session = getSession();
     String beanName = BeanCommand.getBeanName(bean, domain, session);
     if (beanName == null) {
@@ -73,7 +74,7 @@ public class RunCommand extends Command {
           "Please specify MBean to invoke either using -b option or bean command");
     }
 
-    Validate.isTrue(parameters.size() > 0, "At least one parameter is needed");
+    Validate.isTrue(!parameters.isEmpty(), "At least one parameter is needed");
     String[] paramTypes = null;
     if (types != null) {
       paramTypes = types.split(",");
@@ -102,7 +103,7 @@ public class RunCommand extends Command {
           // String type is treated specially
           // type "string" implies type "java.lang.String"
           if (paramInfos[i].getType().equals(String.class.getName())
-              && paramTypes[i].equals("string")) {
+              && "string".equals(paramTypes[i])) {
             continue;
           }
           if (!paramTypes[i].equals(paramInfos[i].getType())) {
@@ -132,8 +133,7 @@ public class RunCommand extends Command {
     MBeanParameterInfo[] paramInfos = operationInfo.getSignature();
     Validate.isTrue(
         params.length == paramInfos.length,
-        String.format(
-            "%d parameters are expected but %d are provided", paramInfos.length, params.length));
+        "%d parameters are expected but %d are provided".formatted(paramInfos.length, params.length));
     String[] signatures = new String[paramInfos.length];
     for (int i = 0; i < paramInfos.length; i++) {
       MBeanParameterInfo paramInfo = paramInfos[i];
@@ -146,8 +146,7 @@ public class RunCommand extends Command {
       signatures[i] = paramInfo.getType();
     }
     session.output.printMessage(
-        String.format(
-            "calling operation %s of mbean %s with params %s",
+        "calling operation %s of mbean %s with params %s".formatted(
             operationName, beanName, Arrays.toString(params)));
 
     // Invoke operation, record execution time if measure flag is on
