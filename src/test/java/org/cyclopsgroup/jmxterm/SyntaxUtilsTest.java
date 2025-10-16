@@ -1,24 +1,24 @@
 package org.cyclopsgroup.jmxterm;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case of {@link SyntaxUtils}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class SyntaxUtilsTest {
+class SyntaxUtilsTest {
   /**
    * Test how getUrl() figure out MBeanServer URL based on various pattern of input
    *
    * @throws IOException Thrown when syntax is invalid
    */
   @Test
-  public void testGetUrl() throws IOException {
+  void getUrl() throws Exception {
     assertEquals(
         "/jndi/rmi://xyz-host.cyclopsgroup.org:12345/jmxrmi",
         SyntaxUtils.getUrl("xyz-host.cyclopsgroup.org:12345", null).getURLPath());
@@ -31,7 +31,7 @@ public class SyntaxUtilsTest {
 
   /** Verify string expression of type is correctly parsed */
   @Test
-  public void testParseNormally() {
+  void parseNormally() {
     assertEquals("x", SyntaxUtils.parse("x", "java.lang.String"));
     assertEquals(3, SyntaxUtils.parse("3", "int"));
     assertEquals(3L, SyntaxUtils.parse("3", "long"));
@@ -41,8 +41,9 @@ public class SyntaxUtilsTest {
   }
 
   /** Verify that Exception is thrown when type is wrong */
-  @Test(expected = IllegalArgumentException.class)
-  public void testParseWithWrongType() {
-    SyntaxUtils.parse("x", "x");
+  @Test
+  void parseWithWrongType() {
+    assertThrows(IllegalArgumentException.class, () ->
+      SyntaxUtils.parse("x", "x"));
   }
 }

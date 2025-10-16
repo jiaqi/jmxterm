@@ -1,28 +1,28 @@
 package org.cyclopsgroup.jmxterm.cc;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.io.IOException;
 import javax.management.remote.JMXConnector;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case of {@link ConnectionImpl}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class ConnectionImplTest {
+class ConnectionImplTest {
   /**
    * Test the object is constructed correctly
    *
    * @throws IOException
    */
   @Test
-  public void testConstruction() throws IOException {
+  void construction() throws Exception {
     Mockery context = new Mockery();
     final JMXConnector con = context.mock(JMXConnector.class);
     ConnectionImpl c = new ConnectionImpl(con, SyntaxUtils.getUrl("localhost:9991", null));

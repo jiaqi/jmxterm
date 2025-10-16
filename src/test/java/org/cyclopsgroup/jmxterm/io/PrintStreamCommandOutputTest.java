@@ -1,20 +1,21 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case of {@link PrintStreamCommandOutput}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class PrintStreamCommandOutputTest {
+class PrintStreamCommandOutputTest {
   /** Write something to output and verify what's written */
   @Test
-  public void testPrint() {
+  void print() {
     ByteArrayOutputStream w1 = new ByteArrayOutputStream();
     ByteArrayOutputStream w2 = new ByteArrayOutputStream();
 

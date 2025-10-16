@@ -1,7 +1,7 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -21,15 +21,15 @@ import org.jmock.Mockery;
 import org.jmock.api.Invocation;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
 import org.jmock.lib.action.CustomAction;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case of {@link SetCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class SetCommandTest {
+class SetCommandTest {
   private SetCommand command;
 
   private Mockery context;
@@ -37,8 +37,8 @@ public class SetCommandTest {
   private StringWriter output;
 
   /** Set up objects to test */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     command = new SetCommand();
     output = new StringWriter();
     context = new Mockery();
@@ -97,37 +97,37 @@ public class SetCommandTest {
 
   /** Test setting an integer */
   @Test
-  public void testExecuteNormally() {
+  void executeNormally() {
     setValueAndVerify("33", "int", 33);
   }
 
   /** Test setting an empty string */
   @Test
-  public void testExecuteWithAnEmptyString() {
+  void executeWithAnEmptyString() {
     setValueAndVerify("\"\"", String.class.getName(), "");
   }
 
   /** Test setting string with control character */
   @Test
-  public void testExecuteWithControlCharacter() {
+  void executeWithControlCharacter() {
     setValueAndVerify("hello\\n", String.class.getName(), "hello\n");
   }
 
   /** Test with negative number */
   @Test
-  public void testExecuteWithNegativeNumber() {
+  void executeWithNegativeNumber() {
     setValueAndVerify("-2", "int", -2);
   }
 
   /** Test setting NULL string */
   @Test
-  public void testExecuteWithNullString() {
+  void executeWithNullString() {
     setValueAndVerify("null", String.class.getName(), null);
   }
 
   /** Test with quoted negative number */
   @Test
-  public void testExecuteWithQuotedNegativeNumber() {
+  void executeWithQuotedNegativeNumber() {
     setValueAndVerify("\"-2\"", "int", -2);
   }
 }

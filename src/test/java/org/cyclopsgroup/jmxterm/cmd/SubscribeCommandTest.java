@@ -1,7 +1,7 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.StringWriter;
 import javax.management.MBeanInfo;
@@ -14,16 +14,16 @@ import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link org.cyclopsgroup.jmxterm.cmd.RunCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class SubscribeCommandTest {
+class SubscribeCommandTest {
   private SubscribeCommand command;
 
   private Mockery context;
@@ -31,22 +31,22 @@ public class SubscribeCommandTest {
   private StringWriter output;
 
   /** Setup objects to test */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     context = new Mockery();
     context.setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
     command = new SubscribeCommand();
     output = new StringWriter();
   }
 
-  @After
-  public void tearDown() {
+  @AfterEach
+  void tearDown() {
     SubscribeCommand.getListeners().clear();
   }
 
   /** @throws Exception */
   @Test
-  public void testExecuteOneNotification() throws Exception {
+  void executeOneNotification() throws Exception {
     command.setBean("a:type=x");
 
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
@@ -99,7 +99,7 @@ public class SubscribeCommandTest {
 
   /** @throws Exception */
   @Test
-  public void testExecuteTwoNotifications() throws Exception {
+  void executeTwoNotifications() throws Exception {
     command.setBean("a:type=x");
 
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);

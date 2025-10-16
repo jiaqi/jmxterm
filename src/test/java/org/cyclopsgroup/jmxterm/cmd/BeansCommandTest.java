@@ -1,6 +1,6 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -10,15 +10,15 @@ import javax.management.ObjectName;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link BeansCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class BeansCommandTest {
+class BeansCommandTest {
   private static final String EOL = System.getProperty("line.separator");
 
   private BeansCommand command;
@@ -30,8 +30,8 @@ public class BeansCommandTest {
   private StringWriter output;
 
   /** Set up testing connection */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     output = new StringWriter();
     context = new Mockery();
     command = new BeansCommand();
@@ -44,7 +44,7 @@ public class BeansCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecuteWithAllBeans() throws Exception {
+  void executeWithAllBeans() throws Exception {
     context.checking(
         new Expectations() {
           {
@@ -71,7 +71,7 @@ public class BeansCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecuteWithDomainInSession() throws Exception {
+  void executeWithDomainInSession() throws Exception {
     context.checking(
         new Expectations() {
           {
@@ -95,7 +95,7 @@ public class BeansCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecuteWithDomainOption() throws Exception {
+  void executeWithDomainOption() throws Exception {
     command.setDomain("b");
     context.checking(
         new Expectations() {
@@ -118,7 +118,7 @@ public class BeansCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecuteWithNullDomain() throws Exception {
+  void executeWithNullDomain() throws Exception {
     command.setDomain("*");
     context.checking(
         new Expectations() {

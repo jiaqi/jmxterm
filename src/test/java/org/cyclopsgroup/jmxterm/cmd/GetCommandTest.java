@@ -1,6 +1,6 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -23,15 +23,15 @@ import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case of {@link GetCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class GetCommandTest {
+class GetCommandTest {
   private GetCommand command;
 
   private Mockery context;
@@ -97,8 +97,8 @@ public class GetCommandTest {
   }
 
   /** Set up class to test */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     command = new GetCommand();
     context = new Mockery();
     context.setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
@@ -107,18 +107,18 @@ public class GetCommandTest {
 
   /** Test normal execution */
   @Test
-  public void testExecuteNormally() {
+  void executeNormally() {
     getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, "");
   }
 
   /** Verify non string type is formatted into string */
   @Test
-  public void testExecuteWithNonStringType() {
+  void executeWithNonStringType() {
     getAttributeAndVerify("a", "type=x", "a", "a:type=x", Integer.valueOf(10), false, "");
   }
 
   @Test
-  public void testExecuteWithSlashInDomainName() {
+  void executeWithSlashInDomainName() {
     getAttributeAndVerify("a/b", "type=c", "a", "a/b:type=c", "bingo", false, "");
   }
 
@@ -128,7 +128,7 @@ public class GetCommandTest {
    * @throws OpenDataException
    */
   @Test
-  public void testExecuteWithStrangeAttributeName() throws OpenDataException {
+  void executeWithStrangeAttributeName() throws Exception {
     final Map<String, Object> entries = new HashMap<>();
     entries.put("d", "bingo");
     final CompositeType compositeType = context.mock(CompositeType.class);
@@ -147,19 +147,19 @@ public class GetCommandTest {
 
   /** Verify unusual bean name and domain name is acceptable */
   @Test
-  public void testExecuteWithUnusualDomainAndBeanName() {
+  void executeWithUnusualDomainAndBeanName() {
     getAttributeAndVerify("a-a", "a.b-c_d=x-y.z", "a", "a-a:a.b-c_d=x-y.z", "bingo", false, "");
   }
 
   /** Verify that delimiters are working */
   @Test
-  public void testExecuteWithDelimiters() {
+  void executeWithDelimiters() {
     getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, ",");
   }
 
   /** Verify that single line output is working */
   @Test
-  public void testExecuteForSingleLineOutput() {
+  void executeForSingleLineOutput() {
     getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", true, "");
   }
 }

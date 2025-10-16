@@ -1,6 +1,6 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringWriter;
 import java.util.Arrays;
@@ -13,15 +13,15 @@ import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link RunCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class RunCommandTest {
+class RunCommandTest {
   private RunCommand command;
 
   private Mockery context;
@@ -29,8 +29,8 @@ public class RunCommandTest {
   private StringWriter output;
 
   /** Setup objects to test */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     context = new Mockery();
     context.setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
     command = new RunCommand();
@@ -39,7 +39,7 @@ public class RunCommandTest {
 
   /** @throws Exception */
   @Test
-  public void testExecuteNormally() throws Exception {
+  void executeNormally() throws Exception {
     command.setBean("a:type=x");
     command.setParameters(Arrays.asList("exe", "33"));
 
@@ -73,7 +73,7 @@ public class RunCommandTest {
 
   /** @throws Exception */
   @Test
-  public void testExecuteOverloadedMethod() throws Exception {
+  void executeOverloadedMethod() throws Exception {
     command.setBean("a:type=x");
     command.setTypes("java.lang.String");
     command.setParameters(Arrays.asList("exe", "33"));

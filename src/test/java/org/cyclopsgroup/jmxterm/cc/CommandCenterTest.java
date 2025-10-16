@@ -1,7 +1,7 @@
 package org.cyclopsgroup.jmxterm.cc;
 
 import static org.cyclopsgroup.jmxterm.cc.CommandCenter.ESCAPE_CHAR_REGEX;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -14,15 +14,15 @@ import java.util.Map;
 import org.cyclopsgroup.jmxterm.Command;
 import org.cyclopsgroup.jmxterm.SelfRecordingCommand;
 import org.cyclopsgroup.jmxterm.io.WriterCommandOutput;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case of {@link CommandCenter}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class CommandCenterTest {
+class CommandCenterTest {
   private CommandCenter cc;
 
   private List<Command> executedCommands;
@@ -47,8 +47,8 @@ public class CommandCenterTest {
    *
    * @throws IOException
    */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     executedCommands = new ArrayList<>();
     output = new StringWriter();
 
@@ -68,7 +68,7 @@ public class CommandCenterTest {
 
   /** Verify the execution */
   @Test
-  public void testExecute() {
+  void execute() {
     cc.execute("test 1");
     cc.execute("test 2 a b && test 3");
     cc.execute("# test 4");
@@ -82,32 +82,32 @@ public class CommandCenterTest {
   }
 
   @Test
-  public void testMultipleArguments() {
+  void multipleArguments() {
     runCommandAndVerifyArguments("test a b c d", Arrays.asList("a", "b", "c", "d"));
   }
 
   @Test
-  public void testMultipleEscapedArguments() {
+  void multipleEscapedArguments() {
     runCommandAndVerifyArguments("test a\\ \\ b \\-3\\ ,4", Arrays.asList("a  b", "-3 ,4"));
   }
 
   @Test
-  public void testSingleArgumentWithEscape() {
+  void singleArgumentWithEscape() {
     runCommandAndVerifyArguments("test \\-1", Arrays.asList("-1"));
   }
 
   @Test
-  public void testSingleArgumentWithSpace() {
+  void singleArgumentWithSpace() {
     runCommandAndVerifyArguments("test a\\ b\\ c\\ d", Arrays.asList("a b c d"));
   }
 
   @Test
-  public void testSingleSimpleArgument() {
+  void singleSimpleArgument() {
     runCommandAndVerifyArguments("test 1", Arrays.asList("1"));
   }
 
   @Test
-  public void testRegexEscapesCorrectly() {
+  void regexEscapesCorrectly() {
     final String s1 = "".split(ESCAPE_CHAR_REGEX)[0];
     final String s2 = "a b c".split(ESCAPE_CHAR_REGEX)[0];
     final String s3 = "a #b c".split(ESCAPE_CHAR_REGEX)[0];

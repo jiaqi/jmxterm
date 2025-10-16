@@ -1,7 +1,6 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -11,14 +10,14 @@ import javax.management.ObjectName;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link BeanCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class BeanCommandTest {
+class BeanCommandTest {
   private final BeanCommand command = new BeanCommand();
 
   private final StringWriter output = new StringWriter();
@@ -50,7 +49,7 @@ public class BeanCommandTest {
    * @throws JMException Allows JMX exceptions
    */
   @Test
-  public void testExecuteWithGettingNull() throws IOException, JMException {
+  void executeWithGettingNull() throws Exception {
     command.setSession(new MockSession(output, null));
     command.execute();
     assertEquals("null", output.toString().trim());
@@ -63,7 +62,7 @@ public class BeanCommandTest {
    * @throws JMException Allows JMX exceptions
    */
   @Test
-  public void testExecuteWithGettingSomething() throws IOException, JMException {
+  void executeWithGettingSomething() throws Exception {
     MockSession s = new MockSession(output, null);
     s.setBean("something");
     command.setSession(s);
@@ -77,11 +76,12 @@ public class BeanCommandTest {
    * @throws IOException Allows network IO errors
    * @throws JMException Allows JMX exceptions
    */
-  @Test(expected = IllegalArgumentException.class)
-  public void testExecuteWithInvalidBean() throws IOException, JMException {
+  @Test
+  void executeWithInvalidBean() throws Exception {
     command.setBean("blablabla");
     command.setSession(new MockSession(output, null));
-    command.execute();
+    assertThrows(IllegalArgumentException.class, () ->
+      command.execute());
   }
 
   /**
@@ -91,7 +91,7 @@ public class BeanCommandTest {
    * @throws JMException Allows JMX exceptions
    */
   @Test
-  public void testExecuteWithSettingNull() throws IOException, JMException {
+  void executeWithSettingNull() throws Exception {
     command.setBean("null");
     MockSession s = new MockSession(output, null);
     s.setBean("something");
@@ -108,7 +108,7 @@ public class BeanCommandTest {
    * @throws JMException Allows JMX exceptions
    */
   @Test
-  public void testSettingSpecialCharactersWithoutDomain() throws IOException, JMException {
+  void settingSpecialCharactersWithoutDomain() throws Exception {
     setBeanAndVerify(
         "domain_name.with-dash:attr.name_1-1=a.b", null, "domain_name.with-dash:attr.name_1-1=a.b");
   }
@@ -120,7 +120,7 @@ public class BeanCommandTest {
    * @throws JMException Allows JMX exceptions
    */
   @Test
-  public void testSettingWithDomain() throws IOException, JMException {
+  void settingWithDomain() throws Exception {
     setBeanAndVerify("type=x", "something", "something:type=x");
   }
 
@@ -131,7 +131,7 @@ public class BeanCommandTest {
    * @throws JMException Allows JMX exceptions
    */
   @Test
-  public void testSettingWithoutDomain() throws IOException, JMException {
+  void settingWithoutDomain() throws Exception {
     setBeanAndVerify("something:type=x", null, "something:type=x");
   }
 
@@ -142,7 +142,7 @@ public class BeanCommandTest {
    * @throws JMException Allows JMX exceptions
    */
   @Test
-  public void testSettingWithSpecialCharacters() throws IOException, JMException {
+  void settingWithSpecialCharacters() throws Exception {
     setBeanAndVerify(
         "attr.name_1-1=a.b", "domain_name.with-dash", "domain_name.with-dash:attr.name_1-1=a.b");
   }

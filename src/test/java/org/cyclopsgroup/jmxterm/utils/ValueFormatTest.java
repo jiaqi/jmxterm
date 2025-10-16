@@ -1,8 +1,9 @@
 package org.cyclopsgroup.jmxterm.utils;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case of {@link ValueFormat}
@@ -10,13 +11,13 @@ import org.junit.Test;
  * @author $Author$
  * @version $Revision$ in $Change$ submitted at $DateTime$
  */
-public class ValueFormatTest {
+class ValueFormatTest {
   /** Test parse method */
   @Test
-  public void testParse() {
-    assertEquals(null, ValueFormat.parseValue("null"));
-    assertEquals(null, ValueFormat.parseValue(null));
-    assertEquals(null, ValueFormat.parseValue(""));
+  void parse() {
+    assertNull(ValueFormat.parseValue("null"));
+    assertNull(ValueFormat.parseValue(null));
+    assertNull(ValueFormat.parseValue(""));
     assertEquals("", ValueFormat.parseValue("\"\""));
     assertEquals("abc", ValueFormat.parseValue("abc"));
     assertEquals("abc", ValueFormat.parseValue("\"abc\""));

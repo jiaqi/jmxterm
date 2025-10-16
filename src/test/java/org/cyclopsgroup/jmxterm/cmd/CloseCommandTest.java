@@ -1,25 +1,25 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.StringWriter;
 import org.cyclopsgroup.jmxterm.MockSession;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of {@link CloseCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class CloseCommandTest {
+class CloseCommandTest {
   private CloseCommand command;
 
   private StringWriter output;
 
   /** Set up classes to test */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     command = new CloseCommand();
     output = new StringWriter();
   }
@@ -30,7 +30,7 @@ public class CloseCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecute() throws Exception {
+  void execute() throws Exception {
     MockSession session = new MockSession(output, null);
     command.setSession(session);
     command.execute();

@@ -1,23 +1,23 @@
 package org.cyclopsgroup.jmxterm.io;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.collections4.map.ListOrderedMap;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link ValueOutputFormat}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class ValueOutputFormatTest {
+class ValueOutputFormatTest {
   /** Print out expression and verify output */
   @Test
-  public void testPrintExpression() {
+  void printExpression() {
     ValueOutputFormat f = new ValueOutputFormat();
     StringWriter out = new StringWriter();
     f.printExpression(new WriterCommandOutput(out), "a", "aaa", "astring");
@@ -27,7 +27,7 @@ public class ValueOutputFormatTest {
 
   /** Print out a list value and verify output */
   @Test
-  public void testPrintList() {
+  void printList() {
     ValueOutputFormat f = new ValueOutputFormat();
     StringWriter out = new StringWriter();
     f.printValue(new WriterCommandOutput(out), Arrays.asList("abc", "xyz"));
@@ -36,7 +36,7 @@ public class ValueOutputFormatTest {
 
   /** Print out a map and verify output */
   @Test
-  public void testPrintMap() {
+  void printMap() {
     ValueOutputFormat f = new ValueOutputFormat();
     StringWriter out = new StringWriter();
     Map<String, String> map = ListOrderedMap.listOrderedMap(new HashMap<String, String>());

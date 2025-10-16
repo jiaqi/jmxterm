@@ -1,18 +1,18 @@
 package org.cyclopsgroup.jmxterm.cc;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of {@link JPMFactory}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class JPMFactoryTest {
+class JPMFactoryTest {
   /** Verify JPMFactory can create process manager */
   @Test
-  public void testLoad() {
+  void load() {
     assertNotNull(JPMFactory.createProcessManager());
   }
 }

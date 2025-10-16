@@ -1,6 +1,6 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringWriter;
 import javax.management.MBeanAttributeInfo;
@@ -14,15 +14,15 @@ import org.cyclopsgroup.jmxterm.Session;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.imposters.ByteBuddyClassImposteriser;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link InfoCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class InfoCommandTest {
+class InfoCommandTest {
   private InfoCommand command;
 
   private Mockery context;
@@ -30,8 +30,8 @@ public class InfoCommandTest {
   private StringWriter output;
 
   /** Set up objects to test */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     command = new InfoCommand();
     output = new StringWriter();
     context = new Mockery();
@@ -44,7 +44,7 @@ public class InfoCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecuteWithShowingAttributes() throws Exception {
+  void executeWithShowingAttributes() throws Exception {
     command.setBean("a:type=x");
     command.setType("a");
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
@@ -85,7 +85,7 @@ public class InfoCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecuteWithShowingOperations() throws Exception {
+  void executeWithShowingOperations() throws Exception {
     command.setBean("a:type=x");
     command.setType("o");
     MBeanServerConnection con = context.mock(MBeanServerConnection.class);
@@ -132,7 +132,7 @@ public class InfoCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecuteWithShowingSpecificOperation() throws Exception {
+  void executeWithShowingSpecificOperation() throws Exception {
     command.setBean("a:type=x");
     command.setOperation("x");
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
@@ -184,7 +184,7 @@ public class InfoCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecuteWithShowingNonExistingOperation() throws Exception {
+  void executeWithShowingNonExistingOperation() throws Exception {
     command.setBean("a:type=x");
     command.setOperation("y");
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
@@ -217,7 +217,7 @@ public class InfoCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecuteWithShowingMultipleMatchingOperations() throws Exception {
+  void executeWithShowingMultipleMatchingOperations() throws Exception {
     command.setBean("a:type=x");
     command.setOperation("x");
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);

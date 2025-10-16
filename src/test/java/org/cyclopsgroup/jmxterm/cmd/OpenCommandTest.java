@@ -1,25 +1,25 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.StringWriter;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.cyclopsgroup.jmxterm.Session;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case to test {@link OpenCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class OpenCommandTest {
+class OpenCommandTest {
   private OpenCommand command;
 
   /** Set up command to test */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     command = new OpenCommand();
   }
 
@@ -29,7 +29,7 @@ public class OpenCommandTest {
    * @throws Exception
    */
   @Test
-  public void testExecuteWithoutUrl() throws Exception {
+  void executeWithoutUrl() throws Exception {
     StringWriter output = new StringWriter();
     Session session = new MockSession(output, null);
     command.setSession(session);
@@ -40,7 +40,7 @@ public class OpenCommandTest {
 
   /** @throws Exception */
   @Test
-  public void testExecuteWithUrl() throws Exception {
+  void executeWithUrl() throws Exception {
     command.setUrl("xyz.cyclopsgroup.org:12345");
     Session session = new MockSession(new StringWriter(), null);
     session.disconnect();

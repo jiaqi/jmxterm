@@ -60,7 +60,7 @@
     <!-- Test dependencies -->
     <jmock.version>2.13.1</jmock.version>
     <byte-buddy.version>1.17.8</byte-buddy.version>
-    <junit.version>4.13.2</junit.version>
+    <junit.version>6.0.0</junit.version>
 
     <!-- Plugins -->
     <jdeb.version>1.14</jdeb.version>
@@ -182,8 +182,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>

@@ -1,6 +1,7 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -11,15 +12,15 @@ import javax.management.MBeanServerConnection;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test of {@link DomainCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class DomainCommandTest {
+class DomainCommandTest {
   private DomainCommand command;
 
   private StringWriter output;
@@ -44,8 +45,8 @@ public class DomainCommandTest {
   }
 
   /** Set up command to test */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     command = new DomainCommand();
     output = new StringWriter();
   }
@@ -57,7 +58,7 @@ public class DomainCommandTest {
    * @throws JMException Allows JMX errors
    */
   @Test
-  public void testExecuteWithGettingNull() throws IOException, JMException {
+  void executeWithGettingNull() throws Exception {
     command.setSession(new MockSession(output, null));
     command.execute();
     assertEquals("null", output.toString().trim());
@@ -70,7 +71,7 @@ public class DomainCommandTest {
    * @throws JMException Allows JMX errors
    */
   @Test
-  public void testExecuteWithGettingSomething() throws IOException, JMException {
+  void executeWithGettingSomething() throws Exception {
     MockSession session = new MockSession(output, null);
     session.setDomain("something");
     command.setSession(session);
@@ -84,9 +85,10 @@ public class DomainCommandTest {
    * @throws IOException Allows network IO errors
    * @throws JMException Allows JMX errors
    */
-  @Test(expected = IllegalArgumentException.class)
-  public void testSettingWithInvalidDomain() throws IOException, JMException {
-    setDomainAndVerify("invalid", new String[] {"something"});
+  @Test
+  void settingWithInvalidDomain() throws Exception {
+    assertThrows(IllegalArgumentException.class, () ->
+      setDomainAndVerify("invalid", new String[]{"something"}));
   }
 
   /**
@@ -96,7 +98,7 @@ public class DomainCommandTest {
    * @throws JMException Allows JMX errors
    */
   @Test
-  public void testSettingWithSpecialCharacters() throws IOException, JMException {
+  void settingWithSpecialCharacters() throws Exception {
     setDomainAndVerify("my_domain.1-1", new String[] {"my_domain.1-1", "something"});
   }
 
@@ -107,7 +109,7 @@ public class DomainCommandTest {
    * @throws JMException Allows JMX errors
    */
   @Test
-  public void testSettingWithValidDomain() throws IOException, JMException {
+  void settingWithValidDomain() throws Exception {
     setDomainAndVerify("something", new String[] {"something"});
   }
 }
