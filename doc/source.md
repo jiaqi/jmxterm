@@ -1,5 +1,12 @@
 # Source code
 
+[Instroduction](../readme.md)
+| **Source**
+| [Features](features.md)
+| [User manual](manual.md)
+| [Scripting](scripting.md)
+| [F.A.Q.](faq.md)
+
 ## Checkout source code
 
 `git clone https://github.com/jiaqi/jmxterm.git`

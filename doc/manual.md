@@ -1,4 +1,13 @@
-# Launch Jmxterm
+# User manual
+
+[Instroduction](../readme.md)
+| [Source](source.md)
+| [Features](features.md)
+| **User manual**
+| [Scripting](scripting.md)
+| [F.A.Q.](faq.md)
+
+## Launch Jmxterm
 
 Jmxterm is self-documented at any given time. Usually the `-h` option
 shows all the information you need. Please try `-h` to get an accurate
@@ -36,7 +45,7 @@ The executable uberjar can be used as:
 * Embedded — it can be called from scripting languages such as Shell
   or Perl. Read scripting for more details.
 
-# Commands
+## Commands
 
 Once the console is open, all available commands and options are
 self-explained with the help command. For example:
