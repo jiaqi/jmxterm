@@ -1,6 +1,6 @@
 # Source code
 
-[Instroduction](../readme.md)
+[Instroduction](..)
 | **Source**
 | [Features](features.md)
 | [User manual](manual.md)
