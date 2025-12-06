@@ -100,11 +100,12 @@ public final class WeakCastUtils {
   /**
    * Cast object to one given interface
    *
-   * @param <T> Type of interface
-   * @param from Object to cast
-   * @param interfase Interface to cast to
-   * @param classLoader Class loader to load invocation methods
-   * @return Result that implements interface
+   * @param <T> Type of interface.
+   * @param original The interface of the from instance.
+   * @param from Object to cast.
+   * @param interfase Interface to cast to.
+   * @param classLoader Class loader to load invocation methods.
+   * @return Result that implements interface.
    * @throws SecurityException Allows exception related to security.
    * @throws NoSuchMethodException Allows exception due to wrong method.
    */

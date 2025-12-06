@@ -11,6 +11,11 @@ public interface StaticVirtualMachine {
   /** @return List of all virtual machines running on local */
   List<Object> list();
 
-  /** Attaches to a Java virtual machine. */
+  /**
+   * Attaches to a Java virtual machine.
+   *
+   * @param id the identifier of the JVM process.
+   * @return an instance of com.sun.tools.attach.VirtualMachine object.
+   */
   Object attach(String id);
 }
