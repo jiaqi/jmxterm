@@ -1,6 +1,6 @@
 # Frequently asked questions
 
-[Instroduction](../readme.md)
+[Instroduction](..)
 | [Source](source.md)
 | [Features](features.md)
 | [User manual](manual.md)

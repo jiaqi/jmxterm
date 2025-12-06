@@ -1,6 +1,6 @@
 # User manual
 
-[Instroduction](../readme.md)
+[Instroduction](..)
 | [Source](source.md)
 | [Features](features.md)
 | **User manual**
