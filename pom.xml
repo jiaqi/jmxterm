@@ -6,12 +6,12 @@
   <parent>
     <groupId>org.cyclopsgroup</groupId>
     <artifactId>cyclopsgroup-java-parent</artifactId>
-    <version>0.7.2</version>
+    <version>0.7.3</version>
   </parent>
   <artifactId>jmxterm</artifactId>
   <name>JMXTerm</name>
   <packaging>jar</packaging>
-  <version>1.0.5</version>
+  <version>1.1.0-SNAPSHOT</version>
   <description>Command line based interactive JMX client</description>
   <url>http://www.cyclopsgroup.org/projects/jmxterm</url>
   <inceptionYear>2008</inceptionYear>
@@ -20,8 +20,8 @@
     <url>https://github.com/jiaqi/jmxterm/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>travis</system>
-    <url>https://travis-ci.org/jiaqi/jmxterm</url>
+    <system>circleci</system>
+    <url>https://app.circleci.com/projects/github/jiaqi/jmxterm</url>
   </ciManagement>
   <properties>
     <byte-buddy.version>1.14.11</byte-buddy.version>
@@ -79,7 +79,7 @@
     <dependency>
       <groupId>org.cyclopsgroup</groupId>
       <artifactId>jcli</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>org.jline</groupId>
