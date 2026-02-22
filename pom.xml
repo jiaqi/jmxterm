@@ -24,7 +24,7 @@
     <url>https://app.circleci.com/projects/github/jiaqi/jmxterm</url>
   </ciManagement>
   <properties>
-    <byte-buddy.version>1.18.4</byte-buddy.version>
+    <byte-buddy.version>1.18.5</byte-buddy.version>
     <jmock.version>2.13.1</jmock.version>
     <slf4j.version>2.0.17</slf4j.version>
   </properties>
