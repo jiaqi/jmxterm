@@ -33,11 +33,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - run: mvn -B package javadoc:javadoc site
-    - name: Deploy SNAPSHOT package
-      run: mvn deploy -s settings.xml
+    - name: Deploy artifact
+      run: mvn -B deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Upload site artifact
+    - name: Upload site
       uses: actions/upload-pages-artifact@v4
       with:
         path: target/site
