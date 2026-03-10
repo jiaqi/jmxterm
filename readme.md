@@ -21,8 +21,8 @@ Please feel free to file issues on GitHub if you have questions.
 
 ## References
 
-- [Maven generated reports](https://s3.us-east-1.amazonaws.com/dist.cyclopsgroup.org/projects/index.html)
-- [Javadoc](https://s3.us-east-1.amazonaws.com/dist.cyclopsgroup.org/projects/jmxterm/apidocs/index.html)
+- [Maven generated reports](https://jiaqi.github.io/jmxterm)
+- [Javadoc](https://jiaqi.github.io/jmxterm/apidocs)
 
 ## Download
 
