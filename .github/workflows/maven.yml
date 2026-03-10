@@ -32,9 +32,9 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - run: mvn -B javadoc:javadoc site
-    - name: Use upload-pages-artifact
+    - name: Deploy artifact
       uses: actions/upload-pages-artifact@v4
       with:
         path: target/site
-    - name: Deploy to GH Page
+    - name: Publish site
       uses: actions/deploy-pages@v4

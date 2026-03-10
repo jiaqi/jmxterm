@@ -13,15 +13,15 @@
   <packaging>jar</packaging>
   <version>1.1.0-SNAPSHOT</version>
   <description>Command line based interactive JMX client</description>
-  <url>http://www.cyclopsgroup.org/projects/jmxterm</url>
+  <url>https://github.com/jiaqi/jmxterm</url>
   <inceptionYear>2008</inceptionYear>
   <issueManagement>
     <system>github</system>
     <url>https://github.com/jiaqi/jmxterm/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>circleci</system>
-    <url>https://app.circleci.com/projects/github/jiaqi/jmxterm</url>
+    <system>github</system>
+    <url>https://github.com/jiaqi/jmxterm/actions</url>
   </ciManagement>
   <properties>
     <byte-buddy.version>1.18.7</byte-buddy.version>
