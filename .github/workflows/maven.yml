@@ -15,3 +15,26 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - run: mvn -B --update-snapshots verify javadoc:javadoc site
+  deploy_site:
+    needs: build_and_verify
+    if: contains(fromJSON('["main", "seattle"]'), github.ref_name)
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - run: mvn -B javadoc:javadoc site
+    - name: Use upload-pages-artifact
+      uses: actions/upload-pages-artifact@v4
+      with:
+        path: target/site
+    - name: Deploy to Github pages
+      uses: actions/deploy-pages@v4
