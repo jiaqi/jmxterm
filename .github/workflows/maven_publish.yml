@@ -1,13 +1,13 @@
 name: maven_publish
 
 on:
-  workflow_run:
-    workflows: [ "maven_verify" ]
-    types:
-      - completed
+  push:
     branches:
       - main
       - seattle
+    paths-ignore:
+      - "**/*.md"
+      - "src/test/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.sha }}
@@ -15,5 +15,4 @@ concurrency:
 
 jobs:
   publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     uses: ./.github/workflows/maven_publish_job.yml
