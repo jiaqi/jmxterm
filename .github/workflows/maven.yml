@@ -15,13 +15,14 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - run: mvn -B --update-snapshots verify javadoc:javadoc site
-  deploy_site:
+  publish:
     needs: build_and_verify
     if: contains(fromJSON('["main", "seattle"]'), github.ref_name)
     permissions:
-      pages: write
-      id-token: write
       contents: read
+      pages: write
+      packages: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -31,10 +32,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - run: mvn -B javadoc:javadoc site
-    - name: Deploy artifact
+    - run: mvn -B package javadoc:javadoc site
+    - name: Deploy SNAPSHOT package
+      run: mvn deploy -s settings.xml
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload site artifact
       uses: actions/upload-pages-artifact@v4
       with:
         path: target/site
-    - name: Publish site
+    - name: Deploy site
       uses: actions/deploy-pages@v4

@@ -334,10 +334,16 @@
     </pluginManagement>
   </build>
   <distributionManagement>
-    <site>
-      <id>cyclopsgroup.server</id>
-      <url>s3://${dist.bucketName}/projects/jmxterm</url>
-    </site>
+    <snapshotRepository>
+      <id>github</id>
+      <name>GitHub jiaqi Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/jiaqi/jmxterm</url>
+    </snapshotRepository>
+    <repository>
+      <id>github</id>
+      <name>GitHub jiaqi Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/jiaqi/jmxterm</url>
+    </repository>
   </distributionManagement>
   <licenses>
     <license>
