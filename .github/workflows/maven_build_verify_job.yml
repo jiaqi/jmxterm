@@ -10,7 +10,7 @@ on:
         description: "The full mvn command to run."
 
 jobs:
-  build_and_verify:
+  verify:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4

@@ -2,8 +2,7 @@ name: maven_publish
 
 on:
   workflow_run:
-    workflows:
-      - maven_verify
+    workflows: [ "maven_verify" ]
     types:
       - completed
     branches:
@@ -16,4 +15,5 @@ concurrency:
 
 jobs:
   publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     uses: ./.github/workflows/maven_publish_job.yml
