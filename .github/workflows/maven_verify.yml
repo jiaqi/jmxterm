@@ -1,7 +1,9 @@
-name: maven
+name: maven_verify
 
 on:
   push:
+    paths-ignore:
+      - "**/*.md"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.sha }}
@@ -10,7 +12,3 @@ concurrency:
 jobs:
   build_and_verify:
     uses: ./.github/workflows/maven_build_verify_job.yml
-  publish:
-    needs: build_and_verify
-    if: contains(fromJSON('["main", "seattle"]'), github.ref_name)
-    uses: ./.github/workflows/maven_publish_job.yml

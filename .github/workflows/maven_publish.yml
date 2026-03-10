@@ -1,0 +1,19 @@
+name: maven_publish
+
+on:
+  workflow_run:
+    workflows:
+      - maven_verify
+    types:
+      - completed
+    branches:
+      - main
+      - seattle
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    uses: ./.github/workflows/maven_publish_job.yml

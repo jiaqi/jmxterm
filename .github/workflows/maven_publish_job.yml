@@ -6,7 +6,7 @@ on:
       cmd:
         type: string
         required: false
-        default: "mvn -B package javadoc:javadoc site"
+        default: "mvn -B --update-snapshots verify package javadoc:javadoc site"
         description: "The full mvn command to run to generate artifacts."
 
 jobs:
