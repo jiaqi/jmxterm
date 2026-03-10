@@ -3,43 +3,14 @@ name: maven
 on:
   push:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.sha }}
+  cancel-in-progress: true
+
 jobs:
   build_and_verify:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - run: mvn -B --update-snapshots verify javadoc:javadoc site
+    uses: ./.github/workflows/maven_build_verify_job.yml
   publish:
     needs: build_and_verify
     if: contains(fromJSON('["main", "seattle"]'), github.ref_name)
-    permissions:
-      contents: read
-      pages: write
-      packages: write
-      id-token: write
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: maven
-    - run: mvn -B package javadoc:javadoc site
-    - name: Deploy artifact
-      run: mvn -B deploy
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Upload site
-      uses: actions/upload-pages-artifact@v4
-      with:
-        path: target/site
-    - name: Deploy site
-      uses: actions/deploy-pages@v4
+    uses: ./.github/workflows/maven_publish_job.yml
