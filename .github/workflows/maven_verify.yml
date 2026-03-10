@@ -11,4 +11,4 @@ concurrency:
 
 jobs:
   build_and_verify:
-    uses: ./.github/workflows/maven_build_verify_job.yml
+    uses: jiaqi/cyclopsgroup/.github/workflows/maven-verify.yml@main

@@ -14,4 +14,4 @@ concurrency:
 
 jobs:
   publish:
-    uses: ./.github/workflows/maven_publish_job.yml
+    uses: jiaqi/cyclopsgroup/.github/workflows/maven-publish.yml@main
