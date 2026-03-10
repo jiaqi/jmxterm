@@ -1,0 +1,38 @@
+name: maven_publish
+
+on:
+  workflow_call:
+    inputs:
+      cmd:
+        type: string
+        required: false
+        default: "mvn -B --update-snapshots verify package javadoc:javadoc site"
+        description: "The full mvn command to run to generate artifacts."
+
+jobs:
+  publish:
+    permissions:
+      contents: read
+      pages: write
+      packages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - run: ${{ inputs.cmd }}
+    - name: Deploy artifact
+      run: mvn -B deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload site
+      uses: actions/upload-pages-artifact@v4
+      with:
+        path: target/site
+    - name: Deploy site
+      uses: actions/deploy-pages@v4

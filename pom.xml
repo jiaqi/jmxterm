@@ -13,15 +13,15 @@
   <packaging>jar</packaging>
   <version>1.1.0-SNAPSHOT</version>
   <description>Command line based interactive JMX client</description>
-  <url>http://www.cyclopsgroup.org/projects/jmxterm</url>
+  <url>https://github.com/jiaqi/jmxterm</url>
   <inceptionYear>2008</inceptionYear>
   <issueManagement>
     <system>github</system>
     <url>https://github.com/jiaqi/jmxterm/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>circleci</system>
-    <url>https://app.circleci.com/projects/github/jiaqi/jmxterm</url>
+    <system>github</system>
+    <url>https://github.com/jiaqi/jmxterm/actions</url>
   </ciManagement>
   <properties>
     <byte-buddy.version>1.18.7</byte-buddy.version>
@@ -143,6 +143,16 @@
             <phase>prepare-package</phase>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.12.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.4.5</version> <!-- Use a recent version -->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -324,10 +334,16 @@
     </pluginManagement>
   </build>
   <distributionManagement>
-    <site>
-      <id>cyclopsgroup.server</id>
-      <url>s3://${dist.bucketName}/projects/jmxterm</url>
-    </site>
+    <snapshotRepository>
+      <id>github</id>
+      <name>GitHub jiaqi Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/jiaqi/jmxterm</url>
+    </snapshotRepository>
+    <repository>
+      <id>github</id>
+      <name>GitHub jiaqi Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/jiaqi/jmxterm</url>
+    </repository>
   </distributionManagement>
   <licenses>
     <license>

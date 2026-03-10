@@ -1,0 +1,17 @@
+name: maven_publish
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**/*.md"
+      - "src/test/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    uses: ./.github/workflows/maven_publish_job.yml

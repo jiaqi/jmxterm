@@ -1,0 +1,14 @@
+name: maven_verify
+
+on:
+  push:
+    paths-ignore:
+      - "**/*.md"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  build_and_verify:
+    uses: ./.github/workflows/maven_build_verify_job.yml
