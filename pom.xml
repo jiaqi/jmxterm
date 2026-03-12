@@ -152,7 +152,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>3.4.5</version> <!-- Use a recent version -->
+        <version>3.9.0</version> <!-- Use a recent version -->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
