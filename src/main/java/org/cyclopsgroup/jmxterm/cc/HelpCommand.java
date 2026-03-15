@@ -57,7 +57,9 @@ public class HelpCommand extends Command {
     }
   }
 
-  /** @param argNames Array of arguments */
+  /**
+   * @param argNames Array of arguments
+   */
   @MultiValue(listType = ArrayList.class)
   @Argument
   public final void setArgNames(List<String> argNames) {
@@ -65,7 +67,9 @@ public class HelpCommand extends Command {
     this.argNames = argNames;
   }
 
-  /** @param commandCenter CommandCenter object that calls this help command */
+  /**
+   * @param commandCenter CommandCenter object that calls this help command
+   */
   final void setCommandCenter(CommandCenter commandCenter) {
     Validate.notNull(commandCenter, "commandCenter can't be NULL");
     this.commandCenter = commandCenter;

@@ -45,7 +45,9 @@ public class UnsubscribeCommandTest {
     SubscribeCommand.getListeners().clear();
   }
 
-  /** @throws Exception */
+  /**
+   * @throws Exception
+   */
   @Test
   public void testExecuteNormally() throws Exception {
     subscribeCommand.setBean("a:type=x");
@@ -86,7 +88,9 @@ public class UnsubscribeCommandTest {
     context.assertIsSatisfied();
   }
 
-  /** @throws Exception */
+  /**
+   * @throws Exception
+   */
   @Test
   public void testExecuteTwoNotifications() throws Exception {
     subscribeCommand.setBean("a:type=x");

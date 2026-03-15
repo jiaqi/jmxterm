@@ -9,9 +9,13 @@ public interface VirtualMachineDescriptor {
   /** Name of original class this interface reflects */
   String ORIGINAL_CLASS_NAME = "com.sun.tools.attach.VirtualMachineDescriptor";
 
-  /** @return The display name component of this descriptor */
+  /**
+   * @return The display name component of this descriptor
+   */
   String displayName();
 
-  /** @return The identifier component of this descriptor */
+  /**
+   * @return The identifier component of this descriptor
+   */
   String id();
 }

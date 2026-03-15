@@ -14,7 +14,9 @@ import org.apache.commons.lang3.Validate;
 public class InputStreamCommandInput extends CommandInput {
   private final LineNumberReader reader;
 
-  /** @param in Given input stream */
+  /**
+   * @param in Given input stream
+   */
   public InputStreamCommandInput(InputStream in) {
     Validate.notNull(in, "Input stream can't be NULL");
     reader = new LineNumberReader(new InputStreamReader(in));

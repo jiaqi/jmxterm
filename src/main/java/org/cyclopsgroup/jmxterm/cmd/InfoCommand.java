@@ -222,7 +222,9 @@ public class InfoCommand extends Command {
     }
   }
 
-  /** @param bean Bean for which information is displayed */
+  /**
+   * @param bean Bean for which information is displayed
+   */
   @Option(name = "b", longName = "bean", description = "Name of MBean")
   public final void setBean(String bean) {
     this.bean = bean;
@@ -238,13 +240,17 @@ public class InfoCommand extends Command {
     this.domain = domain;
   }
 
-  /** @param showDescription True to show detail description */
+  /**
+   * @param showDescription True to show detail description
+   */
   @Option(name = "e", longName = "detail", description = "Show description")
   public final void setShowDescription(boolean showDescription) {
     this.showDescription = showDescription;
   }
 
-  /** @param type Type of detail to display */
+  /**
+   * @param type Type of detail to display
+   */
   @Option(
       name = "t",
       longName = "type",

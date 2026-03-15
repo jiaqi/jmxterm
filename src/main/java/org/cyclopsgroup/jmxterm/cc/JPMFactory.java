@@ -49,7 +49,9 @@ public class JPMFactory {
     jpm = j;
   }
 
-  /** @return Java process manager instance */
+  /**
+   * @return Java process manager instance
+   */
   final JavaProcessManager getProcessManager() {
     return jpm;
   }

@@ -45,7 +45,9 @@ public class OptionCommand extends Command {
     }
   }
 
-  /** @param verbose Verbose level of session */
+  /**
+   * @param verbose Verbose level of session
+   */
   @Option(
       name = "v",
       longName = "verbose",

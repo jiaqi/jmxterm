@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.cyclopsgroup</groupId>
     <artifactId>cyclopsgroup-java-parent</artifactId>
-    <version>0.7.3</version>
+    <version>0.8.0</version>
   </parent>
   <artifactId>jmxterm</artifactId>
   <name>JMXTerm</name>
@@ -143,16 +143,6 @@
             <phase>prepare-package</phase>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.12.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>3.9.0</version> <!-- Use a recent version -->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -304,34 +294,6 @@
         </executions>
       </plugin>
     </plugins>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <versionRange>[1.0.0,)</versionRange>
-                    <goals>
-                      <goal>enforce</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore/>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
   </build>
   <distributionManagement>
     <snapshotRepository>

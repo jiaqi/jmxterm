@@ -74,7 +74,9 @@ public class OpenCommand extends Command {
     }
   }
 
-  /** @param password Password for user authentication */
+  /**
+   * @param password Password for user authentication
+   */
   @Option(
       name = "p",
       longName = "password",
@@ -83,13 +85,17 @@ public class OpenCommand extends Command {
     this.password = password;
   }
 
-  /** @param url URL of MBean service to open */
+  /**
+   * @param url URL of MBean service to open
+   */
   @Argument(displayName = "url", description = "URL, <host>:<port>, or a PID to connect to")
   public final void setUrl(String url) {
     this.url = url;
   }
 
-  /** @param user User name for user authentication */
+  /**
+   * @param user User name for user authentication
+   */
   @Option(name = "u", longName = "user", description = "User name for user/password authentication")
   public final void setUser(String user) {
     this.user = user;

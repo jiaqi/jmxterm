@@ -8,13 +8,19 @@ import java.io.IOException;
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
 public interface JavaProcess {
-  /** @return Display name of process */
+  /**
+   * @return Display name of process
+   */
   String getDisplayName();
 
-  /** @return System process ID */
+  /**
+   * @return System process ID
+   */
   int getProcessId();
 
-  /** @return True if process is JMX manageable */
+  /**
+   * @return True if process is JMX manageable
+   */
   boolean isManageable();
 
   /**
@@ -24,6 +30,8 @@ public interface JavaProcess {
    */
   void startManagementAgent() throws IOException;
 
-  /** @return Get connector URL */
+  /**
+   * @return Get connector URL
+   */
   String toUrl();
 }

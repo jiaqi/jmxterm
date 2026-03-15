@@ -45,13 +45,17 @@ public class UnsubscribeCommand extends Command {
     }
   }
 
-  /** @param bean Bean under which the operation is */
+  /**
+   * @param bean Bean under which the operation is
+   */
   @Option(name = "b", longName = "bean", description = "MBean to invoke")
   public final void setBean(String bean) {
     this.bean = bean;
   }
 
-  /** @param domain Domain under which is bean is */
+  /**
+   * @param domain Domain under which is bean is
+   */
   @Option(name = "d", longName = "domain", description = "Domain of MBean to invoke")
   public final void setDomain(String domain) {
     this.domain = domain;

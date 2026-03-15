@@ -26,7 +26,9 @@ public class QuitCommandTest {
     output = new StringWriter();
   }
 
-  /** @throws Exception */
+  /**
+   * @throws Exception
+   */
   @Test
   public void testExecute() throws Exception {
     Session session = new MockSession(output, null);

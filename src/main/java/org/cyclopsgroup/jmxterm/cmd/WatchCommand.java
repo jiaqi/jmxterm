@@ -196,14 +196,18 @@ public class WatchCommand extends Command {
     output.printLine(result.toString());
   }
 
-  /** @param attributes Name of attributes to watch */
+  /**
+   * @param attributes Name of attributes to watch
+   */
   @MultiValue(listType = ArrayList.class, minValues = 1)
   @Argument(displayName = "attr", description = "Name of attributes to watch")
   public final void setAttributes(List<String> attributes) {
     this.attributes = attributes;
   }
 
-  /** @param outputFormat Pattern used in {@link MessageFormat} */
+  /**
+   * @param outputFormat Pattern used in {@link MessageFormat}
+   */
   @Option(
       name = "f",
       longName = "format",
@@ -213,7 +217,9 @@ public class WatchCommand extends Command {
     this.outputFormat = outputFormat;
   }
 
-  /** @param refreshInterval Refreshing interval in seconds */
+  /**
+   * @param refreshInterval Refreshing interval in seconds
+   */
   @Option(
       name = "i",
       longName = "interval",
@@ -225,13 +231,17 @@ public class WatchCommand extends Command {
     this.refreshInterval = refreshInterval;
   }
 
-  /** @param report True to output result line by line as report */
+  /**
+   * @param report True to output result line by line as report
+   */
   @Option(name = "r", longName = "report", description = "Output result line by line as report")
   public final void setReport(boolean report) {
     this.report = report;
   }
 
-  /** @param stopAfter After this number of seconds, stop watching */
+  /**
+   * @param stopAfter After this number of seconds, stop watching
+   */
   @Option(
       name = "s",
       longName = "stopafter",

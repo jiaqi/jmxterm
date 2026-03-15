@@ -16,7 +16,9 @@ public class WriterCommandOutput extends CommandOutput {
 
   private final Writer resultOutput;
 
-  /** @param output Writer for both result and message */
+  /**
+   * @param output Writer for both result and message
+   */
   public WriterCommandOutput(Writer output) {
     this(output, output);
   }

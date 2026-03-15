@@ -16,6 +16,8 @@ public interface CommandFactory {
    */
   Command createCommand(String name);
 
-  /** @return Map of command types */
+  /**
+   * @return Map of command types
+   */
   Map<String, Class<? extends Command>> getCommandTypes();
 }

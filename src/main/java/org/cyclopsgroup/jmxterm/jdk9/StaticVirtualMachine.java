@@ -8,7 +8,9 @@ import java.util.List;
  * @author <a href="https://github.com/nyg">nyg</a>
  */
 public interface StaticVirtualMachine {
-  /** @return List of all virtual machines running on local */
+  /**
+   * @return List of all virtual machines running on local
+   */
   List<Object> list();
 
   /**

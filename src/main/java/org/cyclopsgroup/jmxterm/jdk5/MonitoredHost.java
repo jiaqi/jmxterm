@@ -11,6 +11,8 @@ public interface MonitoredHost {
   /** Original class this interface reflects */
   String ORIGINAL_CLASS_NAME = "sun.jvmstat.monitor.MonitoredHost";
 
-  /** @return Set of active VMs */
+  /**
+   * @return Set of active VMs
+   */
   Set<Integer> activeVms();
 }

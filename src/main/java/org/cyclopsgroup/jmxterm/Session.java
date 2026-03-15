@@ -79,15 +79,21 @@ public abstract class Session implements VerboseCommandOutputConfig {
    */
   public abstract void disconnect() throws IOException;
 
-  /** @return Current selected bean */
+  /**
+   * @return Current selected bean
+   */
   public final String getBean() {
     return bean;
   }
 
-  /** @return Current open JMX server connection */
+  /**
+   * @return Current open JMX server connection
+   */
   public abstract Connection getConnection();
 
-  /** @return Current domain */
+  /**
+   * @return Current domain
+   */
   public final String getDomain() {
     return domain;
   }
@@ -100,7 +106,9 @@ public abstract class Session implements VerboseCommandOutputConfig {
     return input;
   }
 
-  /** @return Java process manager to load processes */
+  /**
+   * @return Java process manager to load processes
+   */
   public JavaProcessManager getProcessManager() {
     return processManager;
   }
@@ -110,12 +118,16 @@ public abstract class Session implements VerboseCommandOutputConfig {
     return verboseLevel;
   }
 
-  /** @return True if {@link #close()} has been called */
+  /**
+   * @return True if {@link #close()} has been called
+   */
   public final boolean isClosed() {
     return closed;
   }
 
-  /** @return True if there's a open connection to JMX server */
+  /**
+   * @return True if there's a open connection to JMX server
+   */
   public abstract boolean isConnected();
 
   /**
@@ -137,7 +149,9 @@ public abstract class Session implements VerboseCommandOutputConfig {
     this.domain = domain;
   }
 
-  /** @param verboseLevel Level of verbose */
+  /**
+   * @param verboseLevel Level of verbose
+   */
   public final void setVerboseLevel(VerboseLevel verboseLevel) {
     Validate.notNull(verboseLevel, "Verbose level can't be NULL");
     this.verboseLevel = verboseLevel;

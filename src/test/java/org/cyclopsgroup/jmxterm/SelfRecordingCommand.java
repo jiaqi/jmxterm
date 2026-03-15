@@ -17,7 +17,9 @@ public class SelfRecordingCommand extends Command {
 
   private final List<Command> records;
 
-  /** @param records List of commands that gets passed in */
+  /**
+   * @param records List of commands that gets passed in
+   */
   public SelfRecordingCommand(List<Command> records) {
     this.records = records;
   }
@@ -27,17 +29,23 @@ public class SelfRecordingCommand extends Command {
     records.add(this);
   }
 
-  /** @return Arguments */
+  /**
+   * @return Arguments
+   */
   public String getArgs() {
     return StringUtils.join(arguments, ' ');
   }
 
-  /** @return Array of arguments */
+  /**
+   * @return Array of arguments
+   */
   public List<String> getArguments() {
     return arguments;
   }
 
-  /** @param arguments Arguments */
+  /**
+   * @param arguments Arguments
+   */
   @MultiValue
   @Argument
   public void setArguments(List<String> arguments) {

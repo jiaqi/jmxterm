@@ -93,7 +93,9 @@ public class SetCommand extends Command {
     session.output.printMessage("Value of attribute " + attributeName + " is set to " + inputValue);
   }
 
-  /** @param arguments Argument list. The first argument is attribute name */
+  /**
+   * @param arguments Argument list. The first argument is attribute name
+   */
   @MultiValue(listType = ArrayList.class, minValues = 2)
   @Argument(description = "name, value, value2...")
   public final void setArguments(List<String> arguments) {
@@ -101,7 +103,9 @@ public class SetCommand extends Command {
     this.arguments = arguments;
   }
 
-  /** @param bean Bean where the attribute is */
+  /**
+   * @param bean Bean where the attribute is
+   */
   @Option(
       name = "b",
       longName = "bean",
@@ -110,7 +114,9 @@ public class SetCommand extends Command {
     this.bean = bean;
   }
 
-  /** @param domain Domain where the bean is */
+  /**
+   * @param domain Domain where the bean is
+   */
   @Option(name = "d", longName = "domain", description = "Domain under which the bean is")
   public final void setDomain(String domain) {
     this.domain = domain;

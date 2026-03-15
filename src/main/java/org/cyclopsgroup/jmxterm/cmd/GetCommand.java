@@ -157,7 +157,9 @@ public class GetCommand extends Command {
     displayAttributes();
   }
 
-  /** @param attributes List of attribute names */
+  /**
+   * @param attributes List of attribute names
+   */
   @MultiValue(listType = ArrayList.class, minValues = 1)
   @Argument(displayName = "attr", description = "Name of attributes to select")
   public final void setAttributes(List<String> attributes) {
@@ -165,7 +167,9 @@ public class GetCommand extends Command {
     this.attributes = attributes;
   }
 
-  /** @param bean Bean under which attribute is get */
+  /**
+   * @param bean Bean under which attribute is get
+   */
   @Option(
       name = "b",
       longName = "bean",
@@ -174,25 +178,33 @@ public class GetCommand extends Command {
     this.bean = bean;
   }
 
-  /** @param domain Domain under which bean is selected */
+  /**
+   * @param domain Domain under which bean is selected
+   */
   @Option(name = "d", longName = "domain", description = "Domain of bean, optional")
   public final void setDomain(String domain) {
     this.domain = domain;
   }
 
-  /** @param showDescription True to show detail description */
+  /**
+   * @param showDescription True to show detail description
+   */
   @Option(name = "i", longName = "info", description = "Show detail information of each attribute")
   public final void setShowDescription(boolean showDescription) {
     this.showDescription = showDescription;
   }
 
-  /** @param noQuotationMarks True if value is not surrounded by quotation marsk */
+  /**
+   * @param noQuotationMarks True if value is not surrounded by quotation marsk
+   */
   @Option(name = "q", longName = "quots", description = "Quotation marks around value")
   public final void setShowQuotationMarks(boolean noQuotationMarks) {
     this.showQuotationMarks = noQuotationMarks;
   }
 
-  /** @param simpleFormat True if value is printed out in a simple format without full expression */
+  /**
+   * @param simpleFormat True if value is printed out in a simple format without full expression
+   */
   @Option(
       name = "s",
       longName = "simple",

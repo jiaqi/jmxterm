@@ -11,7 +11,9 @@ import org.cyclopsgroup.jmxterm.JavaProcess;
 class Jdk6JavaProcess implements JavaProcess {
   private final LocalVirtualMachine vm;
 
-  /** @param vm Local VM */
+  /**
+   * @param vm Local VM
+   */
   Jdk6JavaProcess(LocalVirtualMachine vm) {
     Validate.notNull(vm, "VM can't be NULL");
     this.vm = vm;
