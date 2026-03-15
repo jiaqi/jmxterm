@@ -25,7 +25,9 @@ public class JlineCommandInput extends CommandInput {
     this.prompt = StringUtils.trimToEmpty(prompt);
   }
 
-  /** @return Jline console */
+  /**
+   * @return Jline console
+   */
   public final LineReaderImpl getConsole() {
     return console;
   }

@@ -17,7 +17,9 @@ public interface VirtualMachine {
   /** Detach from the virtual machine. */
   void detach();
 
-  /** @return The current agent properties in the target virtual machine. */
+  /**
+   * @return The current agent properties in the target virtual machine.
+   */
   Properties getAgentProperties();
 
   /** Starts the local JMX management agent in the target virtual machine. */

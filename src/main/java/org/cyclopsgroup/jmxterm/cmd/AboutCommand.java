@@ -44,7 +44,9 @@ public class AboutCommand extends Command {
     }
   }
 
-  /** @param showDescription True to show detail description */
+  /**
+   * @param showDescription True to show detail description
+   */
   @Option(name = "s", longName = "show", description = "Show detail description")
   public final void setShowDescription(boolean showDescription) {
     this.showDescription = showDescription;

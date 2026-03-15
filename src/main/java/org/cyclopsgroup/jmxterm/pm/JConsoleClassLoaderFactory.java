@@ -17,7 +17,9 @@ import org.apache.commons.lang3.SystemUtils;
 public class JConsoleClassLoaderFactory {
   private JConsoleClassLoaderFactory() {}
 
-  /** @return ClassLoader that understands tools.jar and jconsole.jar */
+  /**
+   * @return ClassLoader that understands tools.jar and jconsole.jar
+   */
   public static ClassLoader getClassLoader() {
     if (isJava9Plus()) {
       // java9 removed rt and tools jars

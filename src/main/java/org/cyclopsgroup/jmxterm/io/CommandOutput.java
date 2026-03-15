@@ -16,7 +16,9 @@ public abstract class CommandOutput {
    */
   public abstract void print(String output);
 
-  /** @param e Error to print out */
+  /**
+   * @param e Error to print out
+   */
   public abstract void printError(Throwable e);
 
   /**

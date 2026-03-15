@@ -169,19 +169,25 @@ public class RunCommand extends Command {
     session.output.println("");
   }
 
-  /** @param bean Bean under which the operation is */
+  /**
+   * @param bean Bean under which the operation is
+   */
   @Option(name = "b", longName = "bean", description = "MBean to invoke")
   public final void setBean(String bean) {
     this.bean = bean;
   }
 
-  /** @param domain Domain under which is bean is */
+  /**
+   * @param domain Domain under which is bean is
+   */
   @Option(name = "d", longName = "domain", description = "Domain of MBean to invoke")
   public final void setDomain(String domain) {
     this.domain = domain;
   }
 
-  /** @param measure True if you want to display latency */
+  /**
+   * @param measure True if you want to display latency
+   */
   @Option(
       name = "m",
       longName = "measure",
@@ -198,7 +204,9 @@ public class RunCommand extends Command {
     this.types = types;
   }
 
-  /** @param parameters List of parameters. The first parameter is operation name */
+  /**
+   * @param parameters List of parameters. The first parameter is operation name
+   */
   @MultiValue(listType = ArrayList.class, minValues = 1)
   @Argument(
       description = "The first parameter is operation name, which is followed by list of arguments")
@@ -207,7 +215,9 @@ public class RunCommand extends Command {
     this.parameters = parameters;
   }
 
-  /** @param showQuotationMarks True if output is surrounded by quotation marks */
+  /**
+   * @param showQuotationMarks True if output is surrounded by quotation marks
+   */
   @Option(name = "q", longName = "quots", description = "Flag for quotation marks")
   public final void setShowQuotationMarks(boolean showQuotationMarks) {
     this.showQuotationMarks = showQuotationMarks;

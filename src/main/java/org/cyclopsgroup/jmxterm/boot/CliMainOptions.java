@@ -47,52 +47,72 @@ public class CliMainOptions {
 
   private boolean isSecureRmiRegistry;
 
-  /** @return #setInput(String) */
+  /**
+   * @return #setInput(String)
+   */
   public final String getInput() {
     return input;
   }
 
-  /** @return #setOutput(String) */
+  /**
+   * @return #setOutput(String)
+   */
   public final String getOutput() {
     return output;
   }
 
-  /** @return Password for user/password authentication */
+  /**
+   * @return Password for user/password authentication
+   */
   public final String getPassword() {
     return password;
   }
 
-  /** @return #setUrl(String) */
+  /**
+   * @return #setUrl(String)
+   */
   public final String getUrl() {
     return url;
   }
 
-  /** @return User name for user/password authentication */
+  /**
+   * @return User name for user/password authentication
+   */
   public final String getUser() {
     return user;
   }
 
-  /** @return Verbose option */
+  /**
+   * @return Verbose option
+   */
   public final String getVerboseLevel() {
     return verboseLevel;
   }
 
-  /** @return True if terminal exits on any failure */
+  /**
+   * @return True if terminal exits on any failure
+   */
   public final boolean isExitOnFailure() {
     return exitOnFailure;
   }
 
-  /** @return True if terminal exits on any failure */
+  /**
+   * @return True if terminal exits on any failure
+   */
   public final boolean isAppendToOutput() {
     return appendToOutput;
   }
 
-  /** @return {@link #setHelp(boolean)} */
+  /**
+   * @return {@link #setHelp(boolean)}
+   */
   public final boolean isHelp() {
     return help;
   }
 
-  /** @return True if CLI runs without user interaction, such as piped input */
+  /**
+   * @return True if CLI runs without user interaction, such as piped input
+   */
   public final boolean isNonInteractive() {
     return nonInteractive;
   }
@@ -105,7 +125,9 @@ public class CliMainOptions {
     return isSecureRmiRegistry;
   }
 
-  /** @param exitOnFailure True if terminal exits on any failure */
+  /**
+   * @param exitOnFailure True if terminal exits on any failure
+   */
   @Option(
       name = "e",
       longName = "exitonfailure",
@@ -114,13 +136,17 @@ public class CliMainOptions {
     this.exitOnFailure = exitOnFailure;
   }
 
-  /** @param help True to turn on <code>help</code> flag */
+  /**
+   * @param help True to turn on <code>help</code> flag
+   */
   @Option(name = "h", longName = "help", description = "Show usage of this command line")
   public final void setHelp(boolean help) {
     this.help = help;
   }
 
-  /** @param file Input script path or <code>stdin</code> as default value for console input */
+  /**
+   * @param file Input script path or <code>stdin</code> as default value for console input
+   */
   @Option(
       name = "i",
       longName = "input",
@@ -132,7 +158,9 @@ public class CliMainOptions {
     this.input = file;
   }
 
-  /** @param nonInteractive True if CLI runs without user interaction, such as piped input */
+  /**
+   * @param nonInteractive True if CLI runs without user interaction, such as piped input
+   */
   @Option(
       name = "n",
       longName = "noninteract",
@@ -142,7 +170,9 @@ public class CliMainOptions {
     this.nonInteractive = nonInteractive;
   }
 
-  /** @param outputFile It can be a file or {@link #STDERR} or {@link #STDERR} */
+  /**
+   * @param outputFile It can be a file or {@link #STDERR} or {@link #STDERR}
+   */
   @Option(
       name = "o",
       longName = "output",
@@ -152,7 +182,9 @@ public class CliMainOptions {
     this.output = outputFile;
   }
 
-  /** @param password Password for user/password authentication */
+  /**
+   * @param password Password for user/password authentication
+   */
   @Option(
       name = "p",
       longName = "password",
@@ -162,7 +194,9 @@ public class CliMainOptions {
     this.password = password;
   }
 
-  /** @param url MBean server URL */
+  /**
+   * @param url MBean server URL
+   */
   @Option(
       name = "l",
       longName = "url",
@@ -172,14 +206,18 @@ public class CliMainOptions {
     this.url = url;
   }
 
-  /** @param user User name for user/password authentication */
+  /**
+   * @param user User name for user/password authentication
+   */
   @Option(name = "u", longName = "user", description = "User name for user/password authentication")
   public final void setUser(String user) {
     Validate.notNull(user, "User can't be NULL");
     this.user = user;
   }
 
-  /** @param verboseLevel Verbose level */
+  /**
+   * @param verboseLevel Verbose level
+   */
   @Option(
       name = "v",
       longName = "verbose",
@@ -188,7 +226,9 @@ public class CliMainOptions {
     this.verboseLevel = verboseLevel;
   }
 
-  /** @param appendToOutput True if outputfile is preserved */
+  /**
+   * @param appendToOutput True if outputfile is preserved
+   */
   @Option(
       name = "a",
       longName = "appendtooutput",

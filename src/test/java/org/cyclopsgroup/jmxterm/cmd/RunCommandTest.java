@@ -37,7 +37,9 @@ public class RunCommandTest {
     output = new StringWriter();
   }
 
-  /** @throws Exception */
+  /**
+   * @throws Exception
+   */
   @Test
   public void testExecuteNormally() throws Exception {
     command.setBean("a:type=x");
@@ -71,7 +73,9 @@ public class RunCommandTest {
     assertEquals("bingo", output.toString().trim());
   }
 
-  /** @throws Exception */
+  /**
+   * @throws Exception
+   */
   @Test
   public void testExecuteOverloadedMethod() throws Exception {
     command.setBean("a:type=x");

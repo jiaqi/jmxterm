@@ -184,7 +184,9 @@ public class CommandCenter {
     }
   }
 
-  /** @return Set of command names */
+  /**
+   * @return Set of command names
+   */
   public Set<String> getCommandNames() {
     return commandFactory.getCommandTypes().keySet();
   }
@@ -197,17 +199,23 @@ public class CommandCenter {
     return commandFactory.getCommandTypes().get(name);
   }
 
-  /** @return Java process manager implementation */
+  /**
+   * @return Java process manager implementation
+   */
   public final JavaProcessManager getProcessManager() {
     return processManager;
   }
 
-  /** @return True if command center is closed */
+  /**
+   * @return True if command center is closed
+   */
   public boolean isClosed() {
     return session.isClosed();
   }
 
-  /** @param verboseLevel New verbose level value */
+  /**
+   * @param verboseLevel New verbose level value
+   */
   public void setVerboseLevel(VerboseLevel verboseLevel) {
     session.setVerboseLevel(verboseLevel);
   }

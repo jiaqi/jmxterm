@@ -38,7 +38,9 @@ public class OpenCommandTest {
         "id,service:jmx:rmi:///jndi/rmi://localhost:9991/jmxrmi", output.toString().trim());
   }
 
-  /** @throws Exception */
+  /**
+   * @throws Exception
+   */
   @Test
   public void testExecuteWithUrl() throws Exception {
     command.setUrl("xyz.cyclopsgroup.org:12345");

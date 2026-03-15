@@ -14,7 +14,9 @@ import org.cyclopsgroup.jmxterm.CommandFactory;
 public class TypeMapCommandFactory implements CommandFactory {
   private final Map<String, Class<? extends Command>> commandTypes;
 
-  /** @param commandTypes Map of command types */
+  /**
+   * @param commandTypes Map of command types
+   */
   public TypeMapCommandFactory(Map<String, Class<? extends Command>> commandTypes) {
     Validate.notNull(commandTypes, "Command type can't be NULL");
     this.commandTypes = Collections.unmodifiableMap(commandTypes);

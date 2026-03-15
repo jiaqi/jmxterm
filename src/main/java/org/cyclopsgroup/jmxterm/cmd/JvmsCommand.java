@@ -35,7 +35,9 @@ public class JvmsCommand extends Command {
     }
   }
 
-  /** @param pidOnly Flag to notify command to only print out PID instead of more details */
+  /**
+   * @param pidOnly Flag to notify command to only print out PID instead of more details
+   */
   @Option(name = "p", longName = "pidonly", description = "Only print out PID")
   public final void setPidOnly(boolean pidOnly) {
     this.pidOnly = pidOnly;

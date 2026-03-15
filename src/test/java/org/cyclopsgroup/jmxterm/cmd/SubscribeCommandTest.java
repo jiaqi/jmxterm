@@ -44,7 +44,9 @@ public class SubscribeCommandTest {
     SubscribeCommand.getListeners().clear();
   }
 
-  /** @throws Exception */
+  /**
+   * @throws Exception
+   */
   @Test
   public void testExecuteOneNotification() throws Exception {
     command.setBean("a:type=x");
@@ -97,7 +99,9 @@ public class SubscribeCommandTest {
     context.assertIsSatisfied();
   }
 
-  /** @throws Exception */
+  /**
+   * @throws Exception
+   */
   @Test
   public void testExecuteTwoNotifications() throws Exception {
     command.setBean("a:type=x");

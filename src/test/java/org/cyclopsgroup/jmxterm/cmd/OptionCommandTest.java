@@ -23,7 +23,9 @@ public class OptionCommandTest {
     output = new StringWriter();
   }
 
-  /** @throws Exception */
+  /**
+   * @throws Exception
+   */
   @Test(expected = IllegalArgumentException.class)
   public void testExecuteWithInvalidVerbose() throws Exception {
     Session session = new MockSession(output, null);

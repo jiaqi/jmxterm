@@ -37,7 +37,9 @@ class ConnectionImpl implements Connection {
     connector.close();
   }
 
-  /** @return JMX connector */
+  /**
+   * @return JMX connector
+   */
   public final JMXConnector getConnector() {
     return connector;
   }

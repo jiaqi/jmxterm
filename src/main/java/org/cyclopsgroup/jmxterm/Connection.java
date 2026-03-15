@@ -22,6 +22,8 @@ public interface Connection {
    */
   MBeanServerConnection getServerConnection() throws IOException;
 
-  /** @return JMX service URL object */
+  /**
+   * @return JMX service URL object
+   */
   JMXServiceURL getUrl();
 }

@@ -77,7 +77,9 @@ public class DomainCommand extends Command {
     }
   }
 
-  /** @param domain Domain to select */
+  /**
+   * @param domain Domain to select
+   */
   @Argument(displayName = "domain", description = "Name of domain to set")
   public final void setDomain(String domain) {
     this.domain = domain;

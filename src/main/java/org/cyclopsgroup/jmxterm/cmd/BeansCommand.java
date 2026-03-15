@@ -76,7 +76,9 @@ public class BeansCommand extends Command {
     }
   }
 
-  /** @param domain Domain under which beans are listed */
+  /**
+   * @param domain Domain under which beans are listed
+   */
   @Option(
       name = "d",
       longName = "domain",
