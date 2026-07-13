@@ -24,7 +24,7 @@
     <url>https://github.com/jiaqi/jmxterm/actions</url>
   </ciManagement>
   <properties>
-    <byte-buddy.version>1.18.10</byte-buddy.version>
+    <byte-buddy.version>1.18.11</byte-buddy.version>
     <jmock.version>2.13.1</jmock.version>
     <slf4j.version>2.0.18</slf4j.version>
   </properties>
