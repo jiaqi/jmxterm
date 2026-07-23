@@ -73,4 +73,4 @@ Get value of MBean attribute(s)
 ```
 
 Jmxterm can do a lot more. Check out the
-[user manual](doc/user_manual.md) for more complicated usage.
+[user manual](doc/manual.md) for more complicated usage.
